@@ -1,0 +1,190 @@
+{
+    "1": {
+        "id": 1,
+        "name": "Стены",
+        "service": {
+            "0": {
+                "id": 1,
+                "name": "Покрасить стены",
+                "subservice": {
+                    "0": {
+                        "name": "ободрать обои",
+                        "price_for_one": 2200,
+                        "day_to_do": 120
+                    },
+                    "1": {
+                        "name": "загрунтовать снеты",
+                        "price_for_one": 2200,
+                        "day_to_do": 90
+                    },
+                    "2": {
+                        "name": "заштукатурить стены",
+                        "price_for_one": 2200,
+                        "day_to_do": 60
+                    }
+                },
+                "count_day": 15
+            },
+            "1": {
+                "id": 2,
+                "name": "Выровнять стены",
+                "subservice": {
+                    "0": {
+                        "name": "ободрать обои",
+                        "price_for_one": 2200,
+                        "day_to_do": 180
+                    },
+                    "1": {
+                        "name": "загрунтовать снеты",
+                        "price_for_one": 2200,
+                        "day_to_do": 120
+                    },
+                    "2": {
+                        "name": "заштукатурить стены",
+                        "price_for_one": 2200,
+                        "day_to_do": 240
+                    }
+                },
+                "count_day": 15
+            },
+            "2": {
+                "id": 3,
+                "name": "Заштукатурить стены",
+                "subservice": {
+                    "0": {
+                        "name": "ободрать обои",
+                        "price_for_one": 2200,
+                        "day_to_do": 60
+                    },
+                    "1": {
+                        "name": "загрунтовать снеты",
+                        "price_for_one": 2200,
+                        "day_to_do": 120
+                    },
+                    "2": {
+                        "name": "заштукатурить стены",
+                        "price_for_one": 2200,
+                        "day_to_do": 30
+                    }
+                },
+                "count_day": 15
+            },
+            "3": {
+                "id": 4,
+                "name": "Разломать стены",
+                "subservice": {
+                    "0": {
+                        "name": "ободрать обои",
+                        "price_for_one": 2200,
+                        "day_to_do": 30
+                    },
+                    "1": {
+                        "name": "загрунтовать снеты",
+                        "price_for_one": 2200,
+                        "day_to_do": 90
+                    },
+                    "2": {
+                        "name": "заштукатурить стены",
+                        "price_for_one": 2200,
+                        "day_to_do": 120
+                    }
+                },
+                "count_day": 20
+            }
+        }
+    },
+    "2": {
+        "id": 2,
+        "name": "Полы",
+        "service": {
+            "4": {
+                "id": 1,
+                "name": "Покрасить Полы",
+                "subservice": {
+                    "0": {
+                        "name": "ободрать обои",
+                        "price_for_one": 2200,
+                        "day_to_do": 120
+                    },
+                    "1": {
+                        "name": "загрунтовать снеты",
+                        "price_for_one": 2200,
+                        "day_to_do": 180
+                    },
+                    "2": {
+                        "name": "заштукатурить стены",
+                        "price_for_one": 2200,
+                        "day_to_do": 180
+                    }
+                },
+                "count_day": 3
+            },
+            "5": {
+                "id": 2,
+                "name": "Выровнять Полы",
+                "subservice": {
+                    "0": {
+                        "name": "ободрать обои",
+                        "price_for_one": 2200,
+                        "day_to_do": 90
+                    },
+                    "1": {
+                        "name": "загрунтовать снеты",
+                        "price_for_one": 2200,
+                        "day_to_do": 60
+                    },
+                    "2": {
+                        "name": "заштукатурить стены",
+                        "price_for_one": 2200,
+                        "day_to_do": 30
+                    }
+                },
+                "count_day": 9
+            },
+            "6": {
+                "id": 3,
+                "name": "Заштукатурить Полы",
+                "subservice": {
+                    "0": {
+                        "name": "ободрать обои",
+                        "price_for_one": 2200,
+                        "day_to_do": 30
+                    },
+                    "1": {
+                        "name": "загрунтовать снеты",
+                        "price_for_one": 2200,
+                        "day_to_do": 30
+                    },
+                    "2": {
+                        "name": "заштукатурить стены",
+                        "price_for_one": 2200,
+                        "day_to_do": 30
+                    }
+                },
+                "count_day": 11
+            },
+            "7": {
+                "id": 4,
+                "name": "Разломать Полы",
+                "subservice": {
+                    "0": {
+                        "name": "ободрать обои",
+                        "price_for_one": 2200,
+                        "day_to_do": 30
+                    },
+                    "1": {
+                        "name": "загрунтовать снеты",
+                        "price_for_one": 2200,
+                        "day_to_do": 60
+                    },
+                    "2": {
+                        "name": "заштукатурить стены",
+                        "price_for_one": 2200,
+                        "day_to_do": 120
+                    }
+                },
+                "count_day": 13
+            }
+        }
+    }
+}

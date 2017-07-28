@@ -1,0 +1,28 @@
+{% extends 'layout/layout.html' %}
+
+{% block content %}
+    <div class="content" style="width: 1010px; margin: 0 auto;">
+        <h2>content</h2>
+        <ul>
+            {% for cat in data %}
+                <li><a href="{{ config.adminPath }}/categories/{{ cat.id }}">{{ cat.name }}</a>
+                    <ul>
+                        {% for serv in cat.service %}
+                            <li><a href="{{ config.adminPath }}/services/{{ serv.id }}">{{ serv.name }}</a>
+                                <ul>
+                                    {% for sub in serv.subservice %}
+                                        <li><a href="{{ config.adminPath }}/subservice/{{ sub.id }}">{{ sub.name }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+        <div style="display: inline-block; vertical-align: top; width: 500px;">
+            <pre>{{ dump() }}</pre>
+        </div>
+
+    </div>
+{% endblock %}
