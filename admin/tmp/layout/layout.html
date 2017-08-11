@@ -2,9 +2,61 @@
 <html>
 <head>
     <title>admin panel</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ config.adminPath }}/assets/css/build/__main.css">
 </head>
 <body>
-    {% block content %}{% endblock %}
+    <div class="header">
+        <div class="l-wrapper">
+            <a href="{{ config.adminPath }}/">Admin Panel</a>
+        </div>
+    </div>
+    <div class="menu">
+        <div class="l-wrapper">
+            <div class="menu__block">
+                <div class="menu__block__title"><span class="menu__block__icon menu__block__icon_menu"></span></div>
+                <div class="menu__block__dropdown">
+                    <a href="{{ config.adminPath }}/categories" class="menu__link">Категории</a>
+                    <a href="{{ config.adminPath }}/services" class="menu__link">Услуги</a>
+                    <a href="{{ config.adminPath }}/subservices" class="menu__link">Виды работ</a>
+                </div>
+            </div>
+            <div class="menu__block">
+                <div class="menu__block__title"><span class="menu__block__icon menu__block__icon_plus"></span></div>
+                <div class="menu__block__dropdown">
+                    <a href="{{ config.addCatgoryLink }}" class="menu__link">Категория</a>
+                    <a href="{{ config.adminPath }}/add/service" class="menu__link">Услуга</a>
+                    <a href="{{ config.adminPath }}/add/subservice" class="menu__link">Вид работ</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tree">
+        <ul class="tree__categories-ul">
+            {% for cat in data.categories %}
+                <li><a href="{{ config.adminPath }}/categories/{{ cat.id }}">{{ cat.name }}</a>
+                    <ul class="tree__service-ul">
+                        {% for serv in cat.service %}
+                            <li><a href="{{ config.adminPath }}/services/{{ serv.id }}">{{ serv.name }}</a>
+                                <ul class="tree__subservice-ul">
+                                    {% for sub in serv.subservice %}
+                                        <li><a href="{{ config.adminPath }}/subservice/{{ sub.id }}">{{ sub.name }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="l-wrapper">
+        <div class="content">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+    <div class="footer">
+
+    </div>
 </body>
 </html>

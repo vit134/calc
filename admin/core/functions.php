@@ -30,7 +30,7 @@
             $servQuery = "SELECT * FROM `services` WHERE `categoryId` = " . $valCat['id'];
             $resultServ = $mysqli->query($servQuery);
 
-            $arr[$valCat['id']] = array(
+            $arr['categories'][$valCat['id']] = array(
                 'id' => $valCat['id'],
                 'name' => $valCat['name']
             );
@@ -40,13 +40,13 @@
                 $subQuery = "SELECT * FROM `subservices` WHERE `serviceId` = " . $valServ['id'];
                 $resultSub = $mysqli->query($subQuery);
 
-                $arr[$valCat['id']]['service'][$valServ['id']] = array(
+                $arr['categories'][$valCat['id']]['service'][$valServ['id']] = array(
                     'id' => $valServ['id'],
                     'name' => $valServ['name']
                 );
 
                 foreach ($resultSub as $keySub => $valSub) {
-                    $arr[$valCat['id']]['service'][$valServ['id']]['subservice'][] = $valSub;
+                    $arr['categories'][$valCat['id']]['service'][$valServ['id']]['subservice'][] = $valSub;
                 }
             }
         }
@@ -72,6 +72,19 @@
         return $resultCat->fetch_assoc();
     }
 
+    function getServiceByCat($catId) {
+        global $mysqli;
+
+        $catQuery = "SELECT * FROM `services` WHERE `categoryId` = " . $catId;
+        $resultCat = $mysqli->query($catQuery);
+
+        foreach ($resultCat as $key => $value) {
+            $arr[] = $value;
+        }
+
+        return $arr;
+    }
+
     function getSubService($id) {
         global $mysqli;
         $arr = [];
@@ -84,6 +97,70 @@
         }
 
         return $arr;
+    }
+
+    function getAllCategories() {
+        global $mysqli;
+        $arr = [];
+
+        $query = "SELECT c.*, s.name AS serv_name, s.id AS serv_id FROM categories c INNER JOIN services s ON s.categoryId = c.id";
+        $result = $mysqli->query($query);
+
+        foreach ($result as $key => $value) {
+
+            $arr[$value['id']] = array(
+                'id' => $value['id'],
+                'name' => $value['name'],
+                'service' => getServiceByCat($value['id'])
+            );
+
+        }
+
+        return $arr;
+    }
+
+    function getAllService() {
+        global $mysqli;
+        $arr = [];
+
+        $query = "SELECT s.*, c.name AS cat_name, c.id AS cat_id FROM services s INNER JOIN categories c ON s.categoryId = c.id";
+        $result = $mysqli->query($query);
+
+        foreach ($result as $key => $value) {
+            $arr[$value['id']] = array(
+                'id' => $value['id'],
+                'name' => $value['name'],
+                'category_id' => $value['cat_id'],
+                'category_name' => $value['cat_name'],
+                'subservice' => getSubService($value['id'])
+            );
+        }
+
+        /*echo '<pre>';
+        var_dump($arr);
+        echo '</pre>';*/
+        return $arr;
+    }
+
+    function getLength() {
+        global $mysqli;
+        $arr = [];
+
+        $catQuery = "SELECT * FROM `categories`";
+        $resultCat = $mysqli->query($catQuery);
+
+        $servQuery = "SELECT * FROM `services`";
+        $resultServ = $mysqli->query($servQuery);
+
+        $subQuery = "SELECT * FROM `subservices`";
+        $resultSub = $mysqli->query($subQuery);
+
+        return $arr = array(
+            'categories' => $resultCat->num_rows,
+            'service' => $resultServ->num_rows,
+            'subservice' => $resultSub->num_rows,
+        );
+
     }
 
 ?>

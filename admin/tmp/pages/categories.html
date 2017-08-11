@@ -1,9 +1,20 @@
 {% extends 'layout/layout.html' %}
 
 {% block content %}
-    <div class="content" style="width: 1010px; margin: 0 auto;">
 
+        <div class="category">
+            {% for item in category %}
+                <div class="category__item">
+                    <div class="category__item__inner">
+                        <div class="category__item__title">{{ item.name }}</div>
+                        <div class="category__services">
+                        {% for item in item.service %}
+                            <div class="category__services__item"><a href="/admin/category/{{ item.id }}">{{ item.name }}</a></div>
+                        {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
         <pre>{{ dump(category) }}</pre>
-
-    </div>
 {% endblock %}

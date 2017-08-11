@@ -18,10 +18,9 @@
 
     $data = array(
         'route' => $route,
-        'config' => array(
-            'adminPath' => $adminPath
-        ),
-        'data' => $all
+        'config' => $config,
+        'data' => $all,
+        'dataLength' => getLength()
     );
 
     if ($route[1] == '') {
@@ -30,21 +29,29 @@
 
     } else if ($route[1] == 'categories') {
 
-        $data['category'] = getCategory($route[2]);
+        $data['category'] = getAllCategories();
+
+
         echo $twig->render('pages/categories.html', $data);
 
     } else if ($route[1] == 'services') {
-
-        $data['service'] = getService($route[2]);
-        $data['service']['subservice'] = getSubService($route[2]);
-
-
+        if ($route[2] != ''){
+            $data['service'] = getService($route[2]);
+            $data['service']['subservice'] = getSubService($route[2]);
+        } else {
+            $data['allService'] = getAllService();
+            $data['all'] = true;
+        }
 
         echo $twig->render('pages/services.html', $data);
 
-    }else if ($route[1] == 'subcategories') {
+    } else if ($route[1] == 'subcategories') {
 
         echo $twig->render('pages/subcategories.html', $data);
+
+    } else if ($route[1] == 'add') {
+
+        echo $twig->render('pages/add/'. $route[2] .'.html', $data);
 
     }
 ?>

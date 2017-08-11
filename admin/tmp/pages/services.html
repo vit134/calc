@@ -1,12 +1,30 @@
 {% extends 'layout/layout.html' %}
 
 {% block content %}
-    <div class="content" style="width: 1010px; margin: 0 auto;">
-    bla
-        <!-- <pre>{{ dump(data) }}</pre>
-        <pre>{{ dump(route) }}</pre> -->
-
-        <pre>{{ dump(service) }}</pre>
-
+    <div class="content">
+        {% if all %}
+            <div class="all-services">
+                {% for item in allService %}
+                <div class="all-services__item">
+                    <div class="all-services__item__inner">
+                        <div class="all-services__item__header">
+                            <a href="{{ config.adminPath }}/services/{{ item.id }}" class="all-services__item__title">{{ item.name | capitalize }}</a>
+                            <div class="all-services__item__category">Категория:
+                                <a a href="{{ config.adminPath }}/categories/{{ item.category_id }}">{{ item.category_name | capitalize }}</a>
+                            </div>
+                        </div>
+                        <div class="all-services__subservices">
+                            {% for sub in item.subservice %}
+                                <a href="{{ config.adminPath }}/subservice/{{ sub.id }}" class="all-services__subservices__item">{{ sub.name | capitalize }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {# <pre>{{ dump(allService) }}</pre> #}
+        {% else %}
+            <pre>{{ dump(service) }}</pre>
+        {% endif %}
     </div>
 {% endblock %}
