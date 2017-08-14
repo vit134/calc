@@ -34,10 +34,10 @@
     <div class="tree">
         <ul class="tree__categories-ul">
             {% for cat in data.categories %}
-                <li><a href="{{ config.adminPath }}/categories/{{ cat.id }}">{{ cat.name }}</a>
+                <li><a href="{{ config.adminPath }}/category/{{ cat.id }}">{{ cat.name }}</a>
                     <ul class="tree__service-ul">
                         {% for serv in cat.service %}
-                            <li><a href="{{ config.adminPath }}/services/{{ serv.id }}">{{ serv.name }}</a>
+                            <li><a href="{{ config.adminPath }}/service/{{ serv.id }}">{{ serv.name }}</a>
                                 <ul class="tree__subservice-ul">
                                     {% for sub in serv.subservice %}
                                         <li><a href="{{ config.adminPath }}/subservice/{{ sub.id }}">{{ sub.name }}</a></li>

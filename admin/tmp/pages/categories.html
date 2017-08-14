@@ -8,13 +8,24 @@
                     <div class="category__item__inner">
                         <div class="category__item__title">{{ item.name }}</div>
                         <div class="category__services">
-                        {% for item in item.service %}
-                            <div class="category__services__item"><a href="/admin/category/{{ item.id }}">{{ item.name }}</a></div>
-                        {% endfor %}
+                        {% if item.service | length > 0 %}
+                            {% for item in item.service %}
+                                <div class="category__services__item"><a href="/admin/category/{{ item.id }}">{{ item.name }}</a></div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="fake"></div>
+                            <div class="category__nothing">
+                                Пусто<br>
+                                <a href="{{ config.addCatgoryLink }}">Добавить</a>
+                            </div>
+                        {% endif %}
+                        </div>
+                        <div class="category__item__menu">
+                            <a href="" class="category__item__menu__button category__item__menu__button_edit"></a>
                         </div>
                     </div>
                 </div>
             {% endfor %}
         </div>
-        <pre>{{ dump(category) }}</pre>
+       <pre>{{ dump(category) }}</pre>
 {% endblock %}

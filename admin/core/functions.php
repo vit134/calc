@@ -103,7 +103,7 @@
         global $mysqli;
         $arr = [];
 
-        $query = "SELECT c.*, s.name AS serv_name, s.id AS serv_id FROM categories c INNER JOIN services s ON s.categoryId = c.id";
+        $query = "SELECT * FROM categories";
         $result = $mysqli->query($query);
 
         foreach ($result as $key => $value) {
@@ -134,6 +134,23 @@
                 'category_name' => $value['cat_name'],
                 'subservice' => getSubService($value['id'])
             );
+        }
+
+        /*echo '<pre>';
+        var_dump($arr);
+        echo '</pre>';*/
+        return $arr;
+    }
+
+    function getAllSubService() {
+        global $mysqli;
+        $arr = [];
+
+        $query = "SELECT ss.*, s.name AS serv_name, s.categoryId AS cat_id, c.name AS cat_name FROM  subservices ss INNER JOIN services s ON ss.serviceId = s.id INNER JOIN categories c ON s.categoryId = c.id";
+        $result = $mysqli->query($query);
+
+        foreach ($result as $key => $value) {
+            $arr[] = $value;
         }
 
         /*echo '<pre>';

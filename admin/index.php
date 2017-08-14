@@ -34,20 +34,27 @@
 
         echo $twig->render('pages/categories.html', $data);
 
-    } else if ($route[1] == 'services') {
-        if ($route[2] != ''){
-            $data['service'] = getService($route[2]);
-            $data['service']['subservice'] = getSubService($route[2]);
-        } else {
-            $data['allService'] = getAllService();
-            $data['all'] = true;
-        }
+    } else if ($route[1] == 'category') {
 
+        $data['category'] = getCategory($route[2]);
+
+
+        echo $twig->render('pages/category.html', $data);
+
+    } else if ($route[1] == 'service') {
+        $data['service'] = getService($route[2]);
+        $data['service']['subservice'] = getSubService($route[2]);
+
+        echo $twig->render('pages/service.html', $data);
+
+    } else if ($route[1] == 'services') {
+
+        $data['allService'] = getAllService();
         echo $twig->render('pages/services.html', $data);
 
-    } else if ($route[1] == 'subcategories') {
-
-        echo $twig->render('pages/subcategories.html', $data);
+    } else if ($route[1] == 'subservices') {
+        $data['subservice'] =  getAllSubService();
+        echo $twig->render('pages/subservices.html', $data);
 
     } else if ($route[1] == 'add') {
 
