@@ -5,21 +5,22 @@
 
     //var_dump($_POST);
     //echo $mysqli;
+
     switch ($_POST['form-type']) {
 
         case 'category':
             if (allreadyCat($_POST['name'])) {
-                $query = "INSERT INTO `categories`( `name`) VALUES ('". $_POST['name'] ."')";
+                $query = "UPDATE `categories` SET `name`='". $_POST['name'] . "' WHERE `id` = " . $_POST['category-id'];
                 //echo $mysqli;
                 $result = $mysqli->query($query);
 
                 if ($result) {
                     header("Location: ". $config['adminPath'] ."/categories?status=success");
                 } else {
-                    header("Location: /admin?status=error");
+                    header("Location: /admin/categories?status=error");
                 }
             } else {
-                header("Location: /admin?status=allready");
+                header("Location: /admin/categories?status=allready");
             }
 
             break;

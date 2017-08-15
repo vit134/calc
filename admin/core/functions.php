@@ -79,7 +79,10 @@
         $resultCat = $mysqli->query($catQuery);
 
         foreach ($resultCat as $key => $value) {
-            $arr[] = $value;
+            $arr[] = array(
+                $value,
+                'subservice' => getSubService($value['id'])
+            );
         }
 
         return $arr;
@@ -109,6 +112,26 @@
         foreach ($result as $key => $value) {
 
             $arr[$value['id']] = array(
+                'id' => $value['id'],
+                'name' => $value['name'],
+                'service' => getServiceByCat($value['id'])
+            );
+
+        }
+
+        return $arr;
+    }
+
+    function getFullCategories($id) {
+        global $mysqli;
+        $arr = [];
+
+        $query = "SELECT * FROM categories WHERE `id` = " . $id;
+        $result = $mysqli->query($query);
+
+        foreach ($result as $key => $value) {
+
+            $arr = array(
                 'id' => $value['id'],
                 'name' => $value['name'],
                 'service' => getServiceByCat($value['id'])

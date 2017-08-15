@@ -1,7 +1,91 @@
 {% extends 'layout/layout.html' %}
 
 {% block content %}
-    <div class="content">
-        <pre>{{ dump(category) }}</pre>
+    <div class="category">
+        <div class="category__row">
+            <div class="category__col">
+                <div class="category__col__inner">
+                    <div class="category__col__title">Категория</div>
+                </div>
+            </div>
+            <div class="category__col">
+                <div class="category__col__inner">
+                    <div class="category__col__title">Услуги</div>
+                </div>
+            </div>
+            <div class="category__col">
+                <div class="category__col__inner">
+                    <div class="category__col__title">Виды работ</div>
+                </div>
+            </div>
+        </div>
+        {% if category.service %}
+            {% for service in category.service %}
+                <div class="category__row">
+                    <div class="category__col">
+                        <div class="category__col__inner">
+                            {% if loop.index == 1 %}
+                                <div class="category__col__body">
+                                    {{ category.name | capitalize }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="category__col">
+                        <div class="category__col__inner">
+                            <div class="category__col__body category__col__body_row">
+                                <div class="category__col__row">{{ service[0].name | capitalize }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="category__col">
+                        <div class="category__col__inner">
+                            <div class="category__col__body category__col__body_before">
+                                {% if service.subservice | length > 0 %}
+                                    {% for subservice in service.subservice %}
+                                        <div class="category__col__row">{{ subservice.name | capitalize }}</div>
+                                    {% endfor %}
+                                {% else %}
+                                        <div class="category__col__row center-align">
+                                            <a href="{{ config.addSubserviceLink }}" class="category__link">Добавить</a>
+                                        </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="category__row">
+                <div class="category__col">
+                    <div class="category__col__inner">
+                        <div class="category__col__body">
+                            {{ category.name }}
+                        </div>
+                    </div>
+                </div>
+                <div class="category__col">
+                    <div class="category__col__inner center-align">
+                        <div class="category__col__body">
+                            <div class="category__col__row">
+                                Пусто<br>
+                                <a href="{{ config.addServiceLink }}" class="category__link">Добавить</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="category__col">
+                    <div class="category__col__inner center-align">
+                        <div class="category__col__body">
+                            <div class="category__col__row">
+                                Пусто<br>
+                                <a href="{{ config.addSubserviceLink }}" class="category__link">Добавить</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        {# <pre>{{ dump(category) }}</pre> #}
     </div>
 {% endblock %}

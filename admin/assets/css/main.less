@@ -17,6 +17,10 @@ a {
     height: 100%;
 }
 
+.center-align {
+    text-align: center;
+}
+
 .l-wrapper {
     max-width: 1000px;
     margin: 0 auto;
@@ -508,5 +512,128 @@ a {
             border-bottom: none;
             color: #F36360;
         }
+    }
+}
+
+.category {
+    &__row {
+        font-size: 0;
+    }
+
+    &__row:first-child & {
+        &__col {
+            &__inner {
+                &:after {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    &__row:nth-child(3) & {
+        &__col {
+            &:first-child {
+                .category__col__inner {
+                    &:after {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+
+    &__row:last-child & {
+        &__col {
+            &__body {
+                &_before:before {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    &__col {
+        display: inline-block;
+        vertical-align: top;
+        font-size: 15px;
+        width: 33%;
+
+        &:last-child & {
+            &__inner {
+                &:after {
+                    display: none;
+                }
+            }
+        }
+
+        &__inner {
+            margin-right: 50px;
+            position: relative;
+
+            &:after {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 15px;
+                left: calc(~'100% + 15px');
+                width: 20px;
+                height: 20px;
+                background: url('/admin/assets/images/arrow-right.svg') center no-repeat;
+                background-size: 100%;
+            }
+        }
+
+        &__body {
+            position: relative;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: #fdfdfd;
+            border: 1px solid #eee;
+
+            &_before:before {
+                content: "";
+                display: block;
+                position: absolute;
+                left: -131%;
+                top: 24px;
+                height: calc(~'100% + 18px');
+                width: 2px;
+                background: #222;
+            }
+
+
+
+            &_row:before {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 14px;
+                left: -36px;
+                width: 20px;
+                height: 20px;
+                background: url(/admin/assets/images/arrow-right.svg) center no-repeat;
+                background-size: 100%;
+            }
+        }
+
+        &__title {
+            font-size: 17px;
+            font-weight: 600;
+            padding: 0 15px;
+            margin-bottom: 15px;
+        }
+
+        &__row {
+            margin-bottom: 5px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    &__link {
+        font-size: 14px;
+        font-weight: bold;
     }
 }

@@ -2,30 +2,54 @@
 
 {% block content %}
 
-        <div class="category">
-            {% for item in category %}
-                <div class="category__item">
-                    <div class="category__item__inner">
-                        <div class="category__item__title">{{ item.name }}</div>
-                        <div class="category__services">
-                        {% if item.service | length > 0 %}
-                            {% for item in item.service %}
-                                <div class="category__services__item"><a href="/admin/category/{{ item.id }}">{{ item.name }}</a></div>
-                            {% endfor %}
-                        {% else %}
-                            <div class="fake"></div>
-                            <div class="category__nothing">
-                                Пусто<br>
-                                <a href="{{ config.addCatgoryLink }}">Добавить</a>
-                            </div>
-                        {% endif %}
+    <div class="category">
+        {% for item in category %}
+            <div class="category__item">
+                <div class="category__item__inner">
+                    <div class="category__item__title">
+                        <a href="/admin/category/{{ item.id }}">{{ item.name }}</a></div>
+                    <div class="category__services">
+                    {% if item.service | length > 0 %}
+                        {% for item in item.service %}
+                            <div class="category__services__item"><a href="/admin/service/{{ item.id }}">{{ item.name }}</a></div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="fake"></div>
+                        <div class="category__nothing">
+                            Пусто<br>
+                            <a href="{{ config.addCatgoryLink }}">Добавить</a>
                         </div>
-                        <div class="category__item__menu">
-                            <a href="" class="category__item__menu__button category__item__menu__button_edit"></a>
-                        </div>
+                    {% endif %}
+                    </div>
+                    <div class="category__item__menu">
+                        <a href="edit?id={{ item.id }}" class="category__item__menu__button category__item__menu__button_edit"></a>
                     </div>
                 </div>
-            {% endfor %}
-        </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <script type="text/javascript">
+        function getUrlVars() {
+            var vars = [], hash;
+            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            for(var i = 0; i < hashes.length; i++)
+            {
+                hash = hashes[i].split('=');
+                vars.push(hash[0]);
+                vars[hash[0]] = hash[1];
+            }
+            return vars;
+        }
+
+        if (getUrlVars()['status'] && getUrlVars()['status'] != '') {
+            var status = getUrlVars()['status'];
+            if (status == 'success') {
+                alert('success');
+                console.log(window.location.search);
+                window.location = '/admin/categories/';
+            }
+        }
+    </script>
        <pre>{{ dump(category) }}</pre>
 {% endblock %}
