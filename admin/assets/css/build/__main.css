@@ -47,6 +47,7 @@ a {
   font-size: 40px;
 }
 .tree {
+  display: none;
   width: 250px;
   position: fixed;
   top: 165px;
@@ -285,7 +286,7 @@ a {
   top: 15px;
 }
 .category__item__menu__button {
-  display: inline-block;
+  display: inline-block !important;
   vertical-align: middle;
   margin-right: 5px;
   width: 20px;
@@ -297,6 +298,10 @@ a {
 .category__item__menu__button_edit {
   background: url('/admin/assets/images/edit.svg') center no-repeat;
   background-size: 100%;
+}
+.category__item__menu__button_delete {
+  background: url('/admin/assets/images/delete.svg') center no-repeat;
+  background-size: 94%;
 }
 .category__services {
   padding: 15px;
@@ -440,17 +445,6 @@ a {
   margin-right: 50px;
   position: relative;
 }
-.res-tree__col__inner:after {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 15px;
-  left: calc(100% + 15px);
-  width: 20px;
-  height: 20px;
-  background: url('/admin/assets/images/arrow-right.svg') center no-repeat;
-  background-size: 100%;
-}
 .res-tree__col__body {
   position: relative;
   padding: 15px;
@@ -467,6 +461,17 @@ a {
   height: calc(100% + 7px);
   width: 2px;
   background: #222;
+}
+.res-tree__col__body_before:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 15px;
+  right: calc(100% + 15px);
+  width: 20px;
+  height: 20px;
+  background: url('/admin/assets/images/arrow-right.svg') center no-repeat;
+  background-size: 100%;
 }
 .res-tree__col__body_row:before {
   content: "";

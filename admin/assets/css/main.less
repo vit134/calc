@@ -56,6 +56,7 @@ a {
 }
 
 .tree {
+    display: none;
     width: 250px;
     position: fixed;
     top: 165px;
@@ -358,7 +359,7 @@ a {
             top: 15px;
 
             &__button {
-                display: inline-block;
+                display: inline-block !important;
                 vertical-align: middle;
                 margin-right: 5px;
                 width: 20px;
@@ -372,6 +373,11 @@ a {
                 &_edit {
                     background: url('/admin/assets/images/edit.svg') center no-repeat;
                     background-size: 100%;
+                }
+
+                &_delete {
+                    background: url('/admin/assets/images/delete.svg') center no-repeat;
+                    background-size: 94%;
                 }
             }
         }
@@ -583,17 +589,7 @@ a {
             margin-right: 50px;
             position: relative;
 
-            &:after {
-                content: "";
-                display: block;
-                position: absolute;
-                top: 15px;
-                left: calc(~'100% + 15px');
-                width: 20px;
-                height: 20px;
-                background: url('/admin/assets/images/arrow-right.svg') center no-repeat;
-                background-size: 100%;
-            }
+
         }
 
         &__body {
@@ -612,6 +608,18 @@ a {
                 height: calc(~'100% + 7px');
                 width: 2px;
                 background: #222;
+            }
+
+            &_before:after {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 15px;
+                right: calc(~'100% + 15px');
+                width: 20px;
+                height: 20px;
+                background: url('/admin/assets/images/arrow-right.svg') center no-repeat;
+                background-size: 100%;
             }
 
 

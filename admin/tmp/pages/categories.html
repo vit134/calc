@@ -16,13 +16,13 @@
                     {% else %}
                         <div class="fake"></div>
                         <div class="category__nothing">
-                            Пусто<br>
-                            <a href="{{ config.addCatgoryLink }}">Добавить</a>
+                            <a href="{{ config.addServiceLink }}?catagory_name={{ item.name }}&category_id={{ item.id }}">Добавить</a>
                         </div>
                     {% endif %}
                     </div>
                     <div class="category__item__menu">
-                        <a href="edit?id={{ item.id }}" class="category__item__menu__button category__item__menu__button_edit"></a>
+                        <a href="categories/edit/?id={{ item.id }}" class="category__item__menu__button category__item__menu__button_edit"></a>
+                        <a href="{{ config.adminPath }}/delete?type=category&id={{ item.id }}" class="category__item__menu__button category__item__menu__button_delete"></a>
                     </div>
                 </div>
             </div>
@@ -49,5 +49,5 @@
             }
         }
     </script>
-       <pre>{{ dump(category) }}</pre>
+    {# <pre>{{ dump(category) }}</pre> #}
 {% endblock %}

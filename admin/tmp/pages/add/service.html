@@ -5,6 +5,9 @@
         <h3>Добавить услугу</h3>
         <form method="post" action="{{ config.adminPath }}/core/formhandler/add.php">
             <input type="hidden" name="form-type" value="{{ route[2] }}">
+            {% if route.params and route.params.category_id != '' %}
+                <input type="hidden" name="loacation" value="category/{{ route.params.category_id }}">
+            {% endif %}
             <div class="form-group">
                 <label for="name" class="add-service__label">Название услуги</label>
                 <input type="text" name="name" id="name" class="add-service__input">
@@ -12,9 +15,9 @@
             <div class="form-group">
                 <label for="category_id">Категория услуги</label>
                 <select name="category_id" id="category_id">
-                    <option disabled selected>Выберите категорию</option>
+                    <option disabled {% if not route.params%}selected{% endif %}>Выберите категорию</option>
                     {% for item in data.categories %}
-                        <option value="{{ item.id }}">{{ item.name }}</option>
+                        <option {% if route.params and route.params.category_id == item.id %}selected{% endif %} value="{{ item.id }}">{{ item.name }}</option>
                     {% endfor %}
                 </select>
             </div>

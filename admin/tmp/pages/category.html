@@ -60,6 +60,31 @@
                     </div>
                 </div>
             {% endfor %}
+            <div class="res-tree__row">
+                <div class="res-tree__col">
+                    <div class="res-tree__col__inner">
+                        {% if loop.index == 1 %}
+                            <div class="res-tree__col__body">
+                                {{ category.name | capitalize }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="res-tree__col">
+                    <div class="res-tree__col__inner">
+                        <div class="res-tree__col__body res-tree__col__body_row">
+                            <div class="res-tree__col__row center-align">
+                                <a href="{{ config.addServiceLink }}?category_name={{category.name}}&category_id={{ category.id }}" class="res-tree__link">Добавить</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="res-tree__col">
+                    <div class="res-tree__col__inner">
+
+                    </div>
+                </div>
+            </div>
         {% else %}
             <div class="res-tree__row">
                 <div class="res-tree__col">
@@ -90,5 +115,5 @@
             </div>
         {% endif %}
     </div>
-    <pre>{{ dump(category) }}</pre>
+    {# <pre>{{ dump(category) }}</pre> #}
 {% endblock %}

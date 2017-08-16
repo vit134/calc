@@ -2,13 +2,17 @@
 
 {% block content %}
     <div class="add-category">
-        <h4>Редактирование категории - <strong>{{ edit_cat.name }}</strong></h4>
+        <h3>Редактирование категории</h3>
         <form method="post" action="{{ config.adminPath }}/core/formhandler/edit.php">
             <input type="hidden" name="form-type" value="category">
             <input type="hidden" name="category-id" value="{{ edit_cat.id }}">
-            <label for="name" class="add-category__label">Название категории</label>
-            <input type="text" name="name" id="name" class="add-category__input" value="{{ edit_cat.name }}">
-            <input type="submit" name="" value="Отправить">
+            <div class="form-group">
+                <label for="name" class="add-category__label">Название категории</label>
+                <input type="text" name="name" id="name" class="add-category__input" value="{{ edit_cat.name }}">
+            </div>
+            <div class="form-group">
+                <input type="submit" name="" value="Отправить">
+            </div>
         </form>
     </div>
 {% endblock %}
