@@ -1,22 +1,22 @@
 {% extends 'layout/layout.html' %}
 
 {% block content %}
-    <div class="services">
+    <div class="services js-pinterest-container">
         {% for item in allService %}
-            <div class="services__item">
+            <div class="services__item js-pinterest-item">
                 <div class="services__item__inner">
                     <div class="services__header">
-                        <a href="" class="services__title">{{ item.name }}</a>
+                        <a href="{{ config.adminPath }}/service/{{ item.id }}" class="services__title">{{ item.name }}</a>
                         <div class="services__category">
                             Категория:
-                            <a href="" class="services__link">{{ item.category_name }}</a>
+                            <a href="{{ config.adminPath }}/category/{{ item.category_id }}" class="services__link">{{ item.category_name }}</a>
                         </div>
                     </div>
                     <div class="services__sub">
                         <div class="services__sub__count">{{ item.subservice | length }}</div>
                         {% for item in item.subservice %}
                             <div class="services__sub__item">
-                                <a href="" class="services__sub__link">{{ item.name | capitalize}}</a>
+                                <a href="{{ config.adminPath }}/subservice/{{ item[0].id }}" class="services__sub__link">{{ item[0].name | capitalize}}</a>
                             </div>
                         {% endfor %}
                     </div>

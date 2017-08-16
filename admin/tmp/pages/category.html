@@ -1,53 +1,58 @@
 {% extends 'layout/layout.html' %}
 
 {% block content %}
-    <div class="category">
-        <div class="category__row">
-            <div class="category__col">
-                <div class="category__col__inner">
-                    <div class="category__col__title">Категория</div>
+    <div class="res-tree">
+        <div class="res-tree__row">
+            <div class="res-tree__col">
+                <div class="res-tree__col__inner">
+                    <div class="res-tree__col__title">Категория</div>
                 </div>
             </div>
-            <div class="category__col">
-                <div class="category__col__inner">
-                    <div class="category__col__title">Услуги</div>
+            <div class="res-tree__col">
+                <div class="res-tree__col__inner">
+                    <div class="res-tree__col__title">Услуги</div>
                 </div>
             </div>
-            <div class="category__col">
-                <div class="category__col__inner">
-                    <div class="category__col__title">Виды работ</div>
+            <div class="res-tree__col">
+                <div class="res-tree__col__inner">
+                    <div class="res-tree__col__title">Виды работ</div>
                 </div>
             </div>
         </div>
+
         {% if category.service %}
             {% for service in category.service %}
-                <div class="category__row">
-                    <div class="category__col">
-                        <div class="category__col__inner">
+                <div class="res-tree__row">
+                    <div class="res-tree__col">
+                        <div class="res-tree__col__inner">
                             {% if loop.index == 1 %}
-                                <div class="category__col__body">
+                                <div class="res-tree__col__body">
                                     {{ category.name | capitalize }}
                                 </div>
                             {% endif %}
                         </div>
                     </div>
-                    <div class="category__col">
-                        <div class="category__col__inner">
-                            <div class="category__col__body category__col__body_row">
-                                <div class="category__col__row">{{ service[0].name | capitalize }}</div>
+                    <div class="res-tree__col">
+                        <div class="res-tree__col__inner">
+                            <div class="res-tree__col__body res-tree__col__body_row">
+                                <div class="res-tree__col__row">
+                                    <a href="{{ config.adminPath }}/service/{{service[0].id}}">{{ service[0].name | capitalize }}</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="category__col">
-                        <div class="category__col__inner">
-                            <div class="category__col__body category__col__body_before">
+                    <div class="res-tree__col">
+                        <div class="res-tree__col__inner">
+                            <div class="res-tree__col__body res-tree__col__body_before">
                                 {% if service.subservice | length > 0 %}
                                     {% for subservice in service.subservice %}
-                                        <div class="category__col__row">{{ subservice.name | capitalize }}</div>
+                                        <div class="res-tree__col__row">
+                                            <a href="{{ config.adminPath }}/subservice/{{subservice.id}}">{{ subservice[0].name | capitalize }}</a>
+                                        </div>
                                     {% endfor %}
                                 {% else %}
-                                        <div class="category__col__row center-align">
-                                            <a href="{{ config.addSubserviceLink }}" class="category__link">Добавить</a>
+                                        <div class="res-tree__col__row center-align">
+                                            <a href="{{ config.addSubserviceLink }}?service_name={{service[0].name}}&service_id={{ service[0].id }}" class="res-tree__link">Добавить</a>
                                         </div>
                                 {% endif %}
                             </div>
@@ -56,36 +61,34 @@
                 </div>
             {% endfor %}
         {% else %}
-            <div class="category__row">
-                <div class="category__col">
-                    <div class="category__col__inner">
-                        <div class="category__col__body">
+            <div class="res-tree__row">
+                <div class="res-tree__col">
+                    <div class="res-tree__col__inner">
+                        <div class="res-tree__col__body">
                             {{ category.name }}
                         </div>
                     </div>
                 </div>
-                <div class="category__col">
-                    <div class="category__col__inner center-align">
-                        <div class="category__col__body">
-                            <div class="category__col__row">
-                                Пусто<br>
-                                <a href="{{ config.addServiceLink }}" class="category__link">Добавить</a>
+                <div class="res-tree__col">
+                    <div class="res-tree__col__inner center-align">
+                        <div class="res-tree__col__body">
+                            <div class="res-tree__col__row">
+                                <a href="{{ config.addServiceLink }}" class="res-tree__link">Добавить</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="category__col">
-                    <div class="category__col__inner center-align">
-                        <div class="category__col__body">
-                            <div class="category__col__row">
-                                Пусто<br>
-                                <a href="{{ config.addSubserviceLink }}" class="category__link">Добавить</a>
+                <div class="res-tree__col">
+                    <div class="res-tree__col__inner center-align">
+                        <div class="res-tree__col__body">
+                            <div class="res-tree__col__row">
+                                <a href="{{ config.addSubserviceLink }}" class="res-tree__link">Добавить</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         {% endif %}
-        {# <pre>{{ dump(category) }}</pre> #}
     </div>
+    <pre>{{ dump(category) }}</pre>
 {% endblock %}

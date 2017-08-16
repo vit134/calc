@@ -96,6 +96,23 @@
         $resultCat = $mysqli->query($catQuery);
 
         foreach ($resultCat as $key => $value) {
+            $arr[] = array(
+                $value,
+                'materials' => getMaterialsBySsId($value['id'])
+            );
+        }
+
+        return $arr;
+    }
+
+    function getSubServiceById($id) {
+        global $mysqli;
+        $arr = [];
+
+        $catQuery = "SELECT * FROM `subservices` WHERE `id` = " . $id;
+        $resultCat = $mysqli->query($catQuery);
+
+        foreach ($resultCat as $key => $value) {
             $arr[] = $value;
         }
 
@@ -116,6 +133,50 @@
                 'name' => $value['name'],
                 'service' => getServiceByCat($value['id'])
             );
+
+        }
+
+        return $arr;
+    }
+
+    function getServices() {
+        global $mysqli;
+        $arr = [];
+
+        $query = "SELECT * FROM services";
+        $result = $mysqli->query($query);
+
+        foreach ($result as $key => $value) {
+
+            /*$arr[$value['id']] = array(
+                'id' => $value['id'],
+                'name' => $value['name'],
+                'subservice' => getServiceByCat($value['id'])
+            );*/
+
+            $arr[] = $value;
+
+        }
+
+        return $arr;
+    }
+
+    function getSubServices() {
+        global $mysqli;
+        $arr = [];
+
+        $query = "SELECT * FROM subservices";
+        $result = $mysqli->query($query);
+
+        foreach ($result as $key => $value) {
+
+            /*$arr[$value['id']] = array(
+                'id' => $value['id'],
+                'name' => $value['name'],
+                'subservice' => getServiceByCat($value['id'])
+            );*/
+
+            $arr[] = $value;
 
         }
 
@@ -179,6 +240,20 @@
         /*echo '<pre>';
         var_dump($arr);
         echo '</pre>';*/
+        return $arr;
+    }
+
+    function getMaterialsBySsId($id) {
+        global $mysqli;
+        $arr = [];
+
+        $catQuery = "SELECT * FROM `materials` WHERE `subserv_id` = " . $id;
+        $resultCat = $mysqli->query($catQuery);
+
+        foreach ($resultCat as $key => $value) {
+            $arr[] = $value;
+        }
+
         return $arr;
     }
 

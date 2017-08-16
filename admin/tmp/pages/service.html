@@ -1,9 +1,95 @@
 {% extends 'layout/layout.html' %}
 
 {% block content %}
-    <div class="content">
-
-        <pre>{{ dump(service) }}</pre>
+    <div class="res-tree">
+        <div class="res-tree__row">
+            <div class="res-tree__col">
+                <div class="res-tree__col__inner">
+                    <div class="res-tree__col__title">Услуга</div>
+                </div>
+            </div>
+            <div class="res-tree__col">
+                <div class="res-tree__col__inner">
+                    <div class="res-tree__col__title">Виды работ</div>
+                </div>
+            </div>
+            <div class="res-tree__col">
+                <div class="res-tree__col__inner">
+                    <div class="res-tree__col__title">Материалы</div>
+                </div>
+            </div>
+        </div>
+        {% if service.subservice %}
+            {% for subservice in service.subservice %}
+                <div class="res-tree__row">
+                    <div class="res-tree__col">
+                        <div class="res-tree__col__inner">
+                            {% if loop.index == 1 %}
+                                <div class="res-tree__col__body">
+                                    {{ service.name | capitalize }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="res-tree__col">
+                        <div class="res-tree__col__inner">
+                            <div class="res-tree__col__body res-tree__col__body_row">
+                                <div class="res-tree__col__row">
+                                    <a href="{{ config.adminPath }}/subservice/{{subservice[0].id}}">{{ subservice[0].name | capitalize }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="res-tree__col">
+                        <div class="res-tree__col__inner">
+                            <div class="res-tree__col__body res-tree__col__body_before">
+                                {% if subservice.materials | length > 0 %}
+                                    {% for materials in subservice.materials %}
+                                        <div class="res-tree__col__row">
+                                            <a href="{{ config.adminPath }}/subservice/{{subservice.id}}">{{ materials.name | capitalize }}</a>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                        <div class="res-tree__col__row center-align">
+                                            <a href="{{ config.addMaterialLink }}" class="res-tree__link">Добавить</a>
+                                        </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="res-tree__row">
+                <div class="res-tree__col">
+                    <div class="res-tree__col__inner">
+                        <div class="res-tree__col__body">
+                            {{ service.name }}
+                        </div>
+                    </div>
+                </div>
+                <div class="res-tree__col">
+                    <div class="res-tree__col__inner center-align">
+                        <div class="res-tree__col__body">
+                            <div class="res-tree__col__row">
+                                <a href="{{ config.addServiceLink }}" class="res-tree__link">Добавить</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="res-tree__col">
+                    <div class="res-tree__col__inner center-align">
+                        <div class="res-tree__col__body">
+                            <div class="res-tree__col__row">
+                                <a href="{{ config.addSubserviceLink }}" class="res-tree__link">Добавить</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
 
     </div>
+    <pre>{{ dump(service) }}</pre>
+
 {% endblock %}

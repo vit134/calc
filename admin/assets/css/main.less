@@ -17,6 +17,10 @@ a {
     height: 100%;
 }
 
+.clear {
+    clear: both;
+}
+
 .center-align {
     text-align: center;
 }
@@ -43,6 +47,7 @@ a {
     margin-bottom: 20px;
     background: #fdfdfd;
     box-shadow: 0px 0px 10px #fdfdfd;
+    z-index: 999;
 
     & a {
         font-weight: bold;
@@ -308,6 +313,7 @@ a {
 }
 
 .category {
+    position: relative;
     &__item {
         display: inline-block;
         vertical-align: top;
@@ -411,6 +417,10 @@ a {
             &_header {
                 border-bottom: 1px solid #f1f1f1;
             }
+
+            &:hover {
+                background: #f9f9f9;
+            }
         }
 
         &__tr:nth-child(2) & {
@@ -444,6 +454,7 @@ a {
 
 .services {
     font-size: 0;
+    position: relative;
 
     &__item {
         display: inline-block;
@@ -515,7 +526,9 @@ a {
     }
 }
 
-.category {
+.res-tree {
+    position: relative;
+
     &__row {
         font-size: 0;
     }
@@ -595,8 +608,8 @@ a {
                 display: block;
                 position: absolute;
                 left: -131%;
-                top: 24px;
-                height: calc(~'100% + 18px');
+                top: 35px;
+                height: calc(~'100% + 7px');
                 width: 2px;
                 background: #222;
             }
@@ -635,5 +648,152 @@ a {
     &__link {
         font-size: 14px;
         font-weight: bold;
+    }
+}
+
+.one-subservice {
+    &__row {
+        font-size: 0;
+    }
+
+    &__col {
+        &-left {
+            float: left;
+            width: 350px;
+            margin-right: -350px;
+            font-size: 15px;
+            text-align: center;
+            box-sizing: border-box;
+            padding: 0 15px;
+
+            &__inner {
+                border: 1px solid #eee;
+                background: #fdfdfd;
+                padding: 15px 10px;
+            }
+        }
+
+        &-right {
+            float: right;
+            width: 100%;
+            font-size: 15px;
+
+            &__inner {
+                margin-left: 350px;
+            }
+        }
+    }
+
+    &__name {
+        font-size: 22px;
+        font-weight: bold;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #eee;
+    }
+
+    &__price,
+    &__time {
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    &__subcol {
+        width: 50%;
+        font-size: 15px;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    &__materials {
+        font-size: 0;
+
+        &__item {
+            display: inline-block;
+            vertical-align: top;
+            width: 50%;
+            margin-bottom: 15px;
+
+            &__inner {
+                margin-right: 30px;
+            }
+        }
+
+        &__col {
+            &-left {
+                float: left;
+                width: 150px;
+                margin-right: -150px;
+                font-size: 15px;
+            }
+
+            &-right {
+                float: right;
+                width: 100%;
+                font-size: 15px;
+
+                &__inner {
+                    margin-top: 15px;
+                    padding-left: 30px;
+                    margin-left: 150px;
+                }
+            }
+        }
+
+        &__name {
+            display: block;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        &__price {
+            font-weight: 500;
+        }
+
+        &__image {
+            max-width: 100%;
+        }
+    }
+}
+
+.form-group {
+    margin-bottom: 20px;
+
+    & label {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    & input:not([type="submit"]),
+    & select {
+        display: block;
+        height: 35px;
+        line-height: 35px;
+        box-sizing: border-box;
+        border: 1px solid #eee;
+        border-radius: 2px;
+        padding: 0 15px;
+        min-width: 250px;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    & input[type=submit] {
+        display: block;
+        background: #fdfdfd;
+        border: 1px solid #eee;
+        text-align: center;
+        padding: 10px 25px;
+        font-weight: bold;
+        cursor: pointer;
+
+        &:hover {
+            background: #eee;
+            border-color: #fdfdfd;
+        }
     }
 }

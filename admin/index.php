@@ -20,15 +20,15 @@
         'route' => $route,
         'config' => $config,
         'data' => $all,
-        'dataLength' => getLength()
+        'dataLength' => getLength(),
+        'categories' => getAllCategories(),
+        'services' => getServices(),
+        'subservices' => getSubServices()
     );
 
     if ($route[1] == '') {
-
         echo $twig->render('pages/index.html', $data);
-
     } else if ($route[1] == 'categories') {
-
         if ($route[2] == 'edit') {
             $catId = $route['params']['id'];
 
@@ -38,19 +38,15 @@
             $data['category'] = getAllCategories();
             echo $twig->render('pages/categories.html', $data);
         }
-
-
-
     } else if ($route[1] == 'category') {
 
-        //$data['category'] = getCategory($route[2]);
         $data['category'] = getFullCategories($route[2]);
         echo $twig->render('pages/category.html', $data);
 
     } else if ($route[1] == 'service') {
+
         $data['service'] = getService($route[2]);
         $data['service']['subservice'] = getSubService($route[2]);
-
         echo $twig->render('pages/service.html', $data);
 
     } else if ($route[1] == 'services') {
@@ -59,12 +55,25 @@
         echo $twig->render('pages/services.html', $data);
 
     } else if ($route[1] == 'subservices') {
+
         $data['subservice'] =  getAllSubService();
         echo $twig->render('pages/subservices.html', $data);
+
+    } else if ($route[1] == 'subservice') {
+
+        $data['subservice'] =  array(
+            getSubServiceById($route[2]),
+            'materials' => getMaterialsBySsId($route[2])
+        );
+        echo $twig->render('pages/subservice.html', $data);
 
     } else if ($route[1] == 'add') {
 
         echo $twig->render('pages/add/'. $route[2] .'.html', $data);
+
+    } else {
+
+        echo $twig->render('pages/404.html', $data);
 
     }
 ?>

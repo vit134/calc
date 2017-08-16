@@ -1,7 +1,45 @@
 {% extends 'layout/layout.html' %}
 
 {% block content %}
-    <div class="content">
-        <pre>{{ dump(subervice) }}</pre>
+    <div class="one-subservice">
+        <div class="one-subservice__row">
+            <div class="one-subservice__col-left">
+                <div class="one-subservice__col-left__inner">
+                    <div class="one-subservice__name">{{ subservice[0][0].name | capitalize}}</div>
+                    <div class="one-subservice__row">
+                        <div class="one-subservice__subcol">
+                            <div class="one-subservice__price">{{ subservice[0][0].price_for_unit }} руб.</div>
+                        </div>
+                        <div class="one-subservice__subcol">
+                            <div class="one-subservice__time">{{ subservice[0][0].minute_for_unit }} мин.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="one-subservice__col-right">
+                <div class="one-subservice__col-right__inner">
+                    <div class="one-subservice__materials">
+                        {% for material in subservice.materials %}
+                            <div class="one-subservice__materials__item">
+                                <div class="one-subservice__materials__item__inner">
+                                    <div class="one-subservice__materials__col-left">
+                                        <img src="{{ material.image }}" class="one-subservice__materials__image">
+                                    </div>
+                                    <div class="one-subservice__materials__col-right">
+                                        <div class="one-subservice__materials__col-right__inner">
+                                            <a href="{{ config.adminPath }}/material/{{ material.id }}" class="one-subservice__materials__name">{{ material.name | capitalize }}</a>
+                                            <div class="one-subservice__materials__price">{{ material.price }} руб/{{ material.unit }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <pre>{{ dump(subservice) }}</pre>
     </div>
 {% endblock %}

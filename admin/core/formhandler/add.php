@@ -24,8 +24,46 @@
 
             break;
 
-        default:
-            # code...
+        case 'service':
+            if (allreadyCat($_POST['name'])) {
+                $query = "INSERT INTO `services` (`name`, `categoryId`) VALUES ('". $_POST['name'] ."', '". $_POST['category_id'] ."')";
+                //echo $mysqli;
+                $result = $mysqli->query($query);
+
+                if ($result) {
+                    header("Location: ". $config['adminPath'] ."/services?status=success");
+                } else {
+                    header("Location: /admin?status=error");
+                }
+            } else {
+                header("Location: /admin?status=allready");
+            }
+            break;
+
+        case 'subservice':
+            if (allreadyCat($_POST['name'])) {
+                $query = "INSERT INTO `subservices` (
+                    `serviceId`,
+                    `name`,
+                    `price_for_unit`,
+                    `minute_for_unit`
+                ) VALUES (
+                    '". $_POST['service_id'] ."',
+                    '". $_POST['name'] ."',
+                    '". $_POST['price'] ."',
+                    '". $_POST['time'] ."'
+                )";
+                //echo $mysqli;
+                $result = $mysqli->query($query);
+
+                if ($result) {
+                    header("Location: ". $config['adminPath'] ."/services?status=success");
+                } else {
+                    header("Location: /admin?status=error");
+                }
+            } else {
+                header("Location: /admin?status=allready");
+            }
             break;
     }
 
@@ -33,6 +71,32 @@
         global $mysqli;
 
         $catQuery = "SELECT * FROM `categories` WHERE `name` like " . $name;
+        $resultCat = $mysqli->query($catQuery);
+
+        if ($resultCat->num_rows != 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function allreadyService($name) {
+        global $mysqli;
+
+        $catQuery = "SELECT * FROM `services` WHERE `name` like " . $name;
+        $resultCat = $mysqli->query($catQuery);
+
+        if ($resultCat->num_rows != 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function allreadySubService($name) {
+        global $mysqli;
+
+        $catQuery = "SELECT * FROM `subservices` WHERE `name` like " . $name;
         $resultCat = $mysqli->query($catQuery);
 
         if ($resultCat->num_rows != 0) {
