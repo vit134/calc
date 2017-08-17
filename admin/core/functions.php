@@ -275,7 +275,25 @@
             'service' => $resultServ->num_rows,
             'subservice' => $resultSub->num_rows,
         );
+    }
 
+
+    function search($val) {
+        global $mysqli, $searchConfig;
+        $arr = [];
+
+        foreach ($searchConfig['tables'] as $key => $tableName) {
+            $query = "SELECT * FROM `" . $tableName . "` WHERE `name` like '%" . $val . "%'";
+            $result = $mysqli->query($query);
+            //echo $query . '<br>';
+
+            //$arr[$value][] = $result;
+            foreach ($result as $key => $value) {
+                $arr[$tableName][] = $value;
+            }
+        }
+
+        return $arr;
     }
 
 ?>

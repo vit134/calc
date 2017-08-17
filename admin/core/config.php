@@ -9,4 +9,8 @@
         'assetsPath' => '/admin/assets/'
     );
 
+    $searchConfig = array(
+        'tables' => ['categories', 'services', 'subservices', 'materials']
+    );
+
 ?>

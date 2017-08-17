@@ -26,6 +26,8 @@
         'subservices' => getSubServices(),
     );
 
+    var_dump(search('стен'));
+
     if ($route[1] == '') {
         echo $twig->render('pages/index.html', $data);
     } else if ($route[1] == 'categories') {
