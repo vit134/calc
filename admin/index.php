@@ -23,7 +23,7 @@
         'dataLength' => getLength(),
         'categories' => getAllCategories(),
         'services' => getServices(),
-        'subservices' => getSubServices()
+        'subservices' => getSubServices(),
     );
 
     if ($route[1] == '') {

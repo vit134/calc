@@ -29,6 +29,12 @@
                     <a href="{{ config.addSubserviceLink }}" class="menu__link">Вид работ</a>
                 </div>
             </div>
+            <div class="menu__search">
+                <div class="menu__search__block">
+                    <div class="menu__search__icon js-search-btn"></div>
+                    <input type="text" name="search" class="menu__search__input js-search-input">
+                </div>
+            </div>
         </div>
     </div>
     <div class="tree">
@@ -60,6 +66,10 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="{{ config.adminPath }}/assets/js/vendor/blocksit.min.js"></script>
+    <script type="text/javascript" src="{{ config.assetsPath }}js/widgets/functions.js"></script>
+    <script type="text/javascript" src="{{ config.assetsPath }}js/widgets/main.js"></script>
+
+    {% block pageScripts %}{% endblock %}
     <script type="text/javascript">
         $(document).ready(function() {
             $('.js-pinterest-container').BlocksIt({

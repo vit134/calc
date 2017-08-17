@@ -61,7 +61,11 @@
                 $result = $mysqli->query($query);
 
                 if ($result) {
-                    header("Location: ". $config['adminPath'] ."/services?status=success");
+                    if ($_POST['loacation']) {
+                        header("Location: ". $config['adminPath'] . "/" . $_POST['loacation'] . "?status=success");
+                    } else {
+                        header("Location: ". $config['adminPath'] ."/services?status=success");
+                    }
                 } else {
                     header("Location: /admin?status=error");
                 }

@@ -30,24 +30,11 @@
     </div>
 
     <script type="text/javascript">
-        function getUrlVars() {
-            var vars = [], hash;
-            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-            for (var i = 0; i < hashes.length; i++) {
-                hash = hashes[i].split('=');
-                vars.push(hash[0]);
-                vars[hash[0]] = hash[1];
-            }
-            return vars;
-        }
 
-        if (getUrlVars()['status'] && getUrlVars()['status'] !== '') {
-            var status = getUrlVars()['status'];
-            if (status === 'success') {
-                alert('success');
-                window.location = '/admin/categories/';
-            }
-        }
     </script>
     {# <pre>{{ dump(category) }}</pre> #}
+{% endblock %}
+
+{% block pageScripts %}
+    <script type="text/javascript" src="{{ config.assetsPath }}js/build/{{ route[1] }}/main.js"></script>
 {% endblock %}

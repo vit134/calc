@@ -5,6 +5,9 @@
         <h3>Добавить вид работ</h3>
         <form method="post" action="{{ config.adminPath }}/core/formhandler/add.php">
             <input type="hidden" name="form-type" value="{{ route[2] }}">
+            {% if route.params and route.params.category_id != '' %}
+                <input type="hidden" name="loacation" value="category/{{ route.params.category_id }}">
+            {% endif %}
             <div class="form-group">
                 <label for="name">Название работы</label>
                 <input type="text" name="name" id="name">
