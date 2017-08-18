@@ -28,9 +28,11 @@ a:hover {
   margin: 0 auto;
 }
 .content {
-  width: 1010px;
+  max-width: 1000px;
   margin: 0 auto;
-  margin-top: 165px;
+  margin-top: 148px;
+  padding-top: 20px;
+  min-height: calc(100vh - 148px);
 }
 .header {
   position: fixed;
@@ -46,8 +48,20 @@ a:hover {
   z-index: 999;
 }
 .header a {
+  display: inline-block;
+  vertical-align: middle;
   font-weight: bold;
   font-size: 40px;
+}
+.header__logo {
+  display: inline-block;
+  vertical-align: middle;
+  width: 85px;
+  height: 85px;
+  margin-right: 10px;
+  background: url('/admin/assets/images/logo.svg') center no-repeat;
+  background-size: 100%;
+  margin-left: -95px;
 }
 .tree {
   display: none;
@@ -92,9 +106,9 @@ a:hover {
 }
 .cards__item__inner {
   position: relative;
-  margin: 15px;
+  margin-right: 20px;
   text-align: center;
-  background: #eee;
+  background: #fdfdfd;
   box-shadow: 0px 0px 10px #f7f7f7;
   padding: 15px;
   min-height: 150px;
@@ -108,9 +122,15 @@ a:hover {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 50px;
-  line-height: 50px;
   left: 0;
+  height: 35px;
+  /*width: 50px;
+
+            background: url('/admin/assets/images/add.svg') center no-repeat;
+            background-size: 100%;
+            left: 50%;
+            margin-left: -25px;
+            font-size: 0;*/
   cursor: pointer;
   text-decoration: none;
 }
@@ -170,7 +190,7 @@ a:hover {
   top: 101px;
   left: 0;
   width: 100%;
-  border-bottom: 1px solid #f7f7f7;
+  border-bottom: 1px solid #eee;
   background: #fdfdfd;
   z-index: 9;
 }
@@ -178,12 +198,12 @@ a:hover {
   display: inline-block;
   vertical-align: middle;
   padding: 10px 15px;
-  border-right: 1px solid #f7f7f7;
+  border-right: 1px solid #eee;
   cursor: pointer;
   position: relative;
 }
 .menu__block:first-child {
-  border-left: 1px solid #f7f7f7;
+  border-left: 1px solid #eee;
 }
 .menu__block__title {
   font-weight: bold;
@@ -210,7 +230,7 @@ a:hover {
   background: #fdfdfd;
   z-index: 2;
   min-width: 160px;
-  border: 1px solid #f7f7f7;
+  border: 1px solid #eee;
 }
 .menu__block__icon {
   display: inline-block;
@@ -253,7 +273,7 @@ a:hover {
   position: absolute;
   top: -46px;
   width: 350px;
-  height: 44px;
+  height: 45px;
   box-sizing: border-box;
   padding: 0 50px 0 20px;
   background: #fff;
@@ -545,8 +565,13 @@ a:hover {
   margin-bottom: 0;
 }
 .res-tree__link {
+  display: inline-block;
   font-size: 14px;
   font-weight: bold;
+  margin-right: 15px;
+}
+.res-tree__link:last-child {
+  margin-right: 0;
 }
 .one-subservice__row {
   font-size: 0;
@@ -666,4 +691,99 @@ a:hover {
 .form-group input[type=submit]:hover {
   background: #eee;
   border-color: #fdfdfd;
+}
+.search {
+  padding-right: 20px;
+}
+.search__item {
+  background: #fdfdfd;
+  border: 1px solid #eee;
+  padding: 15px;
+  margin-bottom: 10px;
+}
+.search__item__name {
+  overflow: hidden;
+  font-size: 16px;
+  font-weight: 500;
+}
+.search__item__name a:first-letter {
+  text-transform: uppercase;
+}
+.search__item__type {
+  float: right;
+  width: 250px;
+}
+.search__item_empty {
+  padding: 50px 15px;
+}
+.search__find {
+  background: yellow;
+}
+.popup {
+  background: #fdfdfd;
+  color: #222;
+  width: 450px;
+  height: 550px;
+  border-radius: 3px;
+  border: 1px solid #eee;
+  padding: 15px;
+  box-sizing: border-box;
+}
+.popup__title {
+  display: inline-block;
+  font-size: 20px;
+  line-height: 22px;
+  font-weight: 500;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+.popup__content {
+  height: 440px;
+}
+.popup__item {
+  font-size: 0;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
+}
+.popup__col {
+  display: inline-block;
+  vertical-align: middle;
+  width: 10%;
+  font-size: 15px;
+}
+.popup__col:first-child {
+  width: 70%;
+}
+.popup__close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 20px;
+  height: 20px;
+  background: url('/admin/assets/images/close.svg');
+  background-size: 100%;
+  cursor: pointer;
+}
+.popup__label {
+  display: block;
+  width: 20px;
+  height: 20px;
+  background: url('/admin/assets/images/checkbox.svg') center no-repeat;
+  background-size: 100%;
+  cursor: pointer;
+}
+.popup__input {
+  position: absolute;
+  left: -1000px;
+  visibility: hidden;
+}
+.popup__input:checked + .popup__label {
+  background: url('/admin/assets/images/checkbox-active.svg') center no-repeat;
+  background-size: 100%;
+}
+.scrollable .viewport .overview {
+  width: 100%;
 }

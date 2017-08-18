@@ -1,0 +1,23 @@
+{% extends 'layout/layout.html' %}
+
+{% block content %}
+    <div class="search">
+        {% if search %}
+            {% for searchItem in search %}
+                {% for item in searchItem.result %}
+                    <div class="search__item">
+                        <div class="search__item__type">{{ searchItem.synonym }}</div>
+                        <div class="search__item__name">
+                            <a href="" class="js-search-item">{{ item.name | capitalize }}</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% else %}
+            <div class="search__item search__item_empty center-align">
+                По вашему запросу ничего не найдено
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}

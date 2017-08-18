@@ -3,12 +3,15 @@
 <head>
     <title>admin panel</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="{{ config.adminPath }}/assets/css/vendor/jquery.custom-scrollbar.css">
     <link rel="stylesheet" type="text/css" href="{{ config.adminPath }}/assets/css/build/__main.css">
 </head>
 <body>
     <div class="header">
         <div class="l-wrapper">
-            <a href="{{ config.adminPath }}/">Admin Panel</a>
+            <a href="/" class="header__logo"></a>
+            <a href="{{ config.adminPath }}">Admin Panel</a>
         </div>
     </div>
     <div class="menu">
@@ -30,10 +33,12 @@
                 </div>
             </div>
             <div class="menu__search">
-                <div class="menu__search__block">
-                    <div class="menu__search__icon js-search-btn"></div>
-                    <input type="text" name="search" class="menu__search__input js-search-input">
-                </div>
+                <form method="get" action="{{ config.adminPath }}/search">
+                    <div class="menu__search__block">
+                        <div class="menu__search__icon js-search-btn"></div>
+                        <input type="text" name="query" class="menu__search__input js-search-input {% if route[1] == 'search' and route.params.query %} open {% endif %}" value="{% if route[1] == 'search' and route.params.query %}{{route.params.query}}{% endif %}">
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -61,22 +66,28 @@
             {% block content %}{% endblock %}
         </div>
     </div>
-    <div class="footer">
+    <footer>
+        {% include 'blocks/footer/main.html' %}
+    </footer>
+    <div class="scripts">
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="{{ config.adminPath }}/assets/js/vendor/blocksit.min.js"></script>
+        <script type="text/javascript" src="{{ config.adminPath }}/assets/js/vendor/jquery.popupoverlay.js"></script>
+        <script type="text/javascript" src="{{ config.adminPath }}/assets/js/vendor/jquery.custom-scrollbar.min.js"></script>
+        <script type="text/javascript" src="{{ config.assetsPath }}js/widgets/functions.js"></script>
+        <script type="text/javascript" src="{{ config.assetsPath }}js/widgets/main.js"></script>
 
+        {% block pageScripts %}
+            <script type="text/javascript" src="{{ config.assetsPath }}js/build/{{ route[1] }}/main.js"></script>
+        {% endblock %}
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('.js-pinterest-container').BlocksIt({
+                    numOfCol: 3,
+                    blockElement: '.js-pinterest-item'
+                });
+            })
+        </script>
     </div>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="{{ config.adminPath }}/assets/js/vendor/blocksit.min.js"></script>
-    <script type="text/javascript" src="{{ config.assetsPath }}js/widgets/functions.js"></script>
-    <script type="text/javascript" src="{{ config.assetsPath }}js/widgets/main.js"></script>
-
-    {% block pageScripts %}{% endblock %}
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('.js-pinterest-container').BlocksIt({
-                numOfCol: 3,
-                blockElement: '.js-pinterest-item'
-            });
-        })
-    </script>
 </body>
 </html>

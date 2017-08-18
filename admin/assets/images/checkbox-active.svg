@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="19px" viewBox="0 0 19 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45 (43475) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 14</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="19" height="19" rx="2"></rect>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1200" transform="translate(-908.000000, -951.000000)">
+            <g id="Group-14" transform="translate(908.000000, 951.000000)">
+                <g id="Group-11">
+                    <g id="Rectangle-23">
+                        <use fill-opacity="0.15" fill="#16B67F" fill-rule="evenodd" xlink:href="#path-1"></use>
+                        <rect stroke="#16B67F" stroke-width="1" x="0.5" y="0.5" width="18" height="18" rx="2"></rect>
+                    </g>
+                    <polyline id="Shape" stroke="#16B67F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="6.5 9.5 8.5 11.5 12.5 7.5"></polyline>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

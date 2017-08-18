@@ -2,29 +2,29 @@
 
 {% block content %}
     {# <pre>{{ dump(dataLength) }}</pre> #}
-    <div class="content">
-        <div class="cards">
-            <div class="cards__item">
-                <div class="cards__item__inner">
-                    <a href="{{ config.adminPath }}/categories/" class="cards__item__title">Категории</a>
-                    <div class="cards__item__count">{{ dataLength.categories }}</div>
-                    <a href="" class="cards__item__button">Добавить</a>
-                </div>
+    <div class="cards">
+        <div class="cards__item">
+            <div class="cards__item__inner">
+                <a href="{{ config.adminPath }}/categories/" class="cards__item__title">Категории</a>
+                <div class="cards__item__count">{{ dataLength.categories }}</div>
+                <a href="" class="cards__item__button">Добавить</a>
             </div>
-            <div class="cards__item">
-                <div class="cards__item__inner">
-                    <a href="{{ config.adminPath }}/services/" class="cards__item__title">Услуги</a>
-                    <div class="cards__item__count">{{ dataLength.service }}</div>
-                    <a href="" class="cards__item__button">Добавить</a>
-                </div>
+        </div>
+        <div class="cards__item">
+            <div class="cards__item__inner">
+                <a href="{{ config.adminPath }}/services/" class="cards__item__title">Услуги</a>
+                <div class="cards__item__count">{{ dataLength.service }}</div>
+                <a href="" class="cards__item__button">Добавить</a>
             </div>
-            <div class="cards__item">
-                <div class="cards__item__inner">
-                    <a href="{{ config.adminPath }}/subservice/" class="cards__item__title">Виды работ</a>
-                    <div class="cards__item__count">{{ dataLength.subservice }}</div>
-                    <a href="" class="cards__item__button">Добавить</a>
-                </div>
+        </div>
+        <div class="cards__item">
+            <div class="cards__item__inner">
+                <a href="{{ config.adminPath }}/subservice/" class="cards__item__title">Виды работ</a>
+                <div class="cards__item__count">{{ dataLength.subservice }}</div>
+                <a href="" class="cards__item__button">Добавить</a>
             </div>
         </div>
     </div>
 {% endblock %}
+
+{% block pageScripts %}{% endblock %}

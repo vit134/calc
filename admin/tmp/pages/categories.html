@@ -21,7 +21,7 @@
                     {% endif %}
                     </div>
                     <div class="category__item__menu">
-                        <a href="categories/edit/?id={{ item.id }}" class="category__item__menu__button category__item__menu__button_edit"></a>
+                        <a href="{{ config.adminPath }}/categories/edit/?id={{ item.id }}" class="category__item__menu__button category__item__menu__button_edit"></a>
                         <a href="{{ config.adminPath }}/delete?type=category&id={{ item.id }}" class="category__item__menu__button category__item__menu__button_delete"></a>
                     </div>
                 </div>

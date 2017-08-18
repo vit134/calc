@@ -103,6 +103,7 @@ gulp.task('scripts-admin', function () {
 });
 
 gulp.task('build', ['scripts', 'styles'], function () {});
+gulp.task('build-admin', ['scripts-admin', 'styles-admin'], function () {});
 
 gulp.task('watch', function(){
     watch([path.dev.site.less, path.dev.site.blocks], function(event, cb) {

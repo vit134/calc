@@ -289,11 +289,23 @@
 
             //$arr[$value][] = $result;
             foreach ($result as $key => $value) {
-                $arr[$tableName][] = $value;
+                $arr[$tableName]['result'][] = $value;
             }
         }
 
         return $arr;
+    }
+
+    function synonym($syn) {
+        global $synonyms;
+
+        foreach ($synonyms as $key => $value) {
+            echo  $key;
+
+            if ($syn == $key) {
+                return $value;
+            }
+        }
     }
 
 ?>

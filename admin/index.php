@@ -19,6 +19,7 @@
     $data = array(
         'route' => $route,
         'config' => $config,
+        'links' => $links,
         'data' => $all,
         'dataLength' => getLength(),
         'categories' => getAllCategories(),
@@ -26,7 +27,7 @@
         'subservices' => getSubServices(),
     );
 
-    var_dump(search('стен'));
+    //var_dump(search('стен'));
 
     if ($route[1] == '') {
         echo $twig->render('pages/index.html', $data);
@@ -72,6 +73,18 @@
     } else if ($route[1] == 'add') {
 
         echo $twig->render('pages/add/'. $route[2] .'.html', $data);
+
+    } else if ($route[1] == 'search') {
+        $searchResult = search($route['params']['query']);
+
+        foreach ($searchResult as $key => $value) {
+            /*$searchResult[synonym($key)] = $searchResult[$key];
+            unset($searchResult[$key]);*/
+            $searchResult[$key]['synonym'] = synonym($key);
+        }
+
+        $data['search'] = $searchResult;
+        echo $twig->render('pages/search.html', $data);
 
     } else {
 

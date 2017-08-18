@@ -1,0 +1,28 @@
+<div class="popup" id="popup_service">
+    <div class="popup__inner">
+        <div class="popup__title">Выберите вид работ</div>
+        <div class="popup__content js-scroll-container">
+            <div class="popup__content__inner">
+                {% for item in subservices %}
+                    <div class="popup__item">
+                        <div class="popup__col">
+                            <div class="popup__item__name">{{ item.name }}</div>
+                        </div>
+                        <div class="popup__col">
+                            <div class="popup__item__price">{{ item.price_for_unit }}</div>
+                        </div>
+                        <div class="popup__col">
+                            <div class="popup__item__time">{{ item.minute_for_unit }}</div>
+                        </div>
+                        <div class="popup__col">
+                            <input type="checkbox" name="check_{{ item.id }}" id="check_{{ item.id }}" class="popup__input">
+                            <label for="check_{{ item.id }}" class="popup__label"></label>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {# <pre>{{ dump(subservices) }}</pre> #}
+    <span class="popup__close popup_service_close"></span>
+</div>

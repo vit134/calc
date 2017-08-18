@@ -15,6 +15,8 @@ $(document).ready(function() {
                 $(this).addClass('open');
             } else {
                 console.log('has open');
+
+                $(this).closest('form').submit();
             }
         })
     }
