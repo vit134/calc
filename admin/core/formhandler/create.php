@@ -27,7 +27,7 @@
         case 'service':
             if (allreadyCat($_POST['name'])) {
                 $query = "INSERT INTO `services` (`name`, `categoryId`) VALUES ('". $_POST['name'] ."', '". $_POST['category_id'] ."')";
-                //echo $mysqli;
+
                 $result = $mysqli->query($query);
 
                 if ($result) {

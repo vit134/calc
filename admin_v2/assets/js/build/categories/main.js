@@ -1,0 +1,1 @@
+$(document).ready(function(){console.log("categories");var t=$(".js-pinterest-container"),e=$(".category__item__title").find("a");if(getUrlVars().status&&""!==getUrlVars().status){"success"===getUrlVars().status&&(alert("success"),window.location="/admin/categories/")}getSearchItems(e,t)});

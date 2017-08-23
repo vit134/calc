@@ -3,7 +3,7 @@
 {% block content %}
     <div class="add-service">
         <h3>Добавить услугу</h3>
-        <form method="post" action="{{ config.adminPath }}/core/formhandler/add.php">
+        <form method="post" action="{{ config.adminPath }}/core/formhandler/create.php">
             <input type="hidden" name="form-type" value="{{ route[2] }}">
             {% if route.params and route.params.category_id != '' %}
                 <input type="hidden" name="loacation" value="category/{{ route.params.category_id }}">

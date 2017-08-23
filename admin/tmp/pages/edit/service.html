@@ -1,0 +1,18 @@
+{% extends 'layout/layout.html' %}
+
+{% block content %}
+    <div class="add-category">
+        <h3>Редактирование услуги</h3>
+        <form method="post" action="{{ config.adminPath }}/core/formhandler/edit.php">
+            <input type="hidden" name="form-type" value="service">
+            <input type="hidden" name="service-id" value="{{ edit_serv.id }}">
+            <div class="form-group">
+                <label for="name" class="add-category__label">Название услуги</label>
+                <input type="text" name="name" id="name" class="add-category__input" value="{{ edit_serv.name }}">
+            </div>
+            <div class="form-group">
+                <input type="submit" name="" value="Отправить">
+            </div>
+        </form>
+    </div>
+{% endblock %}

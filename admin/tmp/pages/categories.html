@@ -9,16 +9,19 @@
                     <div class="category__item__title">
                         <a href="/admin/category/{{ item.id }}">{{ item.name }}</a></div>
                     <div class="category__services">
-                    {% if item.service | length > 0 %}
-                        {% for item in item.service %}
-                            <div class="category__services__item"><a href="/admin/service/{{ item[0].id }}">{{ item[0].name }}</a></div>
-                        {% endfor %}
-                    {% else %}
-                        <div class="fake"></div>
-                        <div class="category__nothing">
-                            <a href="{{ config.addServiceLink }}?catagory_name={{ item.name }}&category_id={{ item.id }}">Добавить</a>
-                        </div>
-                    {% endif %}
+                        {% if item.service | length > 0 %}
+                            {% for item in item.service %}
+                                <div class="category__services__item"><a href="/admin/service/{{ item[0].id }}">{{ item[0].name }}</a></div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="fake"></div>
+                            <div class="category__nothing">
+                                Пока нет ни одно услуги
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="category__footer">
+                        <a href="{{ config.addServiceLink }}?catagory_name={{ item.name }}&category_id={{ item.id }}">Добавить</a>
                     </div>
                     <div class="category__item__menu">
                         <a href="{{ config.adminPath }}/categories/edit/?id={{ item.id }}" class="category__item__menu__button category__item__menu__button_edit"></a>

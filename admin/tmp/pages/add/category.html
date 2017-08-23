@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="add-category">
-        <form method="post" action="{{ config.adminPath }}/core/formhandler/add.php">
+        <form method="post" action="{{ config.adminPath }}/core/formhandler/create.php">
             <input type="hidden" name="form-type" value="{{ route[2] }}">
             <label for="name" class="add-category__label">Название категории</label>
             <input type="text" name="name" id="name" class="add-category__input">

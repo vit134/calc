@@ -1,6 +1,7 @@
 {% extends 'layout/layout.html' %}
 
 {% block content %}
+    {# <pre>{{ dump(service) }}</pre> #}
     <div class="res-tree">
         <div class="res-tree__row">
             <div class="res-tree__col">
@@ -19,8 +20,8 @@
                 </div>
             </div>
         </div>
-        {% if service.subservice %}
-            {% for subservice in service.subservice %}
+        {% if service.subservices %}
+            {% for subservice in service.subservices %}
                 <div class="res-tree__row">
                     <div class="res-tree__col">
                         <div class="res-tree__col__inner">
@@ -35,7 +36,7 @@
                         <div class="res-tree__col__inner">
                             <div class="res-tree__col__body res-tree__col__body_row">
                                 <div class="res-tree__col__row">
-                                    <a href="{{ config.adminPath }}/subservice/{{subservice[0].id}}">{{ subservice[0].name | capitalize }}</a>
+                                    <a href="{{ config.adminPath }}/subservice/{{subservice.main.id}}">{{ subservice.main.name | capitalize }}</a>
                                 </div>
                             </div>
                         </div>
@@ -44,9 +45,9 @@
                         <div class="res-tree__col__inner">
                             <div class="res-tree__col__body res-tree__col__body_before">
                                 {% if subservice.materials | length > 0 %}
-                                    {% for materials in subservice.materials %}
+                                    {% for material in subservice.materials %}
                                         <div class="res-tree__col__row">
-                                            <a href="{{ config.adminPath }}/subservice/{{subservice.id}}">{{ materials.name | capitalize }}</a>
+                                            <a href="{{ config.adminPath }}/material/{{material.id}}">{{ material.name | capitalize }}</a>
                                         </div>
                                     {% endfor %}
                                 {% else %}
@@ -98,7 +99,7 @@
                     <div class="res-tree__col__inner center-align">
                         <div class="res-tree__col__body">
                             <div class="res-tree__col__row">
-                                <a href="{{ config.addServiceLink }}" class="res-tree__link">Добавить</a>
+                                <a href="{{ config.addSubserviceLink }}?service_name={{service.name}}&service_id={{ service.id }}" class="res-tree__link">Добавить</a>
                             </div>
                         </div>
                     </div>

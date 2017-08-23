@@ -27,7 +27,9 @@
         'subservices' => getSubServices(),
     );
 
-    //var_dump(search('стен'));
+    /*echo '<pre>';
+    var_dump(getServiceWithAddiction(2));
+    echo '</pre>';*/
 
     if ($route[1] == '') {
         echo $twig->render('pages/index.html', $data);
@@ -48,14 +50,23 @@
 
     } else if ($route[1] == 'service') {
 
-        $data['service'] = getService($route[2]);
-        $data['service']['subservice'] = getSubService($route[2]);
+        /*$data['service'] = getService($route[2]);
+        $data['service']['subservice'] = getSubService($route[2]);*/
+
+        $data['service'] = getServiceWithAddiction($route[2]);
         echo $twig->render('pages/service.html', $data);
 
     } else if ($route[1] == 'services') {
 
-        $data['allService'] = getAllService();
-        echo $twig->render('pages/services.html', $data);
+        if ($route[2] == 'edit') {
+            $servId = $route['params']['id'];
+
+            $data['edit_serv'] = getService($servId);
+            echo $twig->render('pages/edit/service.html', $data);
+        } else {
+            $data['allService'] = getServiceWithAddiction();
+            echo $twig->render('pages/services.html', $data);
+        }
 
     } else if ($route[1] == 'subservices') {
 
@@ -86,7 +97,13 @@
         $data['search'] = $searchResult;
         echo $twig->render('pages/search.html', $data);
 
-    } else {
+    } else if ($route[1] == 'test') {
+
+
+        $data['test'] = getServiceWithAddiction(2);
+        echo $twig->render('pages/test.html', $data);
+
+    }else {
 
         echo $twig->render('pages/404.html', $data);
 

@@ -1,26 +1,24 @@
 {% extends 'layout/layout.html' %}
 
 {% block content %}
-    <div class="content">
-        <div class="subservice">
-            <table class="subservice__table">
-                <tr class="subservice__table__tr subservice__table__tr_header">
-                    <th class="subservice__table__th subservice__table__th_name">Название</th>
-                    <th class="subservice__table__th">Цена</th>
-                    <th class="subservice__table__th">Время</th>
-                    <th class="subservice__table__th subservice__table__th_parent-service">Услуга</th>
-                    <th class="subservice__table__th subservice__table__th_parent-cat">Категория</th>
+    <div class="subservice">
+        <table class="subservice__table">
+            <tr class="subservice__table__tr subservice__table__tr_header">
+                <th class="subservice__table__th subservice__table__th_name">Название</th>
+                <th class="subservice__table__th">Цена</th>
+                <th class="subservice__table__th">Время</th>
+                <th class="subservice__table__th subservice__table__th_parent-service">Услуга</th>
+                <th class="subservice__table__th subservice__table__th_parent-cat">Категория</th>
+            </tr>
+            {% for item in subservice %}
+                <tr class="subservice__table__tr">
+                    <td class="subservice__table__td"><a href="{{ config.adminPath }}/subservice/{{ item.id }}">{{ item.name | capitalize }}</a></td>
+                    <td class="subservice__table__td subservice__table__td_price">{{ item.price_for_unit }}</td>
+                    <td class="subservice__table__td subservice__table__td_minute">{{ item.minute_for_unit }}</td>
+                    <td class="subservice__table__td"><a href="{{ config.adminPath }}/service/{{ item.serviceId }}">{{ item.serv_name | capitalize }}</a></td>
+                    <td class="subservice__table__td"><a href="{{ config.adminPath }}/category/{{ item.cat_id }}">{{ item.cat_name | capitalize }}</a></td>
                 </tr>
-                {% for item in subservice %}
-                    <tr class="subservice__table__tr">
-                        <td class="subservice__table__td"><a href="{{ config.adminPath }}/subservice/{{ item.id }}">{{ item.name | capitalize }}</a></td>
-                        <td class="subservice__table__td subservice__table__td_price">{{ item.price_for_unit }}</td>
-                        <td class="subservice__table__td subservice__table__td_minute">{{ item.minute_for_unit }}</td>
-                        <td class="subservice__table__td"><a href="{{ config.adminPath }}/service/{{ item.serviceId }}">{{ item.serv_name | capitalize }}</a></td>
-                        <td class="subservice__table__td"><a href="{{ config.adminPath }}/category/{{ item.cat_id }}">{{ item.cat_name | capitalize }}</a></td>
-                    </tr>
-                {% endfor %}
-            </table>
-        </div>
+            {% endfor %}
+        </table>
     </div>
 {% endblock %}

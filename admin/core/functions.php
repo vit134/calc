@@ -308,4 +308,56 @@
         }
     }
 
+    function getServiceWithAddiction($serviceId) {
+        global $mysqli;
+        $arr = [];
+
+        $where = '';
+
+        if ($serviceId != '') {
+            $where = "WHERE svs.serv_id = " . $serviceId;
+        }
+
+        $query = "SELECT s.id, s.name, svs.subserv_id AS subservice_id, ss.name AS subservice_name, ss.price_for_unit, ss.minute_for_unit, svm.material_id, m.name AS material_name, m.price AS material_price
+            FROM serv_vs_subserv svs
+            LEFT JOIN services s ON svs.serv_id = s.id
+            LEFT JOIN subservices ss ON svs.subserv_id = ss.id
+            LEFT JOIN subserv_vs_materials svm ON svs.subserv_id = svm.subserv_id
+            LEFT JOIN materials m ON svm.material_id = m.id " . $where;
+            //WHERE svs.serv_id = " . $serviceId;
+
+        $result = $mysqli->query($query);
+
+        $arr['id'] = $serviceId;
+
+
+        if ($result) {
+            foreach ($result as $key => $value) {
+
+                $arr['name'] = $value['name'];
+                if ($value['subservice_id'] != NULL) {
+                    $arr['subservices'][$value['subservice_id']]['main'] = array(
+                        'id' => $value['subservice_id'],
+                        'name' => $value['subservice_name'],
+                        'price_for_unit' => $value['price_for_unit'],
+                        'minute_for_unit' => $value['minute_for_unit'],
+                    );
+
+                    if ($value['material_id'] != NULL) {
+                        $arr['subservices'][$value['subservice_id']]['materials'][] = array(
+                            'id' => $value['material_id'],
+                            'name' => $value['material_name'],
+                            'price' => $value['material_price']
+                        );
+                    }
+                }
+            }
+        }
+
+        return $arr;
+    }
+
+    function getAllServiceWithAddiction() {
+
+    }
 ?>

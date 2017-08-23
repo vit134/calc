@@ -28,6 +28,10 @@
                             {% if loop.index == 1 %}
                                 <div class="res-tree__col__body">
                                     {{ category.name | capitalize }}
+                                    <div class="res-tree__menu">
+                                        <a href="{{ config.adminPath }}/categories/edit/?id={{ category.id }}" class="res-tree__menu__button res-tree__menu__button_edit"></a>
+                                        <a href="{{ config.adminPath }}/delete?type=category&id={{ category.id }}" class="res-tree__menu__button res-tree__menu__button_delete"></a>
+                                    </div>
                                 </div>
                             {% endif %}
                         </div>
@@ -37,6 +41,10 @@
                             <div class="res-tree__col__body res-tree__col__body_row">
                                 <div class="res-tree__col__row">
                                     <a href="{{ config.adminPath }}/service/{{service[0].id}}">{{ service[0].name | capitalize }}</a>
+                                    <div class="res-tree__menu">
+                                        <a href="{{ config.adminPath }}/services/edit/?id={{ service[0].id }}" class="res-tree__menu__button res-tree__menu__button_edit"></a>
+                                        <a href="{{ config.adminPath }}/delete?type=category&id={{ service.id }}" class="res-tree__menu__button res-tree__menu__button_delete"></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -74,7 +82,8 @@
                     <div class="res-tree__col__inner">
                         <div class="res-tree__col__body res-tree__col__body_row">
                             <div class="res-tree__col__row center-align">
-                                <a href="{{ config.addServiceLink }}?category_name={{category.name}}&category_id={{ category.id }}" class="res-tree__link">Добавить</a>
+                                <a href="{{ config.addServiceLink }}?category_name={{category.name}}&category_id={{ category.id }}" class="res-tree__link">Создать</a>
+                                <a href="" class="res-tree__link popup_service_open">Добавить</a>
                             </div>
                         </div>
                     </div>
