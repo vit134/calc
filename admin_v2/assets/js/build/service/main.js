@@ -1,1 +1,0 @@
-$(document).ready(function(){console.log("service");var o=$("#popup_service"),c=$(".js-scroll-container");o.popup({scrolllock:!0}),console.log(c)});

@@ -1,0 +1,7 @@
+.has-error .form-control {
+    border-color: #ab1717;
+}
+
+ul.main-menu li i {
+    margin-left: 0.25em;
+}

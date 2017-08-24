@@ -1,0 +1,24 @@
+{% extends 'layout/layout.html' %}
+
+{% block pageName %}page-error{% endblock %}
+
+{% block window %}
+
+    <div class="page-error-container">
+    <div class="page-error-content">
+        <div class="error-code">404</div>
+        <h4 class="text-center title">Oops, an error has occurred. Page not found!</h4>
+        <form>
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" placeholder="Enter keyword..." class="form-control input-lg">
+                    <div class="input-group-btn">
+                        <button class="btn btn-primary btn-lg"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <p class="text-center"><a href="{{ config.adminPath }}" class="btn btn-primary"> Go to dashboard</a></p>
+    </div>
+</div>
+{% endblock %}

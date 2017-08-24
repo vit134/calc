@@ -21,20 +21,20 @@
         //global $mysqli;
 
         //свойства класса
-        //public $url = $_SERVER['REQUEST_URI'];
 
         //Методы
 
         //Роутинг
         public function route() {
+            $url = $_SERVER['REQUEST_URI'];
             $result = array();
 
-            if (stristr($this->$url, '?') != '') {
-                $url = explode('?', $this->$url)[0];
+
+            if (stristr($url, '?') != '') {
+                $url = explode('?', $url)[0];
 
                 $result = explode('/', $url);
-
-                $result['params'] = array_splice($_GET, 1);
+                $result['params'] = $_GET;
             } else {
                 $result = explode('/', $url);
             }
@@ -52,10 +52,24 @@
             $result = $mysqli->query($query);
 
             foreach ($result as $key => $value) {
-                $respose[] = $value['access'];
+                $respose[$value['access']] = $value['access'];
             }
 
             return $respose;
+        }
+
+        //получить информацию о пользователе по его id
+        public function getUserInfo($id) {
+            global $mysqli;
+
+            $query = "SELECT * FROM `users` WHERE id = " . $id;
+            $result = $mysqli->query($query);
+
+            foreach ($result as $key => $value) {
+                $respose[$key] = $value;
+            }
+
+            return $respose[0];
         }
 
         //Получить все из категорий

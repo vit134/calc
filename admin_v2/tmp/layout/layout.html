@@ -1,94 +1,87 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>admin panel</title>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Mouldifi - A fully responsive, HTML5 based admin theme">
+    <meta name="keywords" content="Responsive, HTML5, admin theme, business, professional, Mouldifi, web design, CSS3">
+    <title>Mouldifi | Dashboard</title>
+    <!-- Site favicon -->
+    <link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
+    <!-- /site favicon -->
+    <!-- Entypo font stylesheet -->
+    <link href="{{ config.assetsPath }}/theme/css/entypo.css" rel="stylesheet">
+    <!-- /entypo font stylesheet -->
+    <!-- Font awesome stylesheet -->
+    <link href="{{ config.assetsPath }}/theme/css/font-awesome.min.css" rel="stylesheet">
+    <!-- /font awesome stylesheet -->
+    <!-- Bootstrap stylesheet min version -->
+    <link href="{{ config.assetsPath }}/theme/css/bootstrap.min.css" rel="stylesheet">
+    <!-- /bootstrap stylesheet min version -->
+    <!-- Mouldifi core stylesheet -->
+    <link href="{{ config.assetsPath }}/theme/css/mouldifi-core.css" rel="stylesheet">
+    <!-- /mouldifi core stylesheet -->
+    <link href="{{ config.assetsPath }}/theme/css/mouldifi-forms.css" rel="stylesheet">
+    <link href="{{ config.assetsPath }}/theme/css/update-theme.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="{{ config.assetsPath }}/theme/js/html5shiv.min.js"></script>
+      <script src="{{ config.assetsPath }}/theme/js/respond.min.js"></script>
+<![endif]-->
+    <!--[if lte IE 8]>
+    <script src="{{ config.assetsPath }}/theme/js/plugins/flot/excanvas.min.js"></script>
+<![endif]-->
 
-    <link rel="stylesheet" type="text/css" href="{{ config.adminPath }}/assets/css/vendor/jquery.custom-scrollbar.css">
-    <link rel="stylesheet" type="text/css" href="{{ config.adminPath }}/assets/css/build/__main.css">
 </head>
-<body>
-    <div class="header">
-        <div class="l-wrapper">
-            <a href="/" class="header__logo"></a>
-            <a href="{{ config.adminPath }}">Admin Panel</a>
-        </div>
-    </div>
-    <div class="menu">
-        <div class="l-wrapper">
-            <div class="menu__block">
-                <div class="menu__block__title"><span class="menu__block__icon menu__block__icon_menu"></span></div>
-                <div class="menu__block__dropdown">
-                    <a href="{{ config.adminPath }}/categories/" class="menu__link">Категории</a>
-                    <a href="{{ config.adminPath }}/services/" class="menu__link">Услуги</a>
-                    <a href="{{ config.adminPath }}/subservices/" class="menu__link">Виды работ</a>
-                </div>
-            </div>
-            <div class="menu__block">
-                <div class="menu__block__title"><span class="menu__block__icon menu__block__icon_plus"></span></div>
-                <div class="menu__block__dropdown">
-                    <a href="{{ config.addCatgoryLink }}" class="menu__link">Категория</a>
-                    <a href="{{ config.addServiceLink }}" class="menu__link">Услуга</a>
-                    <a href="{{ config.addSubserviceLink }}" class="menu__link">Вид работ</a>
-                </div>
-            </div>
-            <div class="menu__search">
-                <form method="get" action="{{ config.adminPath }}/search">
-                    <div class="menu__search__block">
-                        <div class="menu__search__icon js-search-btn"></div>
-                        <input type="text" name="query" class="menu__search__input js-search-input {% if route[1] == 'search' and route.params.query %} open {% endif %}" value="{% if route[1] == 'search' and route.params.query %}{{route.params.query}}{% endif %}">
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="tree">
-        <ul class="tree__categories-ul">
-            {% for cat in data.categories %}
-                <li><a href="{{ config.adminPath }}/category/{{ cat.id }}">{{ cat.name }}</a>
-                    <ul class="tree__service-ul">
-                        {% for serv in cat.service %}
-                            <li><a href="{{ config.adminPath }}/service/{{ serv.id }}">{{ serv.name }}</a>
-                                <ul class="tree__subservice-ul">
-                                    {% for sub in serv.subservice %}
-                                        <li><a href="{{ config.adminPath }}/subservice/{{ sub.id }}">{{ sub.name }}</a></li>
-                                    {% endfor %}
-                                </ul>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="l-wrapper">
-        <div class="content">
-            {% block content %}{% endblock %}
-        </div>
-    </div>
-    <footer>
-        {% include 'blocks/footer/main.html' %}
-    </footer>
-    <div class="scripts">
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-        <script type="text/javascript" src="{{ config.adminPath }}/assets/js/vendor/blocksit.min.js"></script>
-        <script type="text/javascript" src="{{ config.adminPath }}/assets/js/vendor/jquery.popupoverlay.js"></script>
-        <script type="text/javascript" src="{{ config.adminPath }}/assets/js/vendor/jquery.custom-scrollbar.min.js"></script>
-        <script type="text/javascript" src="{{ config.assetsPath }}js/widgets/functions.js"></script>
-        <script type="text/javascript" src="{{ config.assetsPath }}js/widgets/main.js"></script>
 
-        {% block pageScripts %}
-            <script type="text/javascript" src="{{ config.assetsPath }}js/build/{{ route[1] }}/main.js"></script>
-        {% endblock %}
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $('.js-pinterest-container').BlocksIt({
-                    numOfCol: 3,
-                    blockElement: '.js-pinterest-item'
-                });
-            })
-        </script>
-    </div>
+<body class="{% block pageName %}{% endblock %}">
+    <!-- Page container -->
+    {% block window %}
+        <div class="page-container">
+            <!-- Page Sidebar -->
+                {% include 'blocks/sidebar/main.html' %}
+            <!-- /page Sidebar -->
+
+            <!-- Main container -->
+                <div class="main-container gray-bg">
+                    <!-- Main header -->
+                        {% include 'blocks/main-header/main.html' %}
+                    <!-- /main header -->
+
+                    <!-- Main content -->
+
+                    <div class="main-content">
+                        {% block content %}{% endblock %}
+                        <!-- Footer -->
+                            {% include 'blocks/footer/main.html' %}
+                        <!-- /footer -->
+                    </div>
+
+                    <!-- /main content -->
+                </div>
+            <!-- /main container -->
+        </div>
+    {% endblock %}
+    <!-- /page container -->
+
+    <script src="{{ config.assetsPath }}theme/js/jquery.min.js"></script>
+    <script src="{{ config.assetsPath }}theme/js/bootstrap.min.js"></script>
+    <script src="{{ config.assetsPath }}theme/js/plugins/metismenu/jquery.metisMenu.js"></script>
+    <script src="{{ config.assetsPath }}theme/js/plugins/blockui-master/jquery-ui.js"></script>
+    <script src="{{ config.assetsPath }}theme/js/plugins/blockui-master/jquery.blockUI.js"></script>
+    <!--Float Charts-->
+    <script src="{{ config.assetsPath }}theme/js/plugins/flot/jquery.flot.min.js"></script>
+    <script src="{{ config.assetsPath }}theme/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="{{ config.assetsPath }}theme/js/plugins/flot/jquery.flot.resize.min.js"></script>
+    <script src="{{ config.assetsPath }}theme/js/plugins/flot/jquery.flot.selection.min.js"></script>
+    <script src="{{ config.assetsPath }}theme/js/plugins/flot/jquery.flot.pie.min.js"></script>
+    <script src="{{ config.assetsPath }}theme/js/plugins/flot/jquery.flot.time.min.js"></script>
+    <script src="{{ config.assetsPath }}theme/js/functions.js"></script>
+    <script src="{{ config.assetsPath }}js/widgets/functions.js"></script>
+
+    {% block pageScripts %}{% endblock %}
 </body>
 </html>

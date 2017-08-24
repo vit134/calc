@@ -1,23 +1,26 @@
 <?php
 
+    $adminPath = '/admin_v2';
+
     $config = array(
-        'adminPath' => '/admin',
-        'addCatgoryLink' => '/admin/add/category',
-        'addServiceLink' => '/admin/add/service',
-        'addSubserviceLink' => '/admin/add/subservice',
-        'addMaterialLink' => '/admin/add/material',
-        'assetsPath' => '/admin/assets/'
+        'adminPath' => $adminPath,
+        'addCatgoryLink' => $adminPath . '/add/category',
+        'addServiceLink' => $adminPath. '/add/service',
+        'addSubserviceLink' => $adminPath . '/add/subservice',
+        'addMaterialLink' => $adminPath . '/add/material',
+        'assetsPath' => $adminPath . '/assets/',
+        'corePath' => $adminPath . '/core/'
     );
 
     $links = array(
-        'category' => $congig['adminPath'] . '/category/',
-        'service' => $congig['adminPath'] . 'service/',
-        'subservice' => $congig['adminPath'] . 'subservice/',
-        'material' => $congig['adminPath'] . 'material/',
-        'categories' => $congig['adminPath'] . 'categories/',
-        'services' => $congig['adminPath'] . 'services/',
-        'subservices' => $congig['adminPath'] . 'subservices/',
-        'materials' => $congig['adminPath'] . 'materials/'
+        'category' => $adminPath . '/category/',
+        'service' => $adminPath . 'service/',
+        'subservice' => $adminPath . 'subservice/',
+        'material' => $adminPath . 'material/',
+        'categories' => $adminPath . 'categories/',
+        'services' => $adminPath . 'services/',
+        'subservices' => $adminPath . 'subservices/',
+        'materials' => $adminPath . 'materials/'
     );
 
     $searchConfig = array(

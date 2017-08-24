@@ -19,8 +19,8 @@ var path = {
             js: 'js/build/'
         },
         admin: {
-            css: 'admin/assets/css/build/',
-            js: 'admin/assets/js/build/'
+            css: 'admin_v2/assets/css/build/',
+            js: 'admin_v2/assets/js/build/'
         }
     },
     dev: {
@@ -34,10 +34,10 @@ var path = {
             vendorCss: 'css/vendor/*.css'
         },
         admin: {
-            js: 'admin/assets/js/main.js',
-            jsPages: 'admin/assets/js/pages/*/*.js',
-            less: 'admin/assets/css/*.less',
-            blocks: 'admin/assets/css/blocks/*/*.less',
+            js: 'admin_v2/assets/js/main.js',
+            jsPages: 'admin_v2/assets/js/pages/*/*.js',
+            less: 'admin_v2/assets/css/*.less',
+            blocks: 'admin_v2/assets/css/blocks/*/*.less',
         }
     }
 }
