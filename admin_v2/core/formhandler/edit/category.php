@@ -10,6 +10,7 @@
 
     $newAlready = [];
     $newNew = [];
+    $queryArr = [];
     $arr = [];
 
     foreach ($already as $key => $value) {
@@ -26,7 +27,7 @@
             $is = array_search($value, $newAlready);
 
             if (!$is) {
-                $arr['new'] = $value;
+                $arr['new'][] = $value;
             }
         }
 
@@ -40,25 +41,22 @@
             }
         }
 
-        $res = 0;
-        foreach ($arr['deleted'] as $key => $value) {
-            $query = "DELETE FROM `cat_vs_service` WHERE `cat_id` =". $_POST['id'] ." AND `serv_id` = " . $value;
-            $result = $mysqli->query($query);
-            if ($result) {
-                ++$res;
+        if ($arr['deleted']) {
+            foreach ($arr['deleted'] as $key => $value) {
+                $query = "DELETE FROM `cat_vs_service` WHERE `cat_id` =". $_POST['id'] ." AND `serv_id` = " . $value;
+                $result = $mysqli->query($query);
+
             }
         }
-        $queryArr = [];
 
-        foreach ($arr['new'] as $key => $value) {
-            $queryArr[] = "(" . $_POST['id'] . "," . $value . ")";
+        if ($arr['new']) {
+            foreach ($arr['new'] as $key => $value) {
+                $queryArr[] = "(" . $_POST['id'] . "," . $value . ")";
+            }
         }
 
-
-        if (count($res) == count($arr['deleted'])) {
-            $query = "INSERT INTO `cat_vs_service`(`cat_id`, `serv_id`) VALUES " . implode(",", $queryArr);
-            $result = $mysqli->query($query);
-        }
+        $query = "INSERT INTO `cat_vs_service`(`cat_id`, `serv_id`) VALUES " . implode(",", $queryArr);
+        $result = $mysqli->query($query);
 
 
 
