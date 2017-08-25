@@ -35,7 +35,7 @@ var path = {
         },
         admin: {
             js: 'admin_v2/assets/js/main.js',
-            jsPages: 'admin_v2/assets/js/pages/*/*.js',
+            jsPages: 'admin_v2/assets/js/pages/*/*/*.js',
             less: 'admin_v2/assets/css/*.less',
             blocks: 'admin_v2/assets/css/blocks/*/*.less',
         }

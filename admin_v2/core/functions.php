@@ -73,11 +73,41 @@
         }
 
         //Получить все из категорий
-        public function getAllCategories() {}
+        public function getAllCategories() {
+            global $mysqli;
+            $query = "SELECT * FROM categories";
+            $result = $mysqli->query($query);
+
+            return $result;
+        }
         //Получить все из услуг
-        public function getAllServices() {}
+        public function getAllServices() {
+            global $mysqli;
+            $arr = [];
+
+            $query = "SELECT * FROM services";
+            $result = $mysqli->query($query);
+
+            foreach ($result as $key => $value) {
+                $arr[] = $value;
+            }
+
+            return $arr;
+        }
         //Получить все из подуслуг
-        public function getAllSubServices() {}
+        public function getAllSubServices() {
+            global $mysqli;
+            $arr = [];
+
+            $query = "SELECT * FROM subservices";
+            $result = $mysqli->query($query);
+
+            foreach ($result as $key => $value) {
+                $arr[] = $value;
+            }
+
+            return $arr;
+        }
         //Получить все из материалов
         public function getAllMaterials() {}
 
@@ -91,13 +121,103 @@
         public function getOnematerial($id) {}
 
         //Получить все категории включая услуги и подуслуги
-        public function getAllCategoriesWithSub($id) {}
+        public function getAllCategoriesWithSub() {
+            global $mysqli;
+
+            $query = "SELECT
+                        c.*,
+                        cvs.serv_id,
+                        s.name AS serv_name,
+                        s.publish AS serv_publish
+                    FROM `categories` c
+                    LEFT JOIN `cat_vs_service` cvs ON c.id = cvs.cat_id
+                    LEFT JOIN `services` s ON cvs.serv_id = s.id";
+
+            $result = $mysqli->query($query);
+
+            if ($result) {
+                foreach ($result as $key => $value) {
+                    $servArr = array(
+                        'id' => $value['serv_id'],
+                        'name' => $value['serv_name']
+                    );
+                    $arr[$value['id']]['main'] = array(
+                        'id' => $value['id'],
+                        'name' => $value['name'],
+                        'publish' => $value['publish']
+                    );
+                    if ($value['serv_id'] != NULL) {
+                        $arr[$value['id']]['services'][] = array(
+                            'id' => $value['serv_id'],
+                            'name' => $value['serv_name'],
+                            'publish' => $value['serv_publish']
+                        );
+                    }
+                }
+            }
+
+            return $arr;
+        }
         //Получить все услуги включая подуслуги и материалы
         public function getAllServicesWithSub($id) {}
         //Получить все подуслуги включая материалы
         public function getAllSubServicesWithSub($id) {}
 
 
+        //Получить категорию включая услуги и подуслуги по её id
+        public function getOneCategoryWithSub($id) {
+            global $mysqli;
+
+            $query = "SELECT
+                        c.*,
+                        cvs.serv_id,
+                        s.name AS serv_name,
+                        s.publish AS serv_publish
+                    FROM `categories` c
+                    LEFT JOIN `cat_vs_service` cvs ON c.id = cvs.cat_id
+                    LEFT JOIN `services` s ON cvs.serv_id = s.id  WHERE c.id = " . $id;
+
+            $result = $mysqli->query($query);
+
+            if ($result) {
+                foreach ($result as $key => $value) {
+                    $servArr = array(
+                        'id' => $value['serv_id'],
+                        'name' => $value['serv_name']
+                    );
+                    $arr['main'] = array(
+                        'id' => $value['id'],
+                        'name' => $value['name'],
+                        'publish' => $value['publish']
+                    );
+                    if ($value['serv_id'] != NULL) {
+                        $arr['services'][] = array(
+                            'id' => $value['serv_id'],
+                            'name' => $value['serv_name'],
+                            'publish' => $value['serv_publish']
+                        );
+                    }
+                }
+            }
+
+            return $arr;
+        }
+
+        //Сравнить все улуги одной категории с уже добавленными в неё
+        public function compareAllreadyServices($id) {
+            $allready = $this->getOneCategoryWithSub($id)['services'];
+            $all = $this->getAllServices();
+
+            foreach ($all as $key => $value) {
+                foreach ($allready as $arkey => $arvalue) {
+                    if ($value['id'] == $arvalue['id']) {
+                        unset($all[$key]);
+                    }
+                }
+            }
+
+            return $arr = array('already' => $allready, 'all' => $all);
+        }
 
     }
 

@@ -20,3 +20,15 @@ function getSearchItems($searchBlock, $searchContainer) {
 
     return searchItems;
 }
+
+function showAlerts() {
+    var params = getUrlVars();
+
+    console.log(params.status);
+
+    if (params.status == 'success') {
+        alert('success');
+        window.location.search = '';
+
+    }
+}

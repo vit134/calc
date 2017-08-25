@@ -1456,6 +1456,13 @@ i.icon-dot-3.icon-more {
 	position: relative;
 	padding: 15px 24px;
 }
+
+.panel-body-row {
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #ddd;
+}
+
 .panel-minimal > .panel-heading {
 	border-color: #ddd;
 }
@@ -1605,6 +1612,9 @@ i.icon-dot-3.icon-more {
 	color: #fff;
 	background-color: #00b8ce;
 	border-color: #00b8ce;
+}
+.panel-primary > .panel-heading a:hover {
+	color: #505050;
 }
 .panel-primary > .panel-heading + .panel-collapse > .panel-body {
 	border-top-color: #00b8ce;

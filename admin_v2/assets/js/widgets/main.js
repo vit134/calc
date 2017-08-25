@@ -6,6 +6,7 @@ $(document).ready(function() {
 
     function init() {
         bindEvents();
+        showAlerts();
     }
 
     function bindEvents() {

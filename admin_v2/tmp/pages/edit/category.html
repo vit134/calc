@@ -1,0 +1,56 @@
+{% extends 'layout/layout.html' %}
+
+{% block pageName %}edit-category{% endblock %}
+
+{% block pageCss %}
+    <link href="{{ config.assetsPath }}theme/css/plugins/select2/select2.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="row">
+
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title">Редактирование категрии</h3>
+            </div>
+            <div class="panel-body">
+                <form method="post" action="{{ config.formhandlerPath }}edit/category.php">
+                    <input type="hidden" name="id" value="{{ one_category.main.id }}">
+                    <div class="form-group {% if route.params.error %}has-error{% endif %} {% if route.params.name %}has-warning{% endif %}">
+                        <label for="name" class="control-label">Название</label>
+                        <input type="text" class="form-control " id="name" name="name" placeholder="Введите название категории" value="{{ one_category.main.name  }}">
+                        <div class="error">Такое название уже существует</div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="control-label">Выберите услугу</label>
+                        <select name="services[]" class="select2 form-control" multiple>
+                            <option disabled value="">Select states</option>
+                            {% for item in diff.already %}
+                                <option selected value="{{ item.id }}">{{ item.name }}</option>
+                            {% endfor %}
+
+                            {% for item in diff.all %}
+                                <option  value="{{ item.id }}">{{ item.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" {% if one_category.main.publish == 1 %}checked{% endif %} name="publish">Опубликовать</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Добавить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <pre style="height: 297px; overflow: scroll;">{{ dump() }}</pre>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+    <!-- Select2-->
+    <script src="{{ config.assetsPath }}theme/js/plugins/select2/select2.full.min.js"></script>
+    <script src="{{ config.assetsPath }}js/build/add/category/main.js"></script>
+{% endblock %}

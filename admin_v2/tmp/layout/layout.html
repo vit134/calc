@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Mouldifi - A fully responsive, HTML5 based admin theme">
     <meta name="keywords" content="Responsive, HTML5, admin theme, business, professional, Mouldifi, web design, CSS3">
-    <title>Mouldifi | Dashboard</title>
+    <title>Admin Panel</title>
     <!-- Site favicon -->
     <link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
     <!-- /site favicon -->
@@ -24,6 +24,7 @@
     <link href="{{ config.assetsPath }}/theme/css/mouldifi-core.css" rel="stylesheet">
     <!-- /mouldifi core stylesheet -->
     <link href="{{ config.assetsPath }}/theme/css/mouldifi-forms.css" rel="stylesheet">
+    {% block pageCss %}{% endblock %}
     <link href="{{ config.assetsPath }}/theme/css/update-theme.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -81,6 +82,7 @@
     <script src="{{ config.assetsPath }}theme/js/plugins/flot/jquery.flot.time.min.js"></script>
     <script src="{{ config.assetsPath }}theme/js/functions.js"></script>
     <script src="{{ config.assetsPath }}js/widgets/functions.js"></script>
+    <script src="{{ config.assetsPath }}js/widgets/main.js"></script>
 
     {% block pageScripts %}{% endblock %}
 </body>

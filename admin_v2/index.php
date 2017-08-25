@@ -46,20 +46,65 @@
             case 'resourses':
                 switch ($route[2]) {
                     case 'category':
-                        echo $twig->render('pages/resourses/category.html', $data);
+                        if ($route[3] == '') {
+                            $data['all_categories'] = $func->getAllCategoriesWithSub();
+                            echo $twig->render('pages/'. $route[1]. '/category.html', $data);
+                        } else {
+                            $data['one_category'] = $func->getOneCategoryWithSub($route[3]);
+                            echo $twig->render('pages/'. $route[1]. '/one-category.html', $data);
+                        }
                         break;
                     case 'service':
-                        echo $twig->render('pages/resourses/service.html', $data);
+                        echo $twig->render('pages/'. $route[1]. '/service.html', $data);
                         break;
                     case 'subservice':
-                        echo $twig->render('pages/resourses/subservice.html', $data);
+                        echo $twig->render('pages/'. $route[1]. '/subservice.html', $data);
                         break;
                     default:
                         echo $twig->render('pages/404.html', $data);
                 };
                 break;
-            case 2:
-                echo "i равно 2";
+            case 'add':
+                switch ($route[2]) {
+                    case 'category':
+                        $data['all_services'] = $func->getAllServices();
+                        echo $twig->render('pages/'. $route[1]. '/category.html', $data);
+                        break;
+                    case 'service':
+                        $data['all_categories'] = $func->getAllCategories();
+                        $data['all_subservices'] = $func->getAllSubServices();
+                        echo $twig->render('pages/'. $route[1]. '/service.html', $data);
+                        break;
+                    case 'subservice':
+                        echo $twig->render('pages/'. $route[1]. '/subservice.html', $data);
+                        break;
+                    default:
+                        echo $twig->render('pages/404.html', $data);
+                };
+                break;
+            case 'edit':
+                switch ($route[2]) {
+                    case 'category':
+                        $data['all_services'] = $func->getAllServices();
+                        $data['one_category'] = $func->getOneCategoryWithSub($route[3]);
+                        $data['diff'] = $func->compareAllreadyServices($route[3]);
+                        echo $twig->render('pages/'. $route[1]. '/category.html', $data);
+                        break;
+                    case 'service':
+                        $data['all_categories'] = $func->getAllCategories();
+                        $data['all_subservices'] = $func->getAllSubServices();
+                        echo $twig->render('pages/'. $route[1]. '/service.html', $data);
+                        break;
+                    case 'subservice':
+                        echo $twig->render('pages/'. $route[1]. '/subservice.html', $data);
+                        break;
+                    default:
+                        echo $twig->render('pages/404.html', $data);
+                };
+                break;
+            case 'test':
+                $data['test'] = $func->compareAllreadyServices(39);
+                echo $twig->render('pages/test.html', $data);
                 break;
             default:
                 echo $twig->render('pages/404.html', $data);

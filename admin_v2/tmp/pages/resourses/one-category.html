@@ -1,24 +1,24 @@
 {% extends 'layout/layout.html' %}
 
-{% block pageName %}all-categories-page{% endblock %}
+{% block pageName %}one-category-page{% endblock %}
 
 {% block content %}
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-inherit panel-minimal">
                 <div class="panel-heading clearfix">
-                    <h2 class="panel-title">Услуги</h2>
+                    <h2 class="panel-title">Категория "{{ one_category.main.name }}"</h2>
                     <ul class="panel-tool-options">
-                        <a href="{{ config.adminPath}}/add/service" class="btn btn-default" type="button">Создать</a>
+                        <a href="{{ config.adminPath}}/add/category" class="btn btn-default" type="button">Редактировать</a>
                     </ul>
                 </div>
                 <!-- panel body -->
                 <div class="panel-body">
-                    {% for item in all_categories %}
+                    {% for item in one_category.services %}
                         <div class="col-md-3">
                            <div class="panel panel-primary">
                                 <div class="panel-heading clearfix">
-                                    <h3 class="panel-title"><a href="{{ item.main.id }}">{{ item.main.name }}</a></h3>
+                                    <h3 class="panel-title"><a href="{{ links.service }}{{ item.id }}">{{ item.name | capitalize }}</a></h3>
                                     <ul class="panel-tool-options">
                                         <li><a href="#"><i class=" icon-pencil"></i></a></li>
                                         <li><a href="#"><i class=" icon-trash"></i></a></li>
@@ -26,17 +26,7 @@
                                 </div>
                                 <!-- panel body -->
                                 <div class="panel-body">
-                                    {% if  item.services %}
-                                        {% for service in item.services %}
-                                            <div class="panel-body-row">
-                                                <a href="{{ links.service }}{{ service.id }}">{{ service.name }}</a>
-                                            </div>
-                                        {% endfor %}
-                                    {% else %}
-                                        <div class="panel-empty">
-                                            Пусто
-                                        </div>
-                                    {% endif %}
+
                                 </div>
                             </div>
                         </div>
@@ -46,6 +36,7 @@
                 </div>
             </div>
         </div>
+       <pre>{{ dump(one_category) }}</pre>
     </div>
 {% endblock %}
 

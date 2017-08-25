@@ -5,3 +5,31 @@
 ul.main-menu li i {
     margin-left: 0.25em;
 }
+
+.form-group .error {
+    display: none;
+    position: absolute;
+    right: 40px;
+    top: 45px;
+    color: inherit;
+}
+
+.form-group.has-warning {
+    color: #946c28;
+}
+
+.has-warning .error {
+    display: block;
+}
+
+.panel.panel-inherit {
+    background-color: inherit;
+}
+
+.panel-heading .panel-tool-options {
+    margin-right: 0;
+}
+
+.select2-container {
+    width: 100% !important;
+}
