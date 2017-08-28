@@ -13,30 +13,37 @@
                     </ul>
                 </div>
                 <!-- panel body -->
-                <div class="panel-body">
+                <div class="panel-body masonry-layout js-blocksit-container">
                     {% for item in all_categories %}
-                        <div class="col-md-3">
-                           <div class="panel panel-primary">
-                                <div class="panel-heading clearfix">
-                                    <h3 class="panel-title"><a href="{{ item.main.id }}">{{ item.main.name }}</a></h3>
-                                    <ul class="panel-tool-options">
-                                        <li><a href="{{ links.editCategory }}{{ item.main.id }}"><i class=" icon-pencil"></i></a></li>
-                                        <li><a href="#"><i class=" icon-trash"></i></a></li>
-                                    </ul>
-                                </div>
-                                <!-- panel body -->
-                                <div class="panel-body">
-                                    {% if  item.services %}
-                                        {% for service in item.services %}
-                                            <div class="panel-body-row">
-                                                <a href="{{ links.service }}{{ service.id }}">{{ service.name }}</a>
+                        <div class="js-blocksit-block masonry-layout__panel">
+                            <div class="masonry-layout__panel-content">
+                               <div class="panel panel-primary">
+                                    <div class="panel-heading clearfix">
+                                        <h3 class="panel-title"><a href="{{ item.main.id }}">{{ item.main.name }}</a></h3>
+                                        <ul class="panel-tool-options">
+                                            <li><a href="{{ links.editCategory }}{{ item.main.id }}"><i class=" icon-pencil"></i></a></li>
+                                            <li><a href="#" class="js-delete-cat-btn" data-cat-id="{{ item.main.id }}"><i class=" icon-trash"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <!-- panel body -->
+                                    <div class="panel-body">
+                                        {% if  item.services %}
+                                            {% for service in item.services %}
+                                                <div class="panel-body-row">
+                                                    <a href="{{ links.service }}{{ service.id }}">{{ service.name | capitalize }}</a>
+                                                </div>
+                                            {% endfor %}
+                                            {% if item.services | length >= 3 %}
+                                                <div class="panel-body-footer center-align">
+                                                    <a href="{{ item.main.id }}">Посмотреть все</a>
+                                                </div>
+                                            {% endif %}
+                                        {% else %}
+                                            <div class="panel-empty">
+                                                Пусто
                                             </div>
-                                        {% endfor %}
-                                    {% else %}
-                                        <div class="panel-empty">
-                                            Пусто
-                                        </div>
-                                    {% endif %}
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -47,8 +54,29 @@
             </div>
         </div>
     </div>
+    {# {{ config.formhandlerPath }}delete/category?id={{ item.main.id }} #}
+    <!--Small Modal-->
+    <div id="modal-delete" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Удаление категории</h4>
+          </div>
+          <div class="modal-body">
+            <p>Вы действительно хотите удалить категорию?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Нет, я ошибся</button>
+            <!-- <form action="" method="get"></form> -->
+            <a href="{{ config.formhandlerPath }}delete/category.php?id=" type="button" class="btn btn-primary js-modal-confirm-delete">Да, хочу</a>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!--End Small Modal-->
 {% endblock %}
 
 {% block pageScripts %}
-
+    <script src="{{ config.assetsPath }}js/build/category/main.js"></script>
 {% endblock %}

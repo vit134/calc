@@ -76,6 +76,8 @@
                         echo $twig->render('pages/'. $route[1]. '/service.html', $data);
                         break;
                     case 'subservice':
+                        $data['all_services'] = $func->getAllServices();
+                        $data['all_materials'] = $func->getAllMaterials();
                         echo $twig->render('pages/'. $route[1]. '/subservice.html', $data);
                         break;
                     default:

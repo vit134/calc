@@ -1463,6 +1463,13 @@ i.icon-dot-3.icon-more {
 	border-bottom: 1px solid #ddd;
 }
 
+.panel-body-row > a  {
+	font-weight: 600;
+}
+
+.panel-body-footer {
+}
+
 .panel-minimal > .panel-heading {
 	border-color: #ddd;
 }

@@ -1,0 +1,1 @@
+$(document).ready(function(){console.log("all categories page");var e=$(".js-delete-cat-btn"),o=$(".js-modal-confirm-delete"),t=$("#modal-delete");e.on("click",function(e){e.preventDefault(),console.log(123);var l=$(this).attr("data-cat-id"),a=o.attr("href");a=a.split("="),console.log(a,a[0],a[1]),a=a[0]+"="+l,console.log(a),o.attr("href",a),t.modal()})});

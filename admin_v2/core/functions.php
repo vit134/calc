@@ -109,7 +109,19 @@
             return $arr;
         }
         //Получить все из материалов
-        public function getAllMaterials() {}
+        public function getAllMaterials() {
+            global $mysqli;
+            $arr = [];
+
+            $query = "SELECT * FROM materials";
+            $result = $mysqli->query($query);
+
+            foreach ($result as $key => $value) {
+                $arr[] = $value;
+            }
+
+            return $arr;
+        }
 
         //Получить одну категорию по её id
         public function getOneCategory($id) {}
@@ -159,9 +171,11 @@
             return $arr;
         }
         //Получить все услуги включая подуслуги и материалы
-        public function getAllServicesWithSub($id) {}
+        public function getAllServicesWithSub() {
+
+        }
         //Получить все подуслуги включая материалы
-        public function getAllSubServicesWithSub($id) {}
+        public function getAllSubServicesWithSub() {}
 
 
         //Получить категорию включая услуги и подуслуги по её id
@@ -209,9 +223,11 @@
             $all = $this->getAllServices();
 
             foreach ($all as $key => $value) {
-                foreach ($allready as $arkey => $arvalue) {
-                    if ($value['id'] == $arvalue['id']) {
-                        unset($all[$key]);
+                if ($allready != NULL) {
+                    foreach ($allready as $arkey => $arvalue) {
+                        if ($value['id'] == $arvalue['id']) {
+                            unset($all[$key]);
+                        }
                     }
                 }
             }

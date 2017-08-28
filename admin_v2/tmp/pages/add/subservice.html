@@ -1,0 +1,72 @@
+{% extends 'layout/layout.html' %}
+
+{% block pageName %}add-subservice{% endblock %}
+
+{% block pageCss %}
+    <link href="{{ config.assetsPath }}theme/css/plugins/select2/select2.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title">Создать вид работ</h3>
+            </div>
+            <div class="panel-body">
+                <form method="post" action="{{ config.formhandlerPath }}add/subservice.php">
+                    <div class="form-group {% if route.params.error %}has-error{% endif %} {% if route.params.name %}has-warning{% endif %}">
+                        <label for="name" class="control-label">Название</label>
+                        <input type="text" class="form-control " id="name" name="name" placeholder="Введите название вида работ" {% if route.params.name %}value="{{ route.params.name  }} {% endif %}" required>
+                        <div class="error">Такое название уже существует</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group {% if route.params.error %}has-error{% endif %}">
+                                <label for="price" class="control-label">Цена</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control " id="price" name="price" placeholder="Введите цену" required>
+                                    <span class="input-group-addon">руб.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group {% if route.params.error %}has-error{% endif %}">
+                                <label for="time" class="control-label">Время</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control " id="time" name="time" placeholder="Введите время" required>
+                                    <span class="input-group-addon">мин.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="control-label">Выберите услугу</label>
+                        <select name="services[]" class="select2 form-control" data-placeholder="Выберите услугу" multiple>
+                            {% for item in all_services %}
+                                <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="control-label">Выберите материалы</label>
+                        <select name="materials[]" class="select2 form-control" data-placeholder="Выберите материалы" multiple>
+                            {% for item in all_materials %}
+                                <option value="{{ item.id }}">{{ item.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" name="publish">Опубликовать</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Создать</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+
+{% endblock %}
