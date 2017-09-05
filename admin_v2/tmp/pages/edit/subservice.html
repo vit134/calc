@@ -1,0 +1,73 @@
+{% extends 'layout/layout.html' %}
+
+{% block pageName %}edit-subservice{% endblock %}
+
+{% block pageCss %}
+    <link href="{{ config.assetsPath }}theme/css/plugins/select2/select2.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title">Редактирование вида работ</h3>
+            </div>
+            <div class="panel-body">
+                <form method="post" action="{{ config.formhandlerPath }}edit/subservice.php">
+                    <input type="hidden" name="id" value="{{ one_subservice.main.id }}">
+                    <div class="form-group {% if route.params.error %}has-error{% endif %} {% if route.params.name %}has-warning{% endif %}">
+                        <label for="name" class="control-label">Название</label>
+                        <input type="text" class="form-control " id="name" name="name" placeholder="Введите название вида работ" value="{{ one_subservice.main.name  }}">
+                        <div class="error">Такое название уже существует</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group {% if route.params.error %}has-error{% endif %}">
+                                <label for="price_for_unit" class="control-label">Цена</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control " id="price_for_unit" name="price_for_unit" placeholder="Введите цену" value="{{ one_subservice.main.price_for_unit }}">
+                                    <span class="input-group-addon">руб.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group {% if route.params.error %}has-error{% endif %}">
+                                <label for="minute_for_unit" class="control-label">Время</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control " id="minute_for_unit" name="minute_for_unit" placeholder="Введите время" value="{{ one_subservice.main.minute_for_unit }}">
+                                    <span class="input-group-addon">мин.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="control-label">Выберите материалы</label>
+                        <select name="materials[]" class="select2 form-control" multiple>
+                            <option disabled value="">Select states</option>
+                            {% for item in diff.already %}
+                                <option selected value="{{ item.id }}">{{ item.name }}</option>
+                            {% endfor %}
+
+                            {% for item in diff.all %}
+                                <option  value="{{ item.id }}">{{ item.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" {% if one_subservice.main.publish == 1 %}checked{% endif %} name="publish">Опубликовано</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- <pre style="height: 297px; overflow: scroll;">{{ dump(one_subservice) }}</pre> -->
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+    <!-- Select2-->
+    <script src="{{ config.assetsPath }}theme/js/plugins/select2/select2.full.min.js"></script>
+    <script src="{{ config.assetsPath }}js/build/add/category/main.js"></script>
+{% endblock %}

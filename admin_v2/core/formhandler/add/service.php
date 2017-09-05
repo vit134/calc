@@ -40,7 +40,7 @@
             }
 
             if ($result) {
-                header("Location: " . $links['category'] . "?status=success" );
+                header("Location: " . $links['service'] . "?status=success" );
             }
         } else {
             header("Location: " . $back . "?already=true&name=" . $name);

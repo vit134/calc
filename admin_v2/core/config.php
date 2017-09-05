@@ -20,9 +20,8 @@
         'subservice' => $adminPath . '/resourses/subservice/',
         'material' => $adminPath . '/resourses/material/',
         'editCategory' => $adminPath . '/edit/category/',
-        'services' => $adminPath . 'services/',
-        'subservices' => $adminPath . 'subservices/',
-        'materials' => $adminPath . 'materials/'
+        'editService' => $adminPath . '/edit/service/',
+        'editSubService' => $adminPath . '/edit/subservice/',
     );
 
     $searchConfig = array(

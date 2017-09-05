@@ -13,13 +13,6 @@
 
         if (!checkRes($name)) {
 
-            echo $name . '<br>';
-            echo $publish . '<br>';
-            echo $price . '<br>';
-            echo $time . '<br>';
-
-            var_dump($_POST['services']);
-
             $query = "INSERT INTO `subservices`(`name`, `price_for_unit`, `minute_for_unit`, `publish`) VALUES ('". $name ."','". $price ."','". $time ."',". $publish .")";
             $result = $mysqli->query($query);
 
@@ -43,6 +36,10 @@
 
                 $querySubservVsMat = "INSERT INTO `subserv_vs_materials` ( `subserv_id`, `material_id` ) VALUES " . implode(",", $queryArr);
                 $result = $mysqli->query($querySubservVsMat);
+            }
+
+            if ($result) {
+                header("Location: " . $links['subservice'] . "?status=success" );
             }
         } else {
             header("Location: " . $back . "?already=true&name=" . $name);

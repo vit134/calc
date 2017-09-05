@@ -55,9 +55,11 @@
                         }
                         break;
                     case 'service':
+                        $data['all_services'] = $func->getAllServicesWithSub();
                         echo $twig->render('pages/'. $route[1]. '/service.html', $data);
                         break;
                     case 'subservice':
+                        $data['all_subservices'] = $func->getAllSubServicesWithSub();
                         echo $twig->render('pages/'. $route[1]. '/subservice.html', $data);
                         break;
                     default:
@@ -89,15 +91,19 @@
                     case 'category':
                         $data['all_services'] = $func->getAllServices();
                         $data['one_category'] = $func->getOneCategoryWithSub($route[3]);
-                        $data['diff'] = $func->compareAllreadyServices($route[3]);
+                        $data['diff'] = $func->compareAlreadyServices($route[3]);
                         echo $twig->render('pages/'. $route[1]. '/category.html', $data);
                         break;
                     case 'service':
-                        $data['all_categories'] = $func->getAllCategories();
-                        $data['all_subservices'] = $func->getAllSubServices();
+                        $data['one_service'] = $func->getOneServiceWithSub($route[3]);
+                        $data['diff_cat'] = $func->compareAlreadyCategories($route[3]);
+                        $data['diff_subserv'] = $func->compareAlreadySubservices($route[3]);
+
                         echo $twig->render('pages/'. $route[1]. '/service.html', $data);
                         break;
                     case 'subservice':
+                        $data['one_subservice'] = $func->getOneSubServiceWithSub($route[3]);
+                        $data['diff'] = $func->compareAlreadyMaterials($route[3]);
                         echo $twig->render('pages/'. $route[1]. '/subservice.html', $data);
                         break;
                     default:
@@ -105,7 +111,7 @@
                 };
                 break;
             case 'test':
-                $data['test'] = $func->compareAllreadyServices(39);
+                $data['test'] = $func->compareAlreadyServices(39);
                 echo $twig->render('pages/test.html', $data);
                 break;
             default:
