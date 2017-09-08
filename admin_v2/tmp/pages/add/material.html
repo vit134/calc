@@ -1,0 +1,67 @@
+{% extends 'layout/layout.html' %}
+
+{% block pageName %}add-material{% endblock %}
+
+{% block pageCss %}
+    <link href="{{ config.assetsPath }}theme/css/plugins/select2/select2.css" rel="stylesheet">
+    <link href="{{ config.assetsPath }}css/vendor/cropper.css" rel="stylesheet">
+    {# <link href="{{ config.assetsPath }}theme/css/plugins/dropzone/dropzone.css" rel="stylesheet"> #}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title">Создать материал</h3>
+            </div>
+            <div class="panel-body">
+                <form method="post" enctype="multipart/form-data" action="{{ config.formhandlerPath }}add/material.php">
+                    <div class="form-group {% if route.params.error %}has-error{% endif %} {% if route.params.name %}has-warning{% endif %}">
+                        <label for="name" class="control-label">Название</label>
+                        <input type="text" class="form-control " id="name" name="name" placeholder="Введите название вида работ" {% if route.params.name %}value="{{ route.params.name  }} {% endif %}" required>
+                        <div class="error">Такое название уже существует</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group {% if route.params.error %}has-error{% endif %}">
+                                <label for="price" class="control-label">Цена</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control " id="price" name="price" placeholder="Введите цену" required>
+                                    <span class="input-group-addon">руб.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group {% if route.params.error %}has-error{% endif %}">
+                                <label for="unit" class="control-label">Единицы измерения</label>
+                                <input type="text" class="form-control " id="unit" name="unit" placeholder="Укажите единицу измерения материала" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group ">
+                                <label for="image" class="control-label">Изображение материала</label>
+                                <input type="file" name="image" class="js-file-input">
+                                <div class="js-image-error"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checkbox checkbox-replace checkbox-primary">
+                        <input type="checkbox" id="publish" name="publish" >
+                        <label for="publish">Опубликовать</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary js-submit-btn">Создать</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+    {# <script src="{{ config.assetsPath }}theme/js/plugins/dropzone/dropzone.js"></script>
+    <script src="{{ config.assetsPath }}js/vendor/cropper.min.js"></script> #}
+    <script src="{{ config.assetsPath }}js/build/add/material/main.js"></script>
+{% endblock %}

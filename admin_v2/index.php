@@ -62,6 +62,10 @@
                         $data['all_subservices'] = $func->getAllSubServicesWithSub();
                         echo $twig->render('pages/'. $route[1]. '/subservice.html', $data);
                         break;
+                    case 'material':
+                        $data['all_materials'] = $func->getAllMaterialsWithSub();
+                        echo $twig->render('pages/'. $route[1]. '/material.html', $data);
+                        break;
                     default:
                         echo $twig->render('pages/404.html', $data);
                 };
@@ -81,6 +85,11 @@
                         $data['all_services'] = $func->getAllServices();
                         $data['all_materials'] = $func->getAllMaterials();
                         echo $twig->render('pages/'. $route[1]. '/subservice.html', $data);
+                        break;
+                    case 'material':
+                        $data['all_services'] = $func->getAllServices();
+                        $data['all_materials'] = $func->getAllMaterials();
+                        echo $twig->render('pages/'. $route[1]. '/material.html', $data);
                         break;
                     default:
                         echo $twig->render('pages/404.html', $data);
@@ -105,6 +114,11 @@
                         $data['one_subservice'] = $func->getOneSubServiceWithSub($route[3]);
                         $data['diff'] = $func->compareAlreadyMaterials($route[3]);
                         echo $twig->render('pages/'. $route[1]. '/subservice.html', $data);
+                        break;
+                    case 'material':
+                        $data['one_material'] = $func->getOnematerial($route[3]);
+
+                        echo $twig->render('pages/'. $route[1]. '/material.html', $data);
                         break;
                     default:
                         echo $twig->render('pages/404.html', $data);

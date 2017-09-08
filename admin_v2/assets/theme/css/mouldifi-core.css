@@ -1461,9 +1461,29 @@ i.icon-dot-3.icon-more {
 	margin-bottom: 10px;
 	padding-bottom: 10px;
 	border-bottom: 1px solid #ddd;
+	font-size: 0;
+}
+
+.panel-body-col {
+	display: inline-block;
+	vertical-align: middle;
+	width: 50%;
+	font-size: 15px;
+}
+
+.panel-body-col:last-child {
+	text-align: right;
+	font-weight: 600;
+}
+
+.panel-image {
+	display: block;
+	margin: 0 auto;
+	max-width: 240px;
 }
 
 .panel-body-row > a  {
+	font-size: 15px;
 	font-weight: 600;
 }
 

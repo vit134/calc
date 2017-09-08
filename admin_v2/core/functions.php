@@ -134,7 +134,19 @@
         //Получить одну подуслугу по её id
         public function getOneSubService($id) {}
         //Получить один материал по его id
-        public function getOnematerial($id) {}
+        public function getOnematerial($id) {
+            global $mysqli;
+            $arr = [];
+
+            $query = "SELECT * FROM materials WHERE id =" . $id;
+            $result = $mysqli->query($query);
+
+            foreach ($result as $key => $value) {
+                $arr[] = $value;
+            }
+
+            return $arr;
+        }
 
         //Получить все категории включая услуги и подуслуги
         public function getAllCategoriesWithSub() {
@@ -225,6 +237,7 @@
 
             return $arr;
         }
+
         //Получить все подуслуги включая материалы
         public function getAllSubServicesWithSub() {
             global $mysqli;
@@ -273,6 +286,43 @@
                             'name' => $value['material_name'],
                             'price' => $value['material_price'],
                             'image' => $value['material_image']
+                        );
+                    }
+                }
+            }
+
+            return $arr;
+        }
+
+        //Получить все подуслуги включая материалы
+        public function getAllMaterialsWithSub() {
+            global $mysqli;
+
+            $query = "SELECT
+                        m.*,
+                        s.id AS subserv_id,
+                        s.name AS subserv_name
+                      FROM `materials` m
+                        LEFT JOIN `subserv_vs_materials` svm ON m.id = svm.material_id
+                        LEFT JOIN `subservices` s ON s.id = svm.subserv_id";
+
+            $result = $mysqli->query($query);
+
+            if ($result) {
+                foreach ($result as $key => $value) {
+
+                    $arr[$value['id']]['main'] = array(
+                        'id' => $value['id'],
+                        'name' => $value['name'],
+                        'publish' => $value['publish'],
+                        'image' => $value['image'],
+                        'price' => $value['price'],
+                        'unit' => $value['unit']
+                    );
+                    if ($value['subserv_id'] != NULL) {
+                        $arr[$value['id']]['subservices'][$value['subserv_id']] = array(
+                            'id' => $value['subserv_id'],
+                            'name' => $value['subserv_name']
                         );
                     }
                 }

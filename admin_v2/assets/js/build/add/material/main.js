@@ -1,0 +1,1 @@
+$(document).ready(function(){console.log("add material page");$(".js-file-input"),$(".js-image-error"),$(".js-image-wrapper"),$(".js-submit-btn")});

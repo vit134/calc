@@ -1,6 +1,8 @@
 <?php
     define('SITE_PATH', realpath(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR);
 
+    $sitePath = 'http://calc/admin_v2/';
+
     $adminPath = '/admin_v2';
 
     $config = array(
@@ -22,6 +24,7 @@
         'editCategory' => $adminPath . '/edit/category/',
         'editService' => $adminPath . '/edit/service/',
         'editSubService' => $adminPath . '/edit/subservice/',
+        'editMaterial' => $adminPath . '/edit/material/',
     );
 
     $searchConfig = array(
