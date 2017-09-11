@@ -1,9 +1,10 @@
 {% extends 'layout/layout.html' %}
 
-{% block pageName %}edit-material{% endblock %}
+{% block pageName %}edit-material-page{% endblock %}
 
 {% block pageCss %}
     <link href="{{ config.assetsPath }}theme/css/plugins/select2/select2.css" rel="stylesheet">
+    <link href="{{ config.assetsPath }}/css/vendor/cropper.min.css" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -15,7 +16,7 @@
                 <h3 class="panel-title">Редактирование материала</h3>
             </div>
             <div class="panel-body">
-                <form method="post" action="{{ config.formhandlerPath }}edit/material.php">
+                <form method="post" enctype="multipart/form-data" action="{{ config.formhandlerPath }}edit/material.php">
                     <input type="hidden" name="id" value="{{ one_material[0].id }}">
                     <div class="form-group {% if route.params.error %}has-error{% endif %} {% if route.params.name %}has-warning{% endif %}">
                         <label for="name" class="control-label">Название</label>
@@ -39,14 +40,34 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group {% if route.params.error %}has-error{% endif %}">
-                        <div class="edit-material">
+                    <div class="row">
+                        <div class="form-group col-lg-12">
                             <label for="unit" class="control-label">Изображение</label>
-                            {% if one_material[0].image != '' %}
-                                <img src="{{ one_material[0].image  }}" class="edit-material__image">
-                            {% else %}
-                                <div class="edit-material__no-image"></div>
-                            {% endif %}
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <input type="file" name="image" id="image">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="edit-material" style="min-height: 260px;"">
+                                {% if one_material[0].image != '' %}
+                                    <img src="{{ one_material[0].image  }}" class="edit-material__image extra-preview">
+                                    <div class="edit-material__preview extra-preview extra-preview-sm" style="min-height: 240px;"></div>
+                                {% else %}
+                                    <div class="edit-material__no-image"></div>
+                                {% endif %}
+                                <div class="edit-material__controls">
+                                    <div class="edit-material__controls__item">
+                                        <input type="checkbox" name="remove" id="remove" class="edit-material__check-input">
+                                        <label for="remove" class="edit-material__check-label"><i class="icon-trash"></i></label>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="x" class="js-x1">
+                                <input type="hidden" name="y" class="js-y1">
+                                <input type="hidden" name="width" class="js-width">
+                                <input type="hidden" name="height" class="js-height">
+                            </div>
                         </div>
                     </div>
                     <div class="checkbox">
@@ -58,12 +79,25 @@
             </div>
         </div>
     </div>
+    <div class="edit-material__popup js-popup">
+        <div class="edit-material__popup__bg"></div>
+        <div class="edit-material__popup__title">Выделите нужную область<br>на изображении</div>
+        <div class="edit-material__popup__image-wrapper">
+            <img class="edit-material__popup__image preview-edit">
+        </div>
+        <div class="edit-material__popup__submit js-popup-submit">Готово</div>
+    </div>
     <pre style="height: 297px; overflow: scroll;">{{ dump(one_material) }}</pre>
 </div>
+{# <img class="cropper" src="http://placekitten.com/520/520">
+<div class="extra-preview extra-preview-sm"></div>
+<div class="extra-preview extra-preview-xs"></div> #}
+
 {% endblock %}
 
 {% block pageScripts %}
     <!-- Select2-->
     <script src="{{ config.assetsPath }}theme/js/plugins/select2/select2.full.min.js"></script>
-    <script src="{{ config.assetsPath }}js/build/add/category/main.js"></script>
+    <script src="{{ config.assetsPath }}/js/vendor/cropper.min.js"></script>
+    <script src="{{ config.assetsPath }}js/build/edit/material/main.js"></script>
 {% endblock %}

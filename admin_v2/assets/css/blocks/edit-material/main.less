@@ -1,0 +1,141 @@
+.edit-material {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+
+    &:hover & {
+        &__controls {
+            right: 0;
+        }
+
+        &__image {
+            filter: blur(2px);
+        }
+    }
+
+    &__image {
+        display: block;
+        max-width: 250px;
+        margin: 0 auto;
+        padding: 20px;
+        transition: All .6s ease;
+    }
+
+    &__controls {
+        position: absolute;
+        right: -40px;
+        top: 0;
+        bottom: 0;
+        width: 40px;
+        border-left: 1px solid #ccc;
+        text-align: center;
+        padding: 30px 0;
+        transition: All .6s ease;
+
+        &__item {
+            display: block;
+            height: 25px;
+            cursor: pointer;
+
+            & i {
+                font-size: 20px;
+            }
+        }
+    }
+
+    &__check-input {
+        position: absolute;
+        opacity: 0;
+        left: -1000px;
+    }
+
+    &__check-label {
+        display: block;
+        cursor: pointer;
+    }
+
+    &__preview {
+        position: absolute;
+        top: 10px;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        right: 0;
+        left: 50%;
+        margin-left: -125px;
+
+        & img {
+            width: 250px;
+        }
+    }
+
+    &__popup {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 999;
+        text-align: center;
+        display: none;
+
+        &__bg {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            filter: blur(10px);
+            background: rgba(0,0,0, 0.6);
+            z-index: 2;
+        }
+
+        &__title {
+            position: absolute;
+            display: inline-block;
+            left: 10%;
+            top: 5%;
+            color: #fff;
+            z-index: 9;
+            font-size: 36px;
+            font-style: italic;
+            z-index: 99;
+            text-align: left;
+        }
+
+        &__submit {
+            position: absolute;
+            display: inline-block;
+            bottom: 10%;
+            right: 10%;
+            color: #fff;
+            z-index: 9;
+            font-size: 36px;
+            font-style: italic;
+            z-index: 99;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        &:before {
+            content: "";
+            display: inline-block;
+            vertical-align: middle;
+            height: 100%;
+        }
+
+        &__image-wrapper {
+            position: relative;
+            display: inline-block;
+            vertical-align: middle;
+            z-index: 99;
+            max-width: 60%;
+            max-height: 60%;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+            border: 3px dashed #fff;
+        }
+    }
+}

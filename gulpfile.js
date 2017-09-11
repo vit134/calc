@@ -62,7 +62,8 @@ gulp.task('styles', function () {
 
 gulp.task('styles-admin', function () {
     return gulp.src([
-        path.dev.admin.less
+        path.dev.admin.less,
+        path.dev.admin.blocks
     ])
     .pipe(concat('__main.less'))
     .pipe(less())
