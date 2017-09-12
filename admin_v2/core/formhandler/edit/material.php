@@ -3,41 +3,72 @@
     include '../../../core/functions.php';
     include '../../../../core/dbconnect.php';
 
+    $func = new globalClass();
+
     $back = getenv("HTTP_REFERER");
     $uploaddir = SITE_PATH . 'uploads/';
-
 
     $queryArr = [];
 
     foreach ($_POST as $key => $value) {
-        if ($key == 'publish' && $value == 'on') {
-            $value = 1;
-        }
+        if ($key != 'x' && $key != 'y' && $key != 'width' && $key != 'height') {
+            if ($key == 'publish' && $value == 'on') {
+                $value = 1;
+            }
 
-        $queryArr[] = "`" . $key . "`=" . "'" . $value . "'";
+            $queryArr[] = "`" . $key . "`=" . "'" . $value . "'";
+        }
     }
 
     if ($_FILES['image']['tmp_name'] != '') {
-        $uploadfile = date('d_m_y') . '-' . basename($_FILES['image']['name']);
 
-        if (move_uploaded_file($_FILES['image']['tmp_name'], $uploaddir . $uploadfile)) {
-            $queryArr[] = "image='" . $sitePath . "uploads/"  . addslashes($uploadfile) . "'";
+        $tmpFilename = $_FILES['image']['tmp_name'];
+        $fileName = $_FILES['image']['name'];
+        $fileType = exif_imagetype($tmpFilename);
+        $imageSize = getimagesize($tmpFilename);
+        $fileName = $func->rus2translit($fileName);
+
+        $x = $_POST['x'];
+        $y = $_POST['y'];
+        $w = $_POST['width'];
+        $h = $_POST['height'];
+
+        $new_filename = "uploads/" . intval($w) . "x" . intval($h) . "-" . $fileName;
+
+
+        $new = imagecreatetruecolor($w, $h);
+        if ($fileType == IMAGETYPE_GIF) {
+            $current_image = imagecreatefromjpeg($tmpFilename);
         } else {
-            echo "File uploading failed.\n";
+            $current_image = imagecreatefrompng($tmpFilename);
         }
+
+
+        imagecopyresampled($new, $current_image, 0, 0, $x, $y, $w, $h, $w, $h);
+
+        if ($fileType == IMAGETYPE_GIF) {
+            imagejpeg($new, SITE_PATH . $new_filename, 95);
+        } else {
+            imagepng($new, SITE_PATH . $new_filename, 9);
+        }
+
+        $queryArr[] = "`image`='" . $sitePath . $new_filename ."'";
     }
+
+    /*echo implode(',', $queryArr);
 
     echo '<pre>';
     var_dump($_POST);
-    echo '</pre>';
+    var_dump($_FILES);
+    echo '</pre>';*/
 
-    /*$query = "UPDATE `materials` SET " . implode(',', $queryArr) . " WHERE id = " . $_POST['id'];
+    $query = "UPDATE `materials` SET " . implode(',', $queryArr) . " WHERE id = " . $_POST['id'];
     $result = $mysqli->query($query);
 
     if ($result) {
         header("Location: " . $links['material']);
     } else {
         header("Location: " . $back .  '?status=error');
-    }*/
+    }
 
 ?>

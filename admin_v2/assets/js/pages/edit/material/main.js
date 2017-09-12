@@ -2,6 +2,8 @@ $(document).ready(function() {
     var inpElem = document.getElementById('image'),
         img = $('.preview-edit'),
         popup = $('.js-popup'),
+        popupSubmit = $('.js-popup-submit'),
+        popupClose = $('.js-popup-close'),
         $cropper;
 
 
@@ -21,7 +23,6 @@ $(document).ready(function() {
             $('.js-y1').val(data.y);
             $('.js-width').val(data.width);
             $('.js-height').val(data.height);
-            console.log(data);
         }
     })
 
@@ -40,12 +41,12 @@ $(document).ready(function() {
         }
     }
 
-    $('.js-popup-submit').on('click', function() {
+    popupSubmit.on('click', function() {
         popup.hide();
+    })
 
-        console.log($cropper.cropper("getData"));
-        console.log($cropper.cropper("getImageData"));
-        console.log($cropper.cropper("getDataURL"));
-        //$('.extra-preview').attr('src', )
+    popupClose.on('click', function() {
+        popup.hide();
+        inpElem.value = "";
     })
 })

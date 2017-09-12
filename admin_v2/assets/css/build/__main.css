@@ -129,6 +129,19 @@
   text-align: left;
   cursor: pointer;
 }
+.edit-material__popup__close {
+  position: absolute;
+  right: 10%;
+  top: 5%;
+  color: #fff;
+  z-index: 9;
+  font-size: 36px;
+  z-index: 99;
+  cursor: pointer;
+}
+.edit-material__popup__close i {
+  color: #fff;
+}
 .edit-material__popup:before {
   content: "";
   display: inline-block;

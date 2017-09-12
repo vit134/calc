@@ -1479,7 +1479,7 @@ i.icon-dot-3.icon-more {
 .panel-image {
 	display: block;
 	margin: 0 auto;
-	max-width: 240px;
+	width: 240px;
 }
 
 .panel-body-row > a  {
