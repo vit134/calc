@@ -37,18 +37,21 @@
 
 
         $new = imagecreatetruecolor($w, $h);
-        if ($fileType == IMAGETYPE_GIF) {
+        if ($fileType == IMAGETYPE_JPEG) {
             $current_image = imagecreatefromjpeg($tmpFilename);
-        } else {
+        } else if ($fileType == IMAGETYPE_PNG) {
             $current_image = imagecreatefrompng($tmpFilename);
         }
 
 
         imagecopyresampled($new, $current_image, 0, 0, $x, $y, $w, $h, $w, $h);
 
-        if ($fileType == IMAGETYPE_GIF) {
-            imagejpeg($new, SITE_PATH . $new_filename, 95);
-        } else {
+        if ($fileType == IMAGETYPE_JPEG) {
+            if (!imagejpeg($new, SITE_PATH . $new_filename, 95)) {
+                header("Location: " . $back .  '?status=error');
+            }
+
+        } else if ($fileType == IMAGETYPE_PNG) {
             imagepng($new, SITE_PATH . $new_filename, 9);
         }
 
