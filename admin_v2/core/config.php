@@ -38,4 +38,6 @@
         'materials' => 'материалы'
     );
 
+    $uploadDir = "uploads/";
+
 ?>

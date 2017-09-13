@@ -29,17 +29,19 @@
                                     <div class="panel-body">
                                         {% if  item.services %}
                                             {% for service in item.services %}
-                                                <div class="panel-body-row">
-                                                    <a href="{{ links.service }}{{ service.id }}">{{ service.name | capitalize }}</a>
-                                                </div>
+                                                {% if loop.index < 4 %}
+                                                    <div class="panel-body-row">
+                                                        <a href="{{ links.service }}{{ service.id }}">{{ service.name | capitalize }}</a>
+                                                    </div>
+                                                {% endif %}
                                             {% endfor %}
-                                            {% if item.services | length >= 3 %}
+                                            {% if item.services | length > 3 %}
                                                 <div class="panel-body-footer center-align">
                                                     <a href="{{ item.main.id }}">Посмотреть все</a>
                                                 </div>
                                             {% endif %}
                                         {% else %}
-                                            <div class="panel-empty">
+                                            <div class="panel-empty center-align">
                                                 Пусто
                                             </div>
                                         {% endif %}

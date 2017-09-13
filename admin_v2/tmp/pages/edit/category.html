@@ -28,7 +28,7 @@
                         <select name="services[]" class="select2 form-control" multiple>
                             <option disabled value="">Select states</option>
                             {% for item in diff.already %}
-                                <option selected value="{{ item.id }}">{{ item.name }}</option>
+                                <option selected value="{{ item.main.id }}">{{ item.main.name }}</option>
                             {% endfor %}
 
                             {% for item in diff.all %}
@@ -45,7 +45,8 @@
             </div>
         </div>
     </div>
-    <pre style="height: 297px; overflow: scroll;">{{ dump() }}</pre>
+    <pre style="overflow: scroll;">{{ dump(diff.already) }}</pre>
+    <pre style="overflow: scroll;">{{ dump(diff.all) }}</pre>
 </div>
 {% endblock %}
 

@@ -55,8 +55,13 @@
                         }
                         break;
                     case 'service':
-                        $data['all_services'] = $func->getAllServicesWithSub();
-                        echo $twig->render('pages/'. $route[1]. '/service.html', $data);
+                        if ($route[3] == '') {
+                            $data['all_services'] = $func->getAllServicesWithSub();
+                            echo $twig->render('pages/'. $route[1]. '/service.html', $data);
+                        } else {
+                            $data['one_service'] = $func->getOneServiceWithSub($route[3]);
+                            echo $twig->render('pages/'. $route[1]. '/one-service.html', $data);
+                        }
                         break;
                     case 'subservice':
                         $data['all_subservices'] = $func->getAllSubServicesWithSub();
@@ -87,7 +92,7 @@
                         echo $twig->render('pages/'. $route[1]. '/subservice.html', $data);
                         break;
                     case 'material':
-                        $data['all_services'] = $func->getAllServices();
+                        $data['all_subservices'] = $func->getAllSubServices();
                         $data['all_materials'] = $func->getAllMaterials();
                         echo $twig->render('pages/'. $route[1]. '/material.html', $data);
                         break;
@@ -125,7 +130,7 @@
                 };
                 break;
             case 'test':
-                $data['test'] = $func->compareAlreadyServices(39);
+                $data['test'] = $func->crop();
                 echo $twig->render('pages/test.html', $data);
                 break;
             default:

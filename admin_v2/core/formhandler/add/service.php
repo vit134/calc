@@ -7,6 +7,7 @@
 
     if ($_POST['name'] != '') {
         $name = $_POST['name'];
+        $price = $_POST['price'];
         $publish = $_POST['publish'] == 'on' ? 1 : 0;
 
         /*if ($publish) {
@@ -14,7 +15,7 @@
         }*/
 
         if (!checkRes($name)) {
-            $query = "INSERT INTO `services`(`name`, `publish`) VALUES ('". $name ."','". $publish ."')";
+            $query = "INSERT INTO `services`(`name`, `publish`,`price`) VALUES ('". $name ."','". $publish ."','". $price ."')";
             $result = $mysqli->query($query);
 
             $serviceId = $mysqli->insert_id;

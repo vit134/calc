@@ -1458,10 +1458,27 @@ i.icon-dot-3.icon-more {
 }
 
 .panel-body-row {
+	position: relative;
 	margin-bottom: 10px;
 	padding-bottom: 10px;
 	border-bottom: 1px solid #ddd;
 	font-size: 0;
+}
+
+.panel-body-row:hover .panel-body-row-buttons {
+	opacity: 1;
+}
+
+.panel-body-row-buttons {
+	position: absolute;
+	right: 0;
+	top: 6px;
+	opacity: 0;
+	transition: All .3s ease;
+}
+
+.panel-body-row-buttons i {
+	font-size: 16px;
 }
 
 .panel-body-col {

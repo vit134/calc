@@ -4,7 +4,7 @@
 
 {% block pageCss %}
     <link href="{{ config.assetsPath }}theme/css/plugins/select2/select2.css" rel="stylesheet">
-    <link href="{{ config.assetsPath }}css/vendor/cropper.css" rel="stylesheet">
+    <link href="{{ config.assetsPath }}/css/vendor/cropper.min.css" rel="stylesheet">
     {# <link href="{{ config.assetsPath }}theme/css/plugins/dropzone/dropzone.css" rel="stylesheet"> #}
 {% endblock %}
 
@@ -19,7 +19,7 @@
                 <form method="post" enctype="multipart/form-data" action="{{ config.formhandlerPath }}add/material.php">
                     <div class="form-group {% if route.params.error %}has-error{% endif %} {% if route.params.name %}has-warning{% endif %}">
                         <label for="name" class="control-label">Название</label>
-                        <input type="text" class="form-control " id="name" name="name" placeholder="Введите название вида работ" {% if route.params.name %}value="{{ route.params.name  }} {% endif %}" required>
+                        <input type="text" class="form-control " id="name" name="name" placeholder="Введите название материала" {% if route.params.name %}value="{{ route.params.name  }} {% endif %}" required>
                         <div class="error">Такое название уже существует</div>
                     </div>
                     <div class="row">
@@ -40,11 +40,43 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="name" class="control-label">Выберите вид работ</label>
+                                <select name="subservices[]" class="select2 form-control" multiple>
+                                    {% if all_subservices | length == 0 %}
+                                        <option disabled >Ничего не найдено</option>
+                                    {% endif %}
+                                    {% for item in all_subservices %}
+                                        <option value="{{ item.id }}">{{ item.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                         <div class="form-group col-lg-12">
+                            <label for="unit" class="control-label">Изображение</label>
+                        </div>
                         <div class="col-lg-6">
                             <div class="form-group ">
-                                <label for="image" class="control-label">Изображение материала</label>
-                                <input type="file" name="image" class="js-file-input">
+                                <input type="file" name="image" id="image" accept="image/jpeg,image/png">
                                 <div class="js-image-error"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="edit-material" style="min-height: 260px;"">
+                                <div class="edit-material__preview extra-preview extra-preview-sm" style="min-height: 240px;"></div>
+                                <div class="edit-material__controls">
+                                    <div class="edit-material__controls__item">
+                                        <input type="checkbox" name="remove" id="remove" class="edit-material__check-input">
+                                        <label for="remove" class="edit-material__check-label"><i class="icon-trash"></i></label>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="x" class="js-x1">
+                                <input type="hidden" name="y" class="js-y1">
+                                <input type="hidden" name="width" class="js-width">
+                                <input type="hidden" name="height" class="js-height">
                             </div>
                         </div>
                     </div>
@@ -58,10 +90,19 @@
         </div>
     </div>
 </div>
+<div class="edit-material__popup js-popup">
+    <div class="edit-material__popup__bg"></div>
+    <div class="edit-material__popup__title">Выделите нужную область<br>на изображении</div>
+    <div class="edit-material__popup__image-wrapper">
+        <img class="edit-material__popup__image preview-edit">
+    </div>
+    <div class="edit-material__popup__submit js-popup-submit">Готово</div>
+    <div class="edit-material__popup__close js-popup-close"><i class="fa fa-close"></i></div>
+</div>
 {% endblock %}
 
 {% block pageScripts %}
-    {# <script src="{{ config.assetsPath }}theme/js/plugins/dropzone/dropzone.js"></script>
-    <script src="{{ config.assetsPath }}js/vendor/cropper.min.js"></script> #}
+    {# <script src="{{ config.assetsPath }}theme/js/plugins/dropzone/dropzone.js"></script> #}
+    <script src="{{ config.assetsPath }}js/vendor/cropper.min.js"></script>
     <script src="{{ config.assetsPath }}js/build/add/material/main.js"></script>
 {% endblock %}

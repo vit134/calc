@@ -18,7 +18,12 @@
                             <div class="masonry-layout__panel-content">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading clearfix">
-                                        <h3 class="panel-title"><a href="{{ item.main.id }}">{{ item.main.name | capitalize }}</a></h3>
+                                        <h3 class="panel-title">
+                                            <a href="{{ item.main.id }}">{{ item.main.name | capitalize }}</a>
+                                            {% if item.main.price != 0 %}
+                                                   ({{ item.main.price }}р.)
+                                            {% endif %}
+                                        </h3>
                                         <ul class="panel-tool-options">
                                             <li><a href="{{ links.editService }}{{ item.main.id }}"><i class=" icon-pencil"></i></a></li>
                                             <li><a href="#" class="js-delete-res-btn" data-res-id="{{ item.main.id }}"><i class=" icon-trash"></i></a></li>
@@ -28,11 +33,17 @@
                                         {% if  item.subservices %}
                                             {% for subservice in item.subservices %}
                                                 <div class="panel-body-row">
-                                                    <a href="{{ links.subservice }}{{ subservice.id }}">{{ subservice.name | capitalize }}</a>
+                                                    <div class="panel-body-col panel-body-col_70">
+                                                        <a href="{{ links.subservice }}{{ subservice.id }}">{{ subservice.name | capitalize }}</a>
+                                                    </div>
+                                                    <div class="panel-body-col panel-body-col_30">
+                                                        <div>{{ subservice.price }}р.</div>
+                                                        <div>{{ subservice.minute }}мин.</div>
+                                                    </div>
                                                 </div>
                                             {% endfor %}
                                         {% else %}
-                                            <div class="panel-empty">
+                                            <div class="panel-empty center-align">
                                                 Пусто
                                             </div>
                                         {% endif %}
@@ -64,9 +75,6 @@
       </div>
     </div>
     <!--End Small Modal-->
-    <!-- <div class="row">
-        <pre>{{ dump(all_services) }}</pre>
-    </div> -->
 {% endblock %}
 
 {% block pageScripts %}

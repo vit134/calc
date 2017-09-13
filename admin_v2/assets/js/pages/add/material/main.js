@@ -1,58 +1,54 @@
 $(document).ready(function() {
     console.log('add material page');
 
-    var $fileInput       = $('.js-file-input'),
-        $imageErrorBlock = $('.js-image-error'),
-        $imageWrapper    = $('.js-image-wrapper'),
-        $submitBtn       = $('.js-submit-btn');
+    var inpElem = document.getElementById('image'),
+        img = $('.preview-edit'),
+        popup = $('.js-popup'),
+        popupSubmit = $('.js-popup-submit'),
+        popupClose = $('.js-popup-close'),
+        $cropper;
 
-    function init() {
-        /*bindEvents();
-        resizeImage();*/
-    }
 
-    /*function bindEvents() {
-        $fileInput.on('change', resizeImage);
-    }
+    inpElem.addEventListener("change", function() {
+        preview(this.files[0]);
+    });
 
-    function resizeImage() {
-        var preview = document.querySelector('img.js-preview-img');
-        var file    = document.querySelector('input[type=file]').files[0];
-        var reader  = new FileReader();
+    $cropper = $('.preview-edit');
 
-        $submitBtn.attr('disabled', false);
-        $imageErrorBlock.html('');
-
-        reader.onloadend = function () {
-            preview.src = reader.result;
-            $imageWrapper.show();
+    $cropper.cropper({
+        background: false,
+        autoCropArea: 1,
+        preview: ".extra-preview",
+        aspectRatio: 1 / 1,
+        crop: function(data) {
+            $('.js-x1').val(data.x);
+            $('.js-y1').val(data.y);
+            $('.js-width').val(data.width);
+            $('.js-height').val(data.height);
         }
+    })
 
-        preview.onload = function() {
 
-            var width       = this.width,
-                height      = this.height,
-                proportions = width / height;
+    function preview(file) {
+        if ( file.type.match(/image.*/) ) {
+            var reader = new FileReader();
+            reader.addEventListener("load", function(event) {
+                img.attr('src',event.target.result);
+                popup.show();
 
-            console.log(file.size);
+                $cropper.cropper("replace", event.target.result)
+            });
 
-            if (proportions != 1) {
-                $imageErrorBlock.html('Пропорции изображения не корректны. Изображение должно быть в пропорции 1:1');
-                $submitBtn.attr('disabled', true);
-            }
-
-            if (width < 200) {
-                $imageErrorBlock.html('Изображение слишком маленькое. Его ширина всего ' + width + 'px, минимальная ширина изображения 200px');
-                $submitBtn.attr('disabled', true);
-            }
-        }
-
-        if (file) {
             reader.readAsDataURL(file);
-        } else {
-            preview.src = "";
         }
-    }*/
+    }
 
-    init();
+    popupSubmit.on('click', function() {
+        popup.hide();
+    })
+
+    popupClose.on('click', function() {
+        popup.hide();
+        inpElem.value = "";
+    })
 })

@@ -18,7 +18,7 @@
 
     class globalClass {
         //переменные из вне
-        //global $mysqli;
+        public $uploadDir;
 
         //свойства класса
 
@@ -186,6 +186,7 @@
 
             return $arr;
         }
+
         //Получить все услуги включая подуслуги
         public function getAllServicesWithSub() {
             global $mysqli;
@@ -194,9 +195,12 @@
                           s.id,
                           s.name,
                           s.publish,
+                          s.price,
                           ss.id AS subserv_id,
                           ss.name AS subserv_name,
                           ss.publish AS subserv_publish,
+                          ss.price_for_unit AS subserv_price,
+                          ss.minute_for_unit AS subserv_minute,
                           c.id AS cat_id,
                           c.name AS cat_name
                       FROM `services` s
@@ -216,13 +220,16 @@
                     $arr[$value['id']]['main'] = array(
                         'id' => $value['id'],
                         'name' => $value['name'],
-                        'publish' => $value['publish']
+                        'publish' => $value['publish'],
+                        'price' => $value['price']
                     );
                     if ($value['subserv_id'] != NULL) {
                         $arr[$value['id']]['subservices'][$value['subserv_id']] = array(
                             'id' => $value['subserv_id'],
                             'name' => $value['subserv_name'],
-                            'publish' => $value['subserv_publish']
+                            'publish' => $value['subserv_publish'],
+                            'price' => $value['subserv_price'],
+                            'minute' => $value['subserv_minute']
                         );
                     }
 
@@ -359,11 +366,12 @@
                         'publish' => $value['publish']
                     );
                     if ($value['serv_id'] != NULL) {
-                        $arr['services'][] = array(
+                        $arr['services'][] = $this->getOneServiceWithSub($value['serv_id']);
+                        /*$arr['services'][] = array(
                             'id' => $value['serv_id'],
                             'name' => $value['serv_name'],
                             'publish' => $value['serv_publish']
-                        );
+                        );*/
                     }
                 }
             }
@@ -379,6 +387,7 @@
                           s.id,
                           s.name,
                           s.publish,
+                          s.price,
                           ss.id AS subserv_id,
                           ss.name AS subserv_name,
                           ss.publish AS subserv_publish,
@@ -402,7 +411,8 @@
                     $arr['main'] = array(
                         'id' => $value['id'],
                         'name' => $value['name'],
-                        'publish' => $value['publish']
+                        'publish' => $value['publish'],
+                        'price' => $value['price']
                     );
                     if ($value['subserv_id'] != NULL) {
                         $arr['subservices'][$value['subserv_id']] = array(
@@ -410,6 +420,8 @@
                             'name' => $value['subserv_name'],
                             'publish' => $value['subserv_publish']
                         );
+
+                        $arr['materials'][] = $this->getOneSubServiceWithSub($value['subserv_id'])['materials'];
                     }
 
                     if ($value['cat_id'] != NULL) {
@@ -468,7 +480,7 @@
                     }
 
                     if ($value['material_id'] != NULL) {
-                        $arr['materials'][$value['material_id']] = array(
+                        $arr['materials'][] = array(
                             'id' => $value['material_id'],
                             'name' => $value['material_name'],
                             'price' => $value['material_price'],
@@ -484,12 +496,15 @@
         //Сравнить все услуги одной категории с уже добавленными в неё
         public function compareAlreadyServices($id) {
             $allready = $this->getOneCategoryWithSub($id)['services'];
+            /*echo '<pre>';
+            var_dump($allready) ;
+            echo '</pre>';*/
             $all = $this->getAllServices();
 
             foreach ($all as $key => $value) {
                 if ($allready != NULL) {
                     foreach ($allready as $arkey => $arvalue) {
-                        if ($value['id'] == $arvalue['id']) {
+                        if ($value['id'] == $arvalue['main']['id']) {
                             unset($all[$key]);
                         }
                     }
@@ -583,6 +598,46 @@
             return strtr($string, $converter);
         }
 
+        //crop изображений
+        public function crop($image, $x, $y, $w, $h) {
+
+            $success = false;
+            $tmpFilename = $image['tmp_name'];
+            $fileName = $image['name'];
+            $fileType = exif_imagetype($tmpFilename);
+            $imageSize = getimagesize($tmpFilename);
+            $fileName = $this->rus2translit($fileName);
+
+            $uploadDir = "uploads/";
+
+            $new_filename = $uploadDir . intval($w) . "x" . intval($h) . "-" . $fileName;
+
+
+            $new = imagecreatetruecolor($w, $h);
+
+            if ($fileType == IMAGETYPE_JPEG) {
+                $current_image = imagecreatefromjpeg($tmpFilename);
+            } else if ($fileType == IMAGETYPE_PNG) {
+                $current_image = imagecreatefrompng($tmpFilename);
+            }
+
+            imagecopyresampled($new, $current_image, 0, 0, $x, $y, $w, $h, $w, $h);
+
+            if ($fileType == IMAGETYPE_JPEG) {
+                if (imagejpeg($new, SITE_PATH . $new_filename, 65)) {
+                    $success = true;
+                }
+
+            } else if ($fileType == IMAGETYPE_PNG) {
+                if (imagepng($new, SITE_PATH . $new_filename, 6)) {
+                    $success = true;
+                }
+            }
+
+            if ($success) {
+                return $new_filename;
+            }
+        }
 
     }
 

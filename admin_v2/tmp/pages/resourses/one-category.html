@@ -10,36 +10,62 @@
                     <h2 class="panel-title">Категория "{{ one_category.main.name }}"</h2>
                     <ul class="panel-tool-options">
                         <a href="{{ links.editCategory }}{{ one_category.main.id }}" class="btn btn-default" type="button">Редактировать</a>
+                        <a href="" class="btn btn-default js-delete-cat-btn" type="button" data-cat-id="{{ one_category.main.id }}">Удалить</a>
                     </ul>
                 </div>
                 <!-- panel body -->
                 <div class="panel-body">
-                    {% for item in one_category.services %}
-                        <div class="col-md-3">
-                           <div class="panel panel-primary">
-                                <div class="panel-heading clearfix">
-                                    <h3 class="panel-title"><a href="{{ links.service }}{{ item.id }}">{{ item.name | capitalize }}</a></h3>
-                                    <ul class="panel-tool-options">
-                                        <li><a href="#"><i class=" icon-pencil"></i></a></li>
-                                        <li><a href="#"><i class=" icon-trash"></i></a></li>
-                                    </ul>
-                                </div>
-                                <!-- panel body -->
-                                <div class="panel-body">
-
+                    <div class="row">
+                        {% for item in one_category.services %}
+                            <div class="col-md-3">
+                               <div class="panel panel-primary">
+                                    <div class="panel-heading clearfix">
+                                        <h3 class="panel-title"><a href="{{ links.service }}{{ item.id }}">{{ item.main.name | capitalize }}</a></h3>
+                                        <ul class="panel-tool-options">
+                                            <li><a href="{{ links.editService }}{{ item.main.id }}"><i class=" icon-pencil"></i></a></li>
+                                            <li><a href="#" class=""><i class=" icon-trash"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <!-- panel body -->
+                                    <div class="panel-body">
+                                        {% for subserv in  item.subservices %}
+                                            <div class="panel-body-row">
+                                                <a href="{{ links.subservice }}{{ subserv.id }}">{{ subserv.name | capitalize }}</a>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    {% endfor %}
-
+                        {% endfor %}
+                    </div>
                     {# <pre>{{ dump(all_categories) }}</pre> #}
                 </div>
             </div>
         </div>
        <pre>{{ dump(one_category) }}</pre>
+        <!--Small Modal-->
+        <div id="modal-delete" class="modal fade" tabindex="-1" role="dialog">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Удаление категории</h4>
+              </div>
+              <div class="modal-body">
+                <p>Вы действительно хотите удалить категорию?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Нет, я ошибся</button>
+                <!-- <form action="" method="get"></form> -->
+                <a href="{{ config.formhandlerPath }}delete/category.php?id={{ one_category.main.id }}" type="button" class="btn btn-primary js-modal-confirm-delete">Да, хочу</a>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <!--End Small Modal-->
     </div>
 {% endblock %}
 
 {% block pageScripts %}
-
+    <script src="{{ config.assetsPath }}js/build/category/main.js"></script>
 {% endblock %}
