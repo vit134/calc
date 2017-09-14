@@ -383,7 +383,7 @@
         public function getOneServiceWithSub($id) {
             global $mysqli;
 
-            $query = "SELECT
+            /*$query = "SELECT
                           s.id,
                           s.name,
                           s.publish,
@@ -398,12 +398,37 @@
                       LEFT JOIN subservices ss ON svs.subserv_id = ss.id
                       LEFT JOIN cat_vs_service cvs ON cvs.serv_id = s.id
                       LEFT JOIN categories c ON c.id = cvs.cat_id
+                      WHERE s.id = " . $id;*/
+            $query = "SELECT
+                          s.id,
+                          s.name,
+                          s.publish,
+                          s.price,
+                          ss.id AS subserv_id,
+                          ss.name AS subserv_name,
+                          ss.publish AS subserv_publish,
+                          c.id AS cat_id,
+                          c.name AS cat_name,
+                          svm.count_of_unit AS count_unit,
+                          m.id AS mat_id,
+                          m.name AS mat_name,
+                          m.image AS mat_image,
+                          m.price AS mat_price,
+                          m.unit AS mat_unit,
+                          m.publish AS mat_publish
+                      FROM `services` s
+                      LEFT JOIN serv_vs_subserv svs ON s.id = svs.serv_id
+                      LEFT JOIN subservices ss ON svs.subserv_id = ss.id
+                      LEFT JOIN cat_vs_service cvs ON cvs.serv_id = s.id
+                      LEFT JOIN categories c ON c.id = cvs.cat_id
+                      LEFT JOIN subserv_vs_materials svm ON svm.subserv_id = ss.id
+                      LEFT JOIN materials m ON m.id = svm.material_id
                       WHERE s.id = " . $id;
 
             $result = $mysqli->query($query);
 
             if ($result) {
-                foreach ($result as $key => $value) {
+                /*foreach ($result as $key => $value) {
                     $servArr = array(
                         'id' => $value['serv_id'],
                         'name' => $value['serv_name']
@@ -430,6 +455,33 @@
                             'name' => $value['cat_name']
                         );
                     }
+                }*/
+
+                foreach ($result as $key => $value) {
+                    $arr['main'] = array(
+                        'id' => $value['id'],
+                        'name' => $value['name'],
+                        'price' => $value['price']
+                    );
+                    if ($value['subserv_id'] != NULL) {
+                        $arr['subservices'][$value['subserv_id']] = array(
+                            'id' => $value['subserv_id'],
+                            'name' => $value['subserv_name'],
+                            'publish' => $value['subserv_publish']
+                        );
+                    }
+
+                    if ($value['mat_id'] != NULL) {
+                        $arr['materials'][$value['mat_id']] = array(
+                            'id' => $value['mat_id'],
+                            'name' => $value['mat_name'],
+                            'image' => $value['mat_image'],
+                            'price' => $value['mat_price'],
+                            'unit' => $value['mat_unit'],
+                            'publish' => $value['mat_publish'],
+                            'count' => $value['count_unit'],
+                        );
+                    }
                 }
             }
 
@@ -440,7 +492,7 @@
         public function getOneSubServiceWithSub($id) {
             global $mysqli;
 
-            $query = "SELECT ss.id,
+            /*$query = "SELECT ss.id,
                              ss.name,
                              ss.minute_for_unit,
                              ss.price_for_unit,
@@ -457,12 +509,30 @@
                           LEFT JOIN `services` s ON s.id = svs.serv_id
                           LEFT JOIN `subserv_vs_materials` svm  ON ss.id = svm.subserv_id
                           LEFT JOIN `materials` m  ON m.id = svm.material_id
+                      WHERE ss.id = " . $id;*/
+            $query = "SELECT
+                          ss.id,
+                          ss.name,
+                          ss.publish,
+                          ss.price_for_unit,
+                          ss.minute_for_unit,
+                          svm.count_of_unit AS count_unit,
+                          m.id AS mat_id,
+                          m.name AS mat_name,
+                          m.image AS mat_image,
+                          m.price AS mat_price,
+                          m.unit AS mat_unit,
+                          m.publish AS mat_publish
+                      FROM `subservices` ss
+                      LEFT JOIN serv_vs_subserv svs ON ss.id = svs.serv_id
+                      LEFT JOIN subserv_vs_materials svm ON svm.subserv_id = ss.id
+                      LEFT JOIN materials m ON m.id = svm.material_id
                       WHERE ss.id = " . $id;
 
             $result = $mysqli->query($query);
 
             if ($result) {
-                foreach ($result as $key => $value) {
+                /*foreach ($result as $key => $value) {
 
                     $arr['main'] = array(
                         'id' => $value['id'],
@@ -485,6 +555,33 @@
                             'name' => $value['material_name'],
                             'price' => $value['material_price'],
                             'image' => $value['material_image']
+                        );
+                    }
+                }*/
+
+                foreach ($result as $key => $value) {
+                    $arr['main'] = array(
+                        'id' => $value['id'],
+                        'name' => $value['name'],
+                        'price' => $value['price']
+                    );
+                    if ($value['subserv_id'] != NULL) {
+                        $arr['subservices'][$value['subserv_id']] = array(
+                            'id' => $value['subserv_id'],
+                            'name' => $value['subserv_name'],
+                            'publish' => $value['subserv_publish']
+                        );
+                    }
+
+                    if ($value['mat_id'] != NULL) {
+                        $arr['materials'][$value['mat_id']] = array(
+                            'id' => $value['mat_id'],
+                            'name' => $value['mat_name'],
+                            'image' => $value['mat_image'],
+                            'price' => $value['mat_price'],
+                            'unit' => $value['mat_unit'],
+                            'publish' => $value['mat_publish'],
+                            'count' => $value['count_unit'],
                         );
                     }
                 }

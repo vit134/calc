@@ -22,6 +22,127 @@
   padding: 10px;
   border-radius: 10px;
 }
+.custom-select__hidden {
+  display: none;
+}
+.custom-select__body {
+  position: relative;
+}
+.custom-select__input {
+  width: 100%;
+  height: 34px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+}
+.custom-select__input input[type=text] {
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+  height: 100%;
+  padding: 6px 12px;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.custom-select__input input[type=text]:focus,
+.custom-select__input input[type=text].open {
+  border-color: #00b8ce;
+  outline: none;
+  box-shadow: none;
+}
+.custom-select__dropdown {
+  display: none;
+  position: absolute;
+  width: 100%;
+  top: 100%;
+  margin-top: -3px;
+  border: 1px solid #00b8ce;
+  background: #fff;
+  z-index: 9;
+  border-radius: 0 0 4px 4px;
+  height: 225px;
+  overflow-y: scroll;
+}
+.custom-select__dropdown__item {
+  *zoom: 1;
+  padding: 10px 12px;
+  cursor: pointer;
+}
+.custom-select__dropdown__item:before,
+.custom-select__dropdown__item:after {
+  content: " ";
+  display: table;
+}
+.custom-select__dropdown__item:after {
+  clear: both;
+}
+.custom-select__dropdown__item:hover {
+  background: #00b8ce;
+  color: #fff;
+  border-color: #00b8ce;
+}
+.custom-select__dropdown__item.selected {
+  background: #eee;
+}
+.custom-select__dropdown__item.selected:hover {
+  color: #222;
+}
+.custom-select__col_left {
+  float: left;
+  width: 100%;
+}
+.custom-select__col_left__inner {
+  margin-right: 120px;
+  font-weight: 500;
+}
+.custom-select__col_right {
+  float: right;
+  width: 120px;
+  font-size: 0;
+  margin-left: -120px;
+}
+.custom-select__input {
+  width: 100%;
+}
+.custom-select__input_number {
+  display: inline-block;
+  vertical-align: middle;
+  width: 40px;
+  height: 25px;
+  border-radius: 0;
+  text-align: center;
+}
+.custom-select__input_number:focus {
+  outline: none;
+  box-shadow: none;
+}
+.custom-select__control {
+  display: inline-block;
+  vertical-align: middle;
+  height: 25px;
+  border: 1px solid #ccc;
+  font-size: 12px;
+  padding: 4px 10px 0;
+  cursor: pointer;
+  color: #585858;
+  background: #fff;
+}
+.custom-select__control_up {
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+}
+.custom-select__control_down {
+  border-left: none;
+  border-radius: 0 4px 4px 0;
+}
+.custom-select__control:hover {
+  color: #00b8ce;
+}
 .edit-material {
   border: 1px solid #ccc;
   border-radius: 4px;

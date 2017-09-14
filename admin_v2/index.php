@@ -130,7 +130,7 @@
                 };
                 break;
             case 'test':
-                $data['test'] = $func->crop();
+                $data['test'] = $func->getOneSubServiceWithSub(39);
                 echo $twig->render('pages/test.html', $data);
                 break;
             default:

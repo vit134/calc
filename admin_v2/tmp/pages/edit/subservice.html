@@ -42,7 +42,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="name" class="control-label">Выберите материалы</label>
+                        <!-- <label for="name" class="control-label">Выберите материалы</label>
                         <select name="materials[]" class="select2 form-control" multiple>
                             <option disabled value="">Select states</option>
                             {% for item in diff.already %}
@@ -52,7 +52,73 @@
                             {% for item in diff.all %}
                                 <option  value="{{ item.id }}">{{ item.name }}</option>
                             {% endfor %}
-                        </select>
+                        </select> -->
+
+                        <div class="custom-select">
+                            <label for="name" class="control-label">Выберите материалы</label>
+                            <div class="custom-select__hidden">
+                                <select name="materials[]" class="select2 form-control" multiple>
+                                    {% for item in diff.already %}
+                                        <option selected value="{{ item.id }}_{{ item.count }}" data-id="{{ item.id }}" class="js-option">{{ item.name }}</option>
+                                    {% endfor %}
+
+                                    {% for item in diff.all %}
+                                        <option  value="{{ item.id }}_1" data-id="{{ item.id }}" class="js-option">{{ item.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="custom-select__body">
+                                <div class="custom-select__input">
+                                    <input type="text" name="" class="js-input">
+                                </div>
+                                <div class="custom-select__dropdown js-dropdown">
+                                    {% for item in diff.already %}
+                                        <div class="custom-select__dropdown__item selected js-dropdown-item" data-id="{{ item.id }}" data-count="{{ item.count }}">
+                                            <div class="custom-select__col_left">
+                                                <div class="custom-select__col_left__inner">{{ item.name }}</div>
+                                            </div>
+                                            <div class="custom-select__col_right">
+                                                <span class="custom-select__control custom-select__control_up js-control-up">&#9650;</span>
+                                                <input type="text" name="hidden" value="{{ item.count }}" class="custom-select__input custom-select__input_number js-num-input">
+                                                <span class="custom-select__control custom-select__control_down js-control-down">&#9660;</span>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                    {% for item in diff.all %}
+                                        <div class="custom-select__dropdown__item js-dropdown-item" data-id="{{ item.id }}" data-count="">
+                                            <div class="custom-select__col_left">
+                                                <div class="custom-select__col_left__inner">{{ item.name }}</div>
+                                            </div>
+                                            <div class="custom-select__col_right">
+                                                <span class="custom-select__control custom-select__control_up js-control-up">&#9650;</span>
+                                                <input type="text" name="hidden" value="1" class="custom-select__input custom-select__input_number js-num-input">
+                                                <span class="custom-select__control custom-select__control_down js-control-down">&#9660;</span>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                    {# <div class="custom-select__dropdown__item" data-id="" data-count="">
+                                        <div class="custom-select__col_left">
+                                            <div class="custom-select__col_left__inner">Саморезы для ГВЛ</div>
+                                        </div>
+                                        <div class="custom-select__col_right">
+                                            <span class="custom-select__control custom-select__control_up">&#9650;</span>
+                                            <input type="text" name="" value="1" class="custom-select__input custom-select__input_number">
+                                            <span class="custom-select__control custom-select__control_down">&#9660;</span>
+                                        </div>
+                                    </div>
+                                    <div class="custom-select__dropdown__item" data-id="" data-count="">
+                                        <div class="custom-select__col_left">
+                                            <div class="custom-select__col_left__inner">Саморезы для ГВЛ</div>
+                                        </div>
+                                        <div class="custom-select__col_right">
+                                            <span class="custom-select__control custom-select__control_up">&#9650;</span>
+                                            <input type="text" name="" value="1" class="custom-select__input custom-select__input_number">
+                                            <span class="custom-select__control custom-select__control_down">&#9660;</span>
+                                        </div>
+                                    </div> #}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="checkbox">
                         <label><input type="checkbox" {% if one_subservice.main.publish == 1 %}checked{% endif %} name="publish">Опубликовано</label>
@@ -62,7 +128,10 @@
             </div>
         </div>
     </div>
-    <!-- <pre style="height: 297px; overflow: scroll;">{{ dump(one_subservice) }}</pre> -->
+
+</div>
+<div class="row">
+    <pre >{{ dump(diff) }}</pre>
 </div>
 {% endblock %}
 

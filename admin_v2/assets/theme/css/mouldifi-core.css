@@ -1477,6 +1477,13 @@ i.icon-dot-3.icon-more {
 	transition: All .3s ease;
 }
 
+.panel-back-btn {
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 10px;
+	cursor: pointer;
+}
+
 .panel-body-row-buttons i {
 	font-size: 16px;
 }
