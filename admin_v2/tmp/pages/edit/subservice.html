@@ -68,10 +68,17 @@
                                 </select>
                             </div>
                             <div class="custom-select__body">
-                                <div class="custom-select__input">
-                                    <input type="text" name="" class="js-input">
+                                <div class="custom-select__input js-open-btn">
+                                    {% for item in diff.already %}
+                                        <span data-id="{{ item.id }}" class="custom-select__added-item js-added-item">{{ item.name }}<span>({{ item.count }})</span></span>
+                                    {% endfor %}
+                                    {% for item in diff.all %}
+                                        <span data-id="{{ item.id }}" class="custom-select__added-item js-added-item hidden">{{ item.name }}<span>({{ item.count }})</span></span>
+                                    {% endfor %}
+                                    <span class="custom-select__input__btn"></span>
                                 </div>
                                 <div class="custom-select__dropdown js-dropdown">
+                                    <!-- <input type="text" name="" class="custom-select__input-search js-input"> -->
                                     {% for item in diff.already %}
                                         <div class="custom-select__dropdown__item selected js-dropdown-item" data-id="{{ item.id }}" data-count="{{ item.count }}">
                                             <div class="custom-select__col_left">
@@ -79,7 +86,7 @@
                                             </div>
                                             <div class="custom-select__col_right">
                                                 <span class="custom-select__control custom-select__control_up js-control-up">&#9650;</span>
-                                                <input type="text" name="hidden" value="{{ item.count }}" class="custom-select__input custom-select__input_number js-num-input">
+                                                <input type="text" name="hidden" value="{{ item.count }}" class="custom-select__input-number js-num-input">
                                                 <span class="custom-select__control custom-select__control_down js-control-down">&#9660;</span>
                                             </div>
                                         </div>
@@ -91,31 +98,11 @@
                                             </div>
                                             <div class="custom-select__col_right">
                                                 <span class="custom-select__control custom-select__control_up js-control-up">&#9650;</span>
-                                                <input type="text" name="hidden" value="1" class="custom-select__input custom-select__input_number js-num-input">
+                                                <input type="text" name="hidden" value="1" class="custom-select__input-number js-num-input">
                                                 <span class="custom-select__control custom-select__control_down js-control-down">&#9660;</span>
                                             </div>
                                         </div>
                                     {% endfor %}
-                                    {# <div class="custom-select__dropdown__item" data-id="" data-count="">
-                                        <div class="custom-select__col_left">
-                                            <div class="custom-select__col_left__inner">Саморезы для ГВЛ</div>
-                                        </div>
-                                        <div class="custom-select__col_right">
-                                            <span class="custom-select__control custom-select__control_up">&#9650;</span>
-                                            <input type="text" name="" value="1" class="custom-select__input custom-select__input_number">
-                                            <span class="custom-select__control custom-select__control_down">&#9660;</span>
-                                        </div>
-                                    </div>
-                                    <div class="custom-select__dropdown__item" data-id="" data-count="">
-                                        <div class="custom-select__col_left">
-                                            <div class="custom-select__col_left__inner">Саморезы для ГВЛ</div>
-                                        </div>
-                                        <div class="custom-select__col_right">
-                                            <span class="custom-select__control custom-select__control_up">&#9650;</span>
-                                            <input type="text" name="" value="1" class="custom-select__input custom-select__input_number">
-                                            <span class="custom-select__control custom-select__control_down">&#9660;</span>
-                                        </div>
-                                    </div> #}
                                 </div>
                             </div>
                         </div>

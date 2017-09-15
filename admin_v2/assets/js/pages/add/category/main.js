@@ -2,12 +2,14 @@ $(document).ready(function() {
     console.log('add category');
 
     var $input = $('.js-input'),
+        $openBtn = $('.js-open-btn'),
         $numInput = $('.js-num-input'),
         $dropdown = $('.js-dropdown'),
         $dropdownItem = $('.js-dropdown-item'),
         $selectOption = $('.js-option'),
         $controlUp = $('.js-control-up'),
-        $controlDown = $('.js-control-down');
+        $controlDown = $('.js-control-down'),
+        $addedItem = $('.js-added-item');
 
     function init() {
         bindEvents();
@@ -15,9 +17,16 @@ $(document).ready(function() {
 
 
     function bindEvents() {
-        $input.on('focus', function() {
+        /*$input.on('keyup paste', function() {
+            var valLenght = $(this).val().length;
+
+            $(this).css('width', valLenght * 0.75 + 'em');
+        })*/
+
+        $openBtn.on('click', function() {
             $(this).addClass('open');
             $dropdown.slideDown(300);
+            $input.focus();
         })
 
         $controlUp.on('click', function() {
@@ -41,6 +50,7 @@ $(document).ready(function() {
         $dropdownItem.on('click', function(e) {
             var $this = $(this);
             var id = $this.attr('data-id');
+            var numVal = $this.find($numInput).val()
 
             if (!$(e.target).is('.js-control-up, .js-control-down, .js-num-input')) {
                 if (!$this.hasClass('selected')) {
@@ -48,6 +58,12 @@ $(document).ready(function() {
                         if ($(this).attr('data-id') == id) {
                             $(this).attr('selected', true);
                             $this.addClass('selected');
+                        }
+                    })
+
+                    $addedItem.each(function() {
+                        if ($(this).attr('data-id') == id) {
+                            $(this).removeClass('hidden').find('span').html('(' + numVal + ')');
                         }
                     })
                 } else {
@@ -58,8 +74,22 @@ $(document).ready(function() {
                             $this.appendTo($dropdown);
                         }
                     })
+
+                    $addedItem.each(function() {
+                        if ($(this).attr('data-id') == id) {
+                            $(this).addClass('hidden');
+                        }
+                    })
                 }
             }
+        })
+
+        $numInput.on('keyup paste', function() {
+            var row = $(this).closest($dropdownItem);
+            var id = row.attr('data-id');
+            var val = $(this).val();
+
+            changeVal(row, 'manual', id, val)
         })
 
         /*$(window).on('click', function(e) {
@@ -75,24 +105,33 @@ $(document).ready(function() {
         })*/
     }
 
-    function changeVal($row, dir, id) {
+    function changeVal($row, dir, id, val) {
         var numInput = $row.find($numInput);
 
         var numInputVal = numInput.val();
 
-        if (dir == 'up') {
+        if (dir === 'up') {
             numInputVal++;
             numInput.val(numInputVal);
-        } else {
+        } else if (dir === 'down') {
             if (numInputVal >= 1) {
                 numInputVal--;
                 numInput.val(numInputVal);
             }
+        } else {
+            numInputVal = val;
+            numInput.val(numInputVal);
         }
 
         $selectOption.each(function() {
             if ($(this).attr('data-id') == id) {
                 $(this).val(id + '_' + numInputVal)
+            }
+        })
+
+        $addedItem.each(function() {
+            if ($(this).attr('data-id') == id) {
+                $(this).find('span').html('(' + numInputVal + ')');
             }
         })
     }

@@ -710,7 +710,9 @@
             $new_filename = $uploadDir . intval($w) . "x" . intval($h) . "-" . $fileName;
 
 
-            $new = imagecreatetruecolor($w, $h);
+            $new = imagecreate($w, $h);
+            $back = imagecolorallocatealpha($new, 255, 255, 255, 127);
+            imagefilledrectangle($new, 0, 0, $w, $h, $back);
 
             if ($fileType == IMAGETYPE_JPEG) {
                 $current_image = imagecreatefromjpeg($tmpFilename);
@@ -726,6 +728,8 @@
                 }
 
             } else if ($fileType == IMAGETYPE_PNG) {
+                //imagetruecolortopalette($new, false, 255);
+
                 if (imagepng($new, SITE_PATH . $new_filename, 6)) {
                     $success = true;
                 }
