@@ -42,18 +42,6 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <!-- <label for="name" class="control-label">Выберите материалы</label>
-                        <select name="materials[]" class="select2 form-control" multiple>
-                            <option disabled value="">Select states</option>
-                            {% for item in diff.already %}
-                                <option selected value="{{ item.id }}">{{ item.name }}</option>
-                            {% endfor %}
-
-                            {% for item in diff.all %}
-                                <option  value="{{ item.id }}">{{ item.name }}</option>
-                            {% endfor %}
-                        </select> -->
-
                         <div class="custom-select">
                             <label for="name" class="control-label">Выберите материалы</label>
                             <div class="custom-select__hidden">
@@ -118,12 +106,12 @@
 
 </div>
 <div class="row">
-    <pre >{{ dump(diff) }}</pre>
+    <pre >{{ dump(one_subservice) }}</pre>
 </div>
 {% endblock %}
 
 {% block pageScripts %}
     <!-- Select2-->
     <script src="{{ config.assetsPath }}theme/js/plugins/select2/select2.full.min.js"></script>
-    <script src="{{ config.assetsPath }}js/build/add/category/main.js"></script>
+    <script src="{{ config.assetsPath }}js/build/edit/subservice/main.js"></script>
 {% endblock %}

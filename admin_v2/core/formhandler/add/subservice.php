@@ -31,10 +31,14 @@
             if (count($_POST['materials']) > 0) {
 
                 foreach ($_POST['materials'] as $key => $value) {
-                    $queryArr[] = "('" . $subservId . "','" . $value . "')";
+                    $valArr = explode('_', $value);
+                    $matId = $valArr[0];
+                    $count = $valArr[1];
+
+                    $insertArr[] = '(' . $subservId . ',' . $matId . ',' . $count . ')';
                 }
 
-                $querySubservVsMat = "INSERT INTO `subserv_vs_materials` ( `subserv_id`, `material_id` ) VALUES " . implode(",", $queryArr);
+                $querySubservVsMat = "INSERT INTO `subserv_vs_materials` ( `subserv_id`, `material_id`, `count_of_unit`) VALUES " . implode(",", $insertArr);
                 $result = $mysqli->query($querySubservVsMat);
             }
 

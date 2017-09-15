@@ -129,6 +129,15 @@
                         echo $twig->render('pages/404.html', $data);
                 };
                 break;
+            case 'user':
+                if ($route[3] == '') {
+                    $data['all_users'] = $func->getAllUsers();
+                    echo $twig->render('pages/user/users.html', $data);
+                } else {
+                    $data['user'] = $func->getOneSubServiceWithSub(39);
+                    echo $twig->render('pages/test.html', $data);
+                }
+                break;
             case 'test':
                 $data['test'] = $func->getOneSubServiceWithSub(39);
                 echo $twig->render('pages/test.html', $data);

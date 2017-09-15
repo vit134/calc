@@ -1,0 +1,75 @@
+{% extends 'layout/layout.html' %}
+
+{% block pageName %}add-subservice{% endblock %}
+
+{% block pageCss %}
+    <link href="{{ config.assetsPath }}theme/css/plugins/select2/select2.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-inherit panel-minimal">
+                <div class="panel-heading clearfix">
+                    <h2 class="panel-title">Пользователи</h2>
+                    <ul class="panel-tool-options">
+                        <a href="{{ config.adminPath}}/add/user" class="btn btn-default" type="button">Создать</a>
+                    </ul>
+                </div>
+                <!-- panel body -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-users table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="size-80"></th>
+                                    <th>Name</th>
+                                    <th class="text-center">role</th>
+                                    <th class="text-center">active</th>
+                                    <th>last login</th>
+                                    <th class="size-80" class="text-center">actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in all_users %}
+                                    <tr>
+                                        <td class="size-80"><img class="avatar img-circle" src="{{ user.main.avatar }}" alt="" title=""></td>
+                                        <td><strong>{{ user.main.first_name }} {{ user.main.last_name }}</strong></td>
+                                        <td class="text-center">
+                                            {% for group in user.group %}
+                                                <span class="badge badge-bordered">{{ group.group_name }}</span>
+                                            {% endfor %}
+                                        </td>
+                                        <td class="text-center">
+                                            {% if user.main.active %}
+                                                <i class="icon-check icon-larger green-color"></i>
+                                            {% else %}
+                                                <i class="icon-cancel icon-larger red-color"></i>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ user.main.last_login | date("d M Y - G:i:s") }}</td>
+                                        <td class="size-80">
+                                            <div class="dropdown">
+                                                <a href="#/" data-toggle="dropdown" class="more-link"><i class="icon-dot-3 ellipsis-icon"></i></a>
+                                                <ul class="dropdown-menu dropdown-menu-right">
+                                                    <li><a href="">Подробности</a></li>
+                                                    <li><a href="">Изменить</a></li>
+                                                    <li><a href="">Удалить</a> </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <pre>{{ dump(all_users) }}</pre>
+{% endblock %}
+
+{% block pageScripts %}
+    <script src="{{ config.assetsPath }}js/build/edit/subservice/main.js"></script>
+{% endblock %}

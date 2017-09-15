@@ -17,7 +17,7 @@
         background-image: none;
         border: 1px solid #ccc;
         border-radius: 4px;
-        padding: 0 7px 5px;
+        padding: 0 30px 5px 7px;
         cursor: text;
 
         &__btn {
@@ -60,6 +60,15 @@
             border-radius: 3px 3px 0 0;
             border-bottom: 0;
         }
+
+        &.open & {
+            &__btn {
+                &:after {
+                    border-color: transparent transparent #888 transparent;
+                    border-width: 0 4px 5px 4px;
+                }
+            }
+        }
     }
 
     &__dropdown {
@@ -71,17 +80,16 @@
         background: #fff;
         z-index: 9;
         border-radius: 0 0 4px 4px;
-        height: 227px;
+        height: 157px;
         overflow-y: scroll;
 
         &__item {
             .m-clearfix;
-            padding: 10px 12px;
+            padding: 3px 12px;
             cursor: pointer;
 
             &:hover {
                 background: #00b8ce;
-                color: #fff;
                 border-color: #00b8ce;
             }
 
@@ -103,6 +111,7 @@
             &__inner {
                 margin-right: 120px;
                 font-weight: 500;
+                margin-top: 3px;
             }
         }
 

@@ -72,6 +72,43 @@
             return $respose[0];
         }
 
+        //получить всех пользователей
+        public function getAllUsers() {
+            global $mysqli;
+            $respose = [];
+
+            $query = "SELECT u.*,
+                             g.name AS group_name,
+                             g.access AS group_access
+                          FROM `users` u
+                          LEFT JOIN `users_vs_groups` uvg ON u.id = uvg.user_id
+                          LEFT JOIN `groups` g ON uvg.group_id = g.id";
+
+            $result = $mysqli->query($query);
+
+            foreach ($result as $key => $value) {
+                $respose[$value['id']]['main'] = array(
+                    'id' => $value['id'],
+                    'first_name' => $value['first_name'],
+                    'second_name' => $value['second_name'],
+                    'last_name' => $value['last_name'],
+                    'login' => $value['login'],
+                    'pass' => $value['pass'],
+                    'phone' => $value['phone'],
+                    'email' => $value['email'],
+                    'avatar' => $value['avatar'],
+                    'active' => $value['active'],
+                    'last_login' => $value['last_login']
+                );
+                $respose[$value['id']]['group'][] = array(
+                    'group_name' => $value['group_name'],
+                    'group_access' => $value['group_access']
+                );
+            }
+
+            return $respose;
+        }
+
         //Получить все из категорий
         public function getAllCategories() {
             global $mysqli;
@@ -492,24 +529,6 @@
         public function getOneSubServiceWithSub($id) {
             global $mysqli;
 
-            /*$query = "SELECT ss.id,
-                             ss.name,
-                             ss.minute_for_unit,
-                             ss.price_for_unit,
-                             ss.publish,
-                             s.id AS serv_id,
-                             s.name AS serv_name,
-                             s.publish AS serv_publish,
-                             m.id AS material_id,
-                             m.name AS material_name,
-                             m.price AS material_price,
-                             m.image AS material_image
-                      FROM `subservices` ss
-                          LEFT JOIN serv_vs_subserv svs ON ss.id = svs.subserv_id
-                          LEFT JOIN `services` s ON s.id = svs.serv_id
-                          LEFT JOIN `subserv_vs_materials` svm  ON ss.id = svm.subserv_id
-                          LEFT JOIN `materials` m  ON m.id = svm.material_id
-                      WHERE ss.id = " . $id;*/
             $query = "SELECT
                           ss.id,
                           ss.name,
@@ -532,38 +551,14 @@
             $result = $mysqli->query($query);
 
             if ($result) {
-                /*foreach ($result as $key => $value) {
-
-                    $arr['main'] = array(
-                        'id' => $value['id'],
-                        'name' => $value['name'],
-                        'publish' => $value['publish'],
-                        'minute_for_unit' => $value['minute_for_unit'],
-                        'price_for_unit' => $value['price_for_unit']
-                    );
-                    if ($value['serv_id'] != NULL) {
-                        $arr['services'][$value['serv_id']] = array(
-                            'id' => $value['serv_id'],
-                            'name' => $value['serv_name'],
-                            'publish' => $value['serv_publish']
-                        );
-                    }
-
-                    if ($value['material_id'] != NULL) {
-                        $arr['materials'][] = array(
-                            'id' => $value['material_id'],
-                            'name' => $value['material_name'],
-                            'price' => $value['material_price'],
-                            'image' => $value['material_image']
-                        );
-                    }
-                }*/
 
                 foreach ($result as $key => $value) {
                     $arr['main'] = array(
                         'id' => $value['id'],
                         'name' => $value['name'],
-                        'price' => $value['price']
+                        'publish' => $value['publish'],
+                        'price_for_unit' => $value['price_for_unit'],
+                        'minute_for_unit' => $value['minute_for_unit']
                     );
                     if ($value['subserv_id'] != NULL) {
                         $arr['subservices'][$value['subserv_id']] = array(
@@ -593,9 +588,6 @@
         //Сравнить все услуги одной категории с уже добавленными в неё
         public function compareAlreadyServices($id) {
             $allready = $this->getOneCategoryWithSub($id)['services'];
-            /*echo '<pre>';
-            var_dump($allready) ;
-            echo '</pre>';*/
             $all = $this->getAllServices();
 
             foreach ($all as $key => $value) {

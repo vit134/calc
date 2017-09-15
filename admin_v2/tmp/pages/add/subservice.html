@@ -49,12 +49,45 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="name" class="control-label">Выберите материалы</label>
+                        {#<label for="name" class="control-label">Выберите материалы</label>
                         <select name="materials[]" class="select2 form-control" data-placeholder="Выберите материалы" multiple>
                             {% for item in all_materials %}
                                 <option value="{{ item.id }}">{{ item.name }}</option>
                             {% endfor %}
-                        </select>
+                        </select>#}
+                        <div class="custom-select">
+                            <label for="name" class="control-label">Выберите материалы</label>
+                            <div class="custom-select__hidden">
+                                <select name="materials[]" class="select2 form-control" multiple>
+                                    {% for item in all_materials %}
+                                        <option  value="{{ item.id }}_1" data-id="{{ item.id }}" class="js-option">{{ item.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="custom-select__body">
+                                <div class="custom-select__input js-open-btn">
+                                    {% for item in all_materials %}
+                                        <span data-id="{{ item.id }}" class="custom-select__added-item js-added-item hidden">{{ item.name }}<span>({{ item.count }})</span></span>
+                                    {% endfor %}
+                                    <span class="custom-select__input__btn"></span>
+                                </div>
+                                <div class="custom-select__dropdown js-dropdown">
+                                    <!-- <input type="text" name="" class="custom-select__input-search js-input"> -->
+                                    {% for item in all_materials %}
+                                        <div class="custom-select__dropdown__item js-dropdown-item" data-id="{{ item.id }}" data-count="">
+                                            <div class="custom-select__col_left">
+                                                <div class="custom-select__col_left__inner">{{ item.name }}</div>
+                                            </div>
+                                            <div class="custom-select__col_right">
+                                                <span class="custom-select__control custom-select__control_up js-control-up">&#9650;</span>
+                                                <input type="text" name="hidden" value="1" class="custom-select__input-number js-num-input">
+                                                <span class="custom-select__control custom-select__control_down js-control-down">&#9660;</span>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="checkbox">
                         <label><input type="checkbox" name="publish">Опубликовать</label>
@@ -68,5 +101,5 @@
 {% endblock %}
 
 {% block pageScripts %}
-
+    <script src="{{ config.assetsPath }}js/build/edit/subservice/main.js"></script>
 {% endblock %}
