@@ -1,0 +1,60 @@
+{% extends 'layout/layout.html' %}
+
+{% block pageName %}add-subservice{% endblock %}
+
+{% block pageCss %}
+    <link href="{{ config.assetsPath }}theme/css/plugins/select2/select2.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-inherit panel-minimal">
+            <div class="panel-heading clearfix">
+                <h2 class="panel-title">Личный кабинет</h2>
+            </div>
+            <!-- panel body -->
+            <div class="panel-body ">
+                <div class="lk">
+                    <div class="lk__col-left">
+                        <img src="{{ user.avatar }}">
+                    </div>
+                    <div class="lk__col-right">
+                        <div class="lk__row"><h2>{{ user.first_name }} {{ user.second_name }} {{ user.last_name }}</h2></div>
+                        <div class="lk__row">
+                            <div class="lk__row__col">
+                                <div class="lk__row__title">Дата рождения</div>
+                            </div>
+                            <div class="lk__row__col">
+                                {{ user.birth_date }}
+                            </div>
+                        </div>
+                        <div class="lk__row">
+                            <div class="lk__row__col">
+                                <div class="lk__row__title">Телефон</div>
+                            </div>
+                            <div class="lk__row__col">
+                                {{ user.phone }}
+                            </div>
+                        </div>
+                        <div class="lk__row">
+                            <div class="lk__row__col">
+                                <div class="lk__row__title">E-mail</div>
+                            </div>
+                            <div class="lk__row__col">
+                                {{ user.email }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<pre>{{ dump(user) }}</pre>
+
+{% endblock %}
+
+{% block pageScripts %}
+    <script src="{{ config.assetsPath }}js/build/edit/subservice/main.js"></script>
+{% endblock %}

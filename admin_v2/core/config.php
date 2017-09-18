@@ -1,5 +1,6 @@
 <?php
     define('SITE_PATH', realpath(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR);
+    setlocale(LC_TIME, 'ru_RU.UTF-8');
 
     $sitePath = 'http://calc/admin_v2/';
 
@@ -25,6 +26,7 @@
         'editService' => $adminPath . '/edit/service/',
         'editSubService' => $adminPath . '/edit/subservice/',
         'editMaterial' => $adminPath . '/edit/material/',
+        'user' => $adminPath . '/user'
     );
 
     $searchConfig = array(

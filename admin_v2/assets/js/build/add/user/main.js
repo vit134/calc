@@ -1,0 +1,1 @@
+$(document).ready(function(){$("#date-popup").datepicker({keyboardNavigation:!1,forceParse:!1,todayHighlight:!0})});

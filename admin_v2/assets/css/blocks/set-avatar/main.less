@@ -1,0 +1,50 @@
+.set-avatar {
+    &__body {
+        font-size: 0;
+    }
+
+
+    &__item {
+        display: inline-block;
+        vertical-align: middle;
+        width: 20%;
+    }
+
+    &__input {
+        position: absolute;
+        left: -1000px;
+        opacity: 0;
+    }
+
+    &__label {
+        position: relative;
+        display: block;
+        cursor: pointer;
+        opacity: 0.6;
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
+    &__input:checked + &__label {
+        opacity: 1;
+
+        &:after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background: url('@{blocksPath}/set-avatar/images/check.svg') center no-repeat;
+            background-size: 100%;
+        }
+    }
+
+    &__img {
+        max-width: 100%;
+        border-radius: 50%;
+    }
+}

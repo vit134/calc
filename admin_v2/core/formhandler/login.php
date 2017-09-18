@@ -3,9 +3,11 @@
     include '../../core/config.php';
     include '../../../core/dbconnect.php';
 
+    $back = getenv("HTTP_REFERER");
+
     if (!isset($__POST)) {
         $login = trim($_POST['login']);
-        $pass = md5(trim($_PSOT));
+        $pass = md5(trim($_POST['pass']));
 
         $query = "SELECT id FROM users WHERE login = '". $login ."' and pass = '". $pass ."' ";
 
@@ -22,7 +24,7 @@
 
             $_SESSION['user_id'] = $id;
 
-            header("Location: " . $config['adminPath'] );
+            header("Location: " . $back );
         } else {
             header("Location: " . $config['adminPath'] . "?error=true" );
         }

@@ -22,6 +22,7 @@
                         <table class="table table-users table-hover">
                             <thead>
                                 <tr>
+                                    <th class="size-60"></th>
                                     <th class="size-80"></th>
                                     <th>Имя</th>
                                     <th class="text-center">Роль</th>
@@ -33,6 +34,7 @@
                             <tbody>
                                 {% for user in all_users %}
                                     <tr>
+                                        <td class="size-60"><div class="form-checkbox"><input type="checkbox" name="name1" value=""> <span class="check"><i class="fa fa-check"></i></span></div></td>
                                         <td class="size-80"><img class="avatar img-circle" src="{{ user.main.avatar }}" alt="" title=""></td>
                                         <td><strong>{{ user.main.first_name }} {{ user.main.last_name }}</strong></td>
                                         <td class="text-center">

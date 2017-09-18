@@ -1,4 +1,7 @@
 <?php
+
+    include 'config.php';
+
     /*function route() {
         $url = $_SERVER['REQUEST_URI'];
         $result = array();
@@ -40,6 +43,22 @@
             }
 
             return array_splice($result, 1);
+        }
+
+        //Получить все группы
+        public function getAllgroup() {
+            global $mysqli;
+
+            $arr = [];
+
+            $query = "SELECT * FROM `groups`";
+            $result = $mysqli->query($query);
+
+            foreach ($result as $key => $value) {
+                $arr[] = $value;
+            }
+
+            return $arr;
         }
 
         //получить досуп пользователя по его id
@@ -730,6 +749,35 @@
             if ($success) {
                 return $new_filename;
             }
+        }
+
+        //получить все аватарки из папки assets/images/avatar
+        public function getAvatar() {
+            global $sitePath;
+
+            $dir    = 'assets/images/avatar/';
+            $files = scandir(SITE_PATH . $dir);
+
+            unset($files[0]);
+            unset($files[1]);
+
+            foreach ($files as $key => $value) {
+                $files[$key] = $sitePath . $dir . $value;
+            }
+
+            return $files;
+        }
+
+        //рандом
+        public function randomString($length = 6) {
+            $str = "";
+            $characters = array_merge(range('A','Z'), range('a','z'), range('0','9'));
+            $max = count($characters) - 1;
+            for ($i = 0; $i < $length; $i++) {
+                $rand = mt_rand(0, $max);
+                $str .= $characters[$rand];
+            }
+            return $str;
         }
 
     }

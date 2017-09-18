@@ -1,0 +1,48 @@
+.lk {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    align-items: stretch;
+
+    &__col {
+
+        &-left {
+            width: 300px;
+            border-right: 1px solid #ddd;
+            padding-right: 20px;
+        }
+
+        &-right {
+            width: 100%;
+            //min-height: 1000px;
+            padding: 0 20px;
+        }
+    }
+
+    &__row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        align-items: flex-end;
+        margin-bottom: 15px;
+
+        & h2 {
+            margin-bottom: 0;
+        }
+
+        &__col {
+            width: 100%;
+
+            &:first-child {
+                width: 150px;
+            }
+        }
+
+        &__title {
+            font-size: 16px;
+            font-weight: 600;
+        }
+    }
+}

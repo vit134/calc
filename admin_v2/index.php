@@ -96,6 +96,11 @@
                         $data['all_materials'] = $func->getAllMaterials();
                         echo $twig->render('pages/'. $route[1]. '/material.html', $data);
                         break;
+                    case 'user':
+                        $data['avatar'] = $func->getAvatar();
+                        $data['group'] = $func->getAllgroup();
+                        echo $twig->render('pages/'. $route[1]. '/user.html', $data);
+                        break;
                     default:
                         echo $twig->render('pages/404.html', $data);
                 };
@@ -130,16 +135,30 @@
                 };
                 break;
             case 'user':
-                if ($route[3] == '') {
+                if ($route[2] == 'lk') {
+                    //$data['user'] = $func->getOneSubServiceWithSub($login);
+                    $data['user'] = $func->getUserInfo($login);
+                    echo $twig->render('pages/user/lk.html', $data);
+                } else {
                     $data['all_users'] = $func->getAllUsers();
                     echo $twig->render('pages/user/users.html', $data);
+                }
+                break;
+            case 'create_pass':
+                if ($route[3] == '') {
+                    $data['all_users'] = $func->getAllUsers();
+                    echo $twig->render('pages/create_pass.html', $data);
                 } else {
                     $data['user'] = $func->getOneSubServiceWithSub(39);
                     echo $twig->render('pages/test.html', $data);
                 }
                 break;
             case 'test':
-                $data['test'] = $func->getOneSubServiceWithSub(39);
+                $data = array(
+                    'name' => 'хуй'
+                );
+                $html = $twig->render('blocks/mail/activate_user.html', $data);
+                echo $html;
                 echo $twig->render('pages/test.html', $data);
                 break;
             default:

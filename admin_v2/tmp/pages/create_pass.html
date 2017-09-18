@@ -1,0 +1,31 @@
+{% extends 'layout/layout.html' %}
+
+{% block pageName %}login-page{% endblock %}
+
+{% block window %}
+
+    <div class="login-container">
+
+        <div class="login-branding">
+            <a href="index.html"><img src="images/logo.png" alt="Mouldifi" title="Mouldifi"></a>
+        </div>
+        <div class="login-content">
+            <h2><strong>Добро пожаловать</strong>, придумайте пароль</h2>
+            <form method="post" action="{{ config.adminPath }}/core/formhandler/activate_user.php&active=true">
+                <div class="form-group {% if route.params.error %}has-error{% endif %}">
+                    <input type="password" placeholder="Пароль" class="form-control" name="pass">
+                </div>
+                <div class="form-group {% if route.params.error %}has-error{% endif %}">
+                    <input type="password" placeholder="Повторите пароль" class="form-control" name="pass_rep">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block pageScripts %}
+    <script src="{{ config.assetsPath }}js/build/login/main.js"></script>
+{% endblock %}
