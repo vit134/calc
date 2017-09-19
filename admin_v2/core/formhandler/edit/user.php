@@ -13,6 +13,14 @@
 
     $userId = $_POST['id'];
 
+    $date = new DateTime($_POST['birth_date']);
+    $birth_date = $date->format("Y-m-d H:i:s");
+
+    $dateBirth_date = new DateTime($birth_date);
+    $now = new DateTime();
+
+    $interval = $dateBirth_date->diff($now);
+
     $updateArr = [];
 
     if ($_POST['old_pass'] != '') {
@@ -26,23 +34,45 @@
             if ($passFromDB == md5($_POST['old_pass'])) {
                 if ($_POST['new_pass'] == $_POST['rep_pass']) {
                     $updateArr[] = "`pass`='" . md5($_POST['new_pass']) . "'";
-                } else {
+               } else {
                     $response['status'] = 'error';
                     $response['message'] = 'not_confirm_pass';
-                }
-            } else {
+               }
+           } else {
 
                 $response['status'] = 'error';
                 $response['message'] = 'wrong_old_pass';
-            }
-        } else {
+           }
+       } else {
             echo 'checkPassQuery' . $checkPassQuery;
-        }
-    }
+       }
+   }
 
     if ($_POST['avatar'] != '') {
         $updateArr[] = "`avatar`='" . $_POST['avatar'] . "'";
     }
+
+    $bd = date('Y-m-d H:i:s' ,strtotime($_POST['birth_date']));
+
+    $updateQuery = "UPDATE `users` SET
+                        `first_name`='{$_POST['first_name']}',
+                        `second_name`='{$_POST['second_name']}',
+                        `last_name`='{$_POST['last_name']}',
+                        `birth_date`={$bd},
+                        `years_old`={$interval->format('%y')},
+                        `phone`={$_POST['phone']},
+                        `email`='{$_POST['email']}', " . implode(',', $updateArr) . "
+                    WHERE id = " . $userId;
+
+
+    $result = $mysqli->query($updateQuery);
+
+    if ($result) {
+        header("Location: " . $links['user'] . http_build_query($response) );
+   } else {
+        echo $updateQuery;
+   }
+
 
 
     echo '<pre>';
