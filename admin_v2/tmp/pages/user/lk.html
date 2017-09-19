@@ -12,12 +12,22 @@
         <div class="panel panel-inherit panel-minimal">
             <div class="panel-heading clearfix">
                 <h2 class="panel-title">Личный кабинет</h2>
+                <ul class="panel-tool-options">
+                    <a href="{{ config.adminPath}}/edit/user/{{ user.id }}" class="btn btn-default" type="button">Редактировать</a>
+                    {% if access.a %}
+                        <a href="{{ config.adminPath}}/edit/user/{{ user.id }}" class="btn btn-default" type="button">Заблокировать</a>
+                    {% endif %}
+                </ul>
             </div>
             <!-- panel body -->
             <div class="panel-body ">
                 <div class="lk">
                     <div class="lk__col-left">
-                        <img src="{{ user.avatar }}">
+                        {% if user.avatar %}
+                            <img src="{{ user.avatar }}">
+                        {% else %}
+                            <a href="" class="center-align">Добавить <br> изображение</a>
+                        {% endif %}
                     </div>
                     <div class="lk__col-right">
                         <div class="lk__row"><h2>{{ user.first_name }} {{ user.second_name }} {{ user.last_name }}</h2></div>
@@ -26,7 +36,7 @@
                                 <div class="lk__row__title">Дата рождения</div>
                             </div>
                             <div class="lk__row__col">
-                                {{ user.birth_date }}
+                                {{ user.birth_date }} ({{ user.years_old }} лет)
                             </div>
                         </div>
                         <div class="lk__row">
@@ -43,6 +53,16 @@
                             </div>
                             <div class="lk__row__col">
                                 {{ user.email }}
+                            </div>
+                        </div>
+                        <div class="lk__row">
+                            <div class="lk__row__col">
+                                <div class="lk__row__title">Роль</div>
+                            </div>
+                            <div class="lk__row__col">
+                                {% for item in user.group %}
+                                    <a href="{{ links.group }}/{{ item.id }}"><span class="badge badge-bordered">{{ item.name }}</span></a>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>

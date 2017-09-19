@@ -11,25 +11,30 @@
         </div>
         <div class="login-content">
             {# <pre>{{ dump() }}</pre> #}
-            <h2><strong>Welcome</strong>, please login</h2>
-            <form method="post" action="{{ config.adminPath }}/core/formhandler/login.php">
-                <div class="form-group {% if route.params.error %}has-error{% endif %}">
-                    <input type="text" placeholder="Username" class="form-control" name="login">
-                </div>
-                <div class="form-group {% if route.params.error %}has-error{% endif %}">
-                    <input type="password" placeholder="Password" class="form-control" name="pass">
-                </div>
-                <div class="form-group">
-                    <div class="checkbox checkbox-replace">
-                        <input type="checkbox" id="remeber">
-                        <label for="remeber">Remeber me</label>
+            {% if route.params.error  and route.params.message == 'no-activate' %}
+                <h2 class="center-align">Пользватель заблокирован</h2>
+                <p class="center-align">Обратитесь в службу поддержки</p>
+            {% else %}
+                <h2><strong>Welcome</strong>, please login</h2>
+                <form method="post" action="{{ config.adminPath }}/core/formhandler/login.php">
+                    <div class="form-group {% if route.params.error %}has-error{% endif %}">
+                        <input type="text" placeholder="Username" class="form-control" name="login">
                     </div>
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-primary btn-block">Login</button>
-                </div>
-                <p class="text-center"><a href="forgot-password.html">Forgot your password?</a></p>
-            </form>
+                    <div class="form-group {% if route.params.error %}has-error{% endif %}">
+                        <input type="password" placeholder="Password" class="form-control" name="pass">
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox checkbox-replace">
+                            <input type="checkbox" id="remeber">
+                            <label for="remeber">Remeber me</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block">Login</button>
+                    </div>
+                    <p class="text-center"><a href="forgot-password.html">Forgot your password?</a></p>
+                </form>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

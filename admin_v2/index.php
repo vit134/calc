@@ -127,8 +127,14 @@
                         break;
                     case 'material':
                         $data['one_material'] = $func->getOnematerial($route[3]);
-
                         echo $twig->render('pages/'. $route[1]. '/material.html', $data);
+                        break;
+                    case 'user':
+                        $data['user'] = $func->getUserInfo($route[3]);
+                        $data['user']['group'] = $func->getUserGroup($route[3]);
+                        $data['diff'] = $func->compareAlreadyGroup($route[3]);
+                        $data['avatar'] = $func->getAvatar();
+                        echo $twig->render('pages/'. $route[1]. '/user.html', $data);
                         break;
                     default:
                         echo $twig->render('pages/404.html', $data);
@@ -137,8 +143,15 @@
             case 'user':
                 if ($route[2] == 'lk') {
                     //$data['user'] = $func->getOneSubServiceWithSub($login);
-                    $data['user'] = $func->getUserInfo($login);
-                    echo $twig->render('pages/user/lk.html', $data);
+                    if ($route[3] == '') {
+                        $data['user'] = $func->getUserInfo($login);
+                        $data['user']['group'] = $func->getUserGroup($login);
+                        echo $twig->render('pages/user/lk.html', $data);
+                    } else {
+                        $data['user'] = $func->getUserInfo($route[3]);
+                        $data['user']['group'] = $func->getUserGroup($route[3]);
+                        echo $twig->render('pages/user/lk.html', $data);
+                    }
                 } else {
                     $data['all_users'] = $func->getAllUsers();
                     echo $twig->render('pages/user/users.html', $data);

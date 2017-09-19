@@ -77,6 +77,28 @@
             return $respose;
         }
 
+        //получить группы пользователя по его id
+        public function getUserGroup($id) {
+            global $mysqli;
+
+            $respose = [];
+
+            $query = "SELECT g.* FROM `groups` g
+                          LEFT JOIN `users_vs_groups` uvg ON g.id = uvg.group_id
+                      WHERE uvg.user_id = " . $id;
+
+            $result = $mysqli->query($query);
+
+            if ($result) {
+                foreach ($result as $key => $value) {
+                    $respose[] = $value;
+                }
+            }
+
+            return $respose;
+
+        }
+
         //получить информацию о пользователе по его id
         public function getUserInfo($id) {
             global $mysqli;
@@ -662,6 +684,24 @@
         public function compareAlreadyMaterials($mat_id) {
             $allready = $this->getOneSubServiceWithSub($mat_id)['materials'];
             $all = $this->getAllMaterials();
+
+            foreach ($all as $key => $value) {
+                if ($allready != NULL) {
+                    foreach ($allready as $arkey => $arvalue) {
+                        if ($value['id'] == $arvalue['id']) {
+                            unset($all[$key]);
+                        }
+                    }
+                }
+            }
+
+            return $arr = array('already' => $allready, 'all' => $all);
+        }
+
+        //Сравнить все группы пользователя  с уже добавленными в него по его id
+        public function compareAlreadyGroup($user_id) {
+            $allready = $this->getUserGroup($user_id);
+            $all = $this->getAllgroup();
 
             foreach ($all as $key => $value) {
                 if ($allready != NULL) {

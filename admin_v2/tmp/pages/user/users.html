@@ -1,6 +1,6 @@
 {% extends 'layout/layout.html' %}
 
-{% block pageName %}add-subservice{% endblock %}
+{% block pageName %}all-user-page{% endblock %}
 
 {% block pageCss %}
     <link href="{{ config.assetsPath }}theme/css/plugins/select2/select2.css" rel="stylesheet">
@@ -54,8 +54,8 @@
                                             <div class="dropdown">
                                                 <a href="#/" data-toggle="dropdown" class="more-link"><i class="icon-dot-3 ellipsis-icon"></i></a>
                                                 <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li><a href="">Подробности</a></li>
-                                                    <li><a href="">Изменить</a></li>
+                                                    <li><a href="{{ config.adminPath }}/user/lk/{{ user.main.id }}">Подробности</a></li>
+                                                    <li><a href="{{ config.adminPath }}/edit/user/{{ user.main.id }}">Изменить</a></li>
                                                     <li><a href="">Удалить</a> </li>
                                                 </ul>
                                             </div>

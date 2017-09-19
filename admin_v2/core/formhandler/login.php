@@ -9,22 +9,29 @@
         $login = trim($_POST['login']);
         $pass = md5(trim($_POST['pass']));
 
-        $query = "SELECT id FROM users WHERE login = '". $login ."' and pass = '". $pass ."' ";
+        $query = "SELECT id, active FROM users WHERE login = '". $login ."' and pass = '". $pass ."' ";
 
         $result = $mysqli->query($query);
         //echo $login . '---' . $pass;
 
-        if ($result && $result->num_rows != 0) {
 
-            $id = $result->fetch_array(MYSQLI_NUM)[0];
+        if ($result->num_rows != 0) {
+            //echo $result->fetch_array(MYSQLI_NUM)[1];
+            $user = $result->fetch_array(MYSQLI_NUM);
+            $active = $user[1];
+            $id = $user[0];
 
-            $updateQuery = "UPDATE `users` SET `last_login`=NOW() WHERE id = " . $id;
+            if ($active == 1) {
 
-            $resultUpdate = $mysqli->query($updateQuery);
+                $updateQuery = "UPDATE `users` SET `last_login`=NOW() WHERE id = " . $id;
 
-            $_SESSION['user_id'] = $id;
+                $resultUpdate = $mysqli->query($updateQuery);
+                $_SESSION['user_id'] = $id;
 
-            header("Location: " . $back );
+                header("Location: " . $back . "?status=success");
+            } else {
+                header("Location: " . $config['adminPath'] . "?error=true&message=no-activate" );
+            }
         } else {
             header("Location: " . $config['adminPath'] . "?error=true" );
         }

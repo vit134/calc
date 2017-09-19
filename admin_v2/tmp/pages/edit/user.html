@@ -1,0 +1,161 @@
+{% extends 'layout/layout.html' %}
+
+{% block pageName %}edit-user{% endblock %}
+
+{% block pageCss %}
+    <link href="{{ config.assetsPath }}theme/css/plugins/datepicker/bootstrap-datepicker.css" rel="stylesheet">
+    <link href="{{ config.assetsPath }}theme/css/plugins/select2/select2.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-inherit panel-minimal">
+            <div class="panel-heading clearfix">
+                <h2 class="panel-title">Личный кабинет</h2>
+                <ul class="panel-tool-options">
+                    <input href="{{ config.adminPath}}/edit/user/{{ user.id }}" class="btn btn-default" type="submit" form="edit-user" value="Сохранить">
+                </ul>
+            </div>
+            <!-- panel body -->
+            <div class="panel-body ">
+                <form id="edit-user" method="post" action="{{ config.formhandlerPath }}edit/user.php">
+                    <input type="hidden" name="id" value="{{ user.id }}">
+                    <div class="lk lk_short">
+                        <div class="lk__col-left edit-user">
+                            <div class="edit-image">
+                                {% if user.avatar %}
+                                    <a href="" class="js-open-modal"><img src="{{ user.avatar }}" class="edit-image__image js-preview-image"></a>
+                                {% else %}
+                                    <a href="" class="center-align">
+                                        <a href="" class="js-open-modal"><img src="{{ config.adminPath}}/assets/images/no-ava.svg" class="edit-image__image js-preview-image"></a>
+                                    </a>
+                                {% endif %}
+                                <input type="hidden" name="avatar" value="" class="js-avatar-input">
+                            </div>
+                        </div>
+                        <div class="lk__col-right">
+                            {% if access.a %}
+                                <div class="row lk__row">
+                                    <div class="col-lg-4">
+                                        <label>Имя</label>
+                                        <input type="text" name="first_name" class="form-control" value="{{ user.first_name }}" data-validation="required">
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label>Отчество</label>
+                                        <input type="text" name="second_name" class="form-control" value="{{ user.second_name }}">
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label>Фамилия</label>
+                                        <input type="text" name="last_name" class="form-control" value="{{ user.last_name }}" data-validation="required">
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="lk__row"><h2>{{ user.first_name }} {{ user.second_name }} {{ user.last_name }}</h2></div>
+                            {% endif %}
+                            <div class="lk__row">
+                                <div class="lk__row__col">
+                                    <div class="lk__row__title">Дата рождения</div>
+                                </div>
+                                <div class="lk__row__col">
+                                    <div id="date-popup" class="input-group date">
+                                        <input type="text" {# data-format="mm dd yyyy" #} class="form-control" name="birth_date" value="{{ user.birth_date|date("m-d-Y") }}">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="lk__row">
+                                <div class="lk__row__col">
+                                    <div class="lk__row__title">Телефон</div>
+                                </div>
+                                <div class="lk__row__col">
+                                    <input type="text" data-mask="(999) 999-9999" name="phone" class="form-control" value="{{ user.phone }}">
+                                </div>
+                            </div>
+                            <div class="lk__row">
+                                <div class="lk__row__col">
+                                    <div class="lk__row__title">E-mail</div>
+                                </div>
+                                <div class="lk__row__col">
+                                    <input type="email" class="form-control" name="email" value="{{ user.email }}" data-validation="email required">
+                                </div>
+                            </div>
+                            <div class="lk__row">
+                                <div class="lk__row__col">
+                                    <div class="lk__row__title">Роль</div>
+                                </div>
+                                <div class="lk__row__col">
+                                    <select name="group[]" class="select2 form-control" multiple>
+                                    <option disabled value="">Select states</option>
+                                        {% for item in diff.already %}
+                                            <option selected value="{{ item.id }}">{{ item.name }}</option>
+                                        {% endfor %}
+                                        {% for item in diff.all %}
+                                            <option  value="{{ item.id }}">{{ item.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="edit-user__change-pass">
+                                <div class="lk__row lk__row_flex-start">
+                                    <div class="lk__row__col">
+                                        <div class="lk__row__title lk__row__title_hover js-change-pass-btn">Сменить пароль</div>
+                                    </div>
+                                    <div class="lk__row__col lk__hidden js-pass-block">
+                                        <div class="lk__subrow">
+                                            <label>Старый пароль</label>
+                                            <input type="password" class="form-control" name="old_pass" value="" >
+                                        </div>
+                                        <div class="lk__subrow">
+                                            <label>Новый пароль</label>
+                                            <input type="password" class="form-control" name="new_pass" value="" >
+                                        </div>
+                                        <div class="lk__subrow">
+                                            <label>Повторите пароль</label>
+                                            <input type="password" class="form-control" name="rep_pass" value="" data-validation="confirmation" data-validation-confirm="new_pass">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<pre>{{ dump(diff) }}</pre>
+<div id="modal-2" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Выберите изображение</h4>
+            </div>
+            <div class="modal-body">
+                <div class="set-avatar">
+                    <div class="set-avatar__body">
+                        {% for key, item in avatar %}
+                            <div class="set-avatar__item">
+                                <input type="radio" name="avatar" id="avatar_{{ key }}" class="set-avatar__input js-radio" value="{{ item }}">
+                                <label for="avatar_{{ key }}" class="set-avatar__label">
+                                    <img src="{{ item }}" class="set-avatar__img">
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-primary js-modal-submit">Готово</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+    <script src="{{ config.assetsPath }}theme/js/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="{{ config.assetsPath }}js/build/edit/user/main.js"></script>
+{% endblock %}

@@ -28,11 +28,17 @@
     $publish = $_POST['publish'] == 'on' ? 1 : 0;
     $tmpPass = $func->randomString();
 
+    $dateBirth_date = new DateTime($birth_date);
+    $now = new DateTime();
+
+    $interval = $dateBirth_date->diff($now);
+
     $insertQuery = "INSERT INTO `users`(
         `first_name`,
         `second_name`,
         `last_name`,
         `birth_date`,
+        `years_old`,
         `login`,
         `phone`,
         `email`,
@@ -43,6 +49,7 @@
         '". $_POST['second_name'] ."',
         '". $_POST['last_name'] ."',
         '" . date('Y-m-d H:i:s' ,strtotime($_POST['birth_date'])) . "',
+        " . $interval->format('%y') . ",
         '". $_POST['login'] ."',
         '". $_POST['phone'] ."',
         '". $_POST['email'] ."',
@@ -84,6 +91,7 @@
 
         header("Location: " . $links['user'] . "?status=success" );
     } else {
+        echo $insertQuery;
         header("Location: " . $back . "?status=error&message=no_user_insert" );
     }
 
