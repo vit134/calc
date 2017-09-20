@@ -11,7 +11,8 @@ $(document).ready(function() {
     $('#date-popup').datepicker({
         keyboardNavigation: false,
         forceParse: false,
-        todayHighlight: true
+        todayHighlight: true,
+        format: "d M yyyy",
     });
 
     $openMOdalBtn.on('click', function(e) {
@@ -65,5 +66,11 @@ $(document).ready(function() {
         modules: 'security',
         scrollToTopOnError: false,
         lang: 'ru'
+    });
+
+    $("input[type=password]").passField({
+        showGenerate: false,
+        showWarn: false,
+        showTip: false
     });
 })

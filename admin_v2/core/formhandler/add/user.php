@@ -22,7 +22,6 @@
     echo '</pre>';*/
 
     $date = new DateTime($_POST['birth_date']);
-
     $birth_date = $date->format("Y-m-d H:i:s");
     $pass = md5($_POST['pass']);
     $publish = $_POST['publish'] == 'on' ? 1 : 0;
@@ -85,6 +84,7 @@
         $forMail = $_POST;
         $forMail['link'] = $sitePath . 'core/formhandler/activate_user.php?id=' . $userid . '&secret=' . md5($_POST['login'] . $_POST['email']);
         $forMail['tmpPass'] = $tmpPass;
+        $forMail['login'] = $_POST['login'];
 
         $html = $twig->render('blocks/mail/activate_user.html', $forMail);
         mail($_POST['email'], 'My Subject', $html);

@@ -9,6 +9,8 @@
         $login = trim($_POST['login']);
         $pass = md5(trim($_POST['pass']));
 
+        //echo $_POST['pass'];
+
         $query = "SELECT id, active FROM users WHERE login = '". $login ."' and pass = '". $pass ."' ";
 
         $result = $mysqli->query($query);

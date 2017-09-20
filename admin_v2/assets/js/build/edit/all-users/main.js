@@ -1,0 +1,1 @@
+$(document).ready(function(){console.log("all users page");var e=$(".js-delete-btn"),o=$(".js-modal-confirm-delete"),l=$("#modal-delete");e.on("click",function(e){e.preventDefault(),console.log(123);var t=$(this).attr("data-id"),a=o.attr("href");a=a.split("="),console.log(a,a[0],a[1]),a=a[0]+"="+t,console.log(a),o.attr("href",a),l.modal()})});

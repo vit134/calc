@@ -27,6 +27,24 @@
 
         //Методы
 
+        //Настройки
+        public function getSettings() {
+            global $mysqli;
+            $arr = [];
+
+            $query = "SELECT * FROM `settings`";
+
+            if ($result = $mysqli->query($query)) {
+                //$arr = $result->fetch_assoc();
+
+                foreach ($result as $key => $value) {
+                    $arr[$value['name']] = $value;
+                }
+            }
+
+            return $arr;
+        }
+
         //Роутинг
         public function route() {
             $url = $_SERVER['REQUEST_URI'];
@@ -148,6 +166,24 @@
             }
 
             return $respose;
+        }
+
+        //получить всех менеджером о продажам
+        public function getSalesManager() {
+            global $mysqli;
+
+            $query = "SELECT * FROM `users` u
+                          LEFT JOIN `users_vs_groups` uvg ON u.id = uvg.user_id
+                          LEFT JOIN `groups` g ON uvg.group_id = g.id
+                      WHERE g.id = 1";
+
+            $result = $mysqli->query($query);
+
+            foreach ($result as $key => $value) {
+                $arr[] = $value;
+            }
+
+            return $arr;
         }
 
         //Получить все из категорий

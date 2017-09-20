@@ -5,15 +5,17 @@
     include 'core/functions.php';
 
     require_once '../vendor/autoload.php';
+    $func = new globalClass();
 
     $loader = new Twig_Loader_Filesystem('tmp');
+
     $twig = new Twig_Environment($loader, array(
         'debug' => true
     ));
 
     $twig->addExtension(new Twig_Extension_Debug());
 
-    $func = new globalClass();
+
 
     $route = $func->route();
 
@@ -28,7 +30,8 @@
         'route' => $route,
         'config' => $config,
         'links' => $links,
-        'user_id' => $login
+        'user_id' => $login,
+        'settings' => $func->getSettings()
     );
 
     if ($login) {
@@ -101,6 +104,11 @@
                         $data['group'] = $func->getAllgroup();
                         echo $twig->render('pages/'. $route[1]. '/user.html', $data);
                         break;
+                    case 'order':
+                        $data['all_services'] = $func->getAllServices();
+                        $data['managers'] = $func->getSalesManager();
+                        echo $twig->render('pages/'. $route[1]. '/order.html', $data);
+                        break;
                     default:
                         echo $twig->render('pages/404.html', $data);
                 };
@@ -157,6 +165,14 @@
                     echo $twig->render('pages/user/users.html', $data);
                 }
                 break;
+            case 'order':
+                if ($route[2] == '') {
+                    //$data['user'] = $func->getOneSubServiceWithSub($login);
+                    echo $twig->render('pages/order/orders.html', $data);
+                } else {
+
+                }
+                break;
             case 'create_pass':
                 if ($route[3] == '') {
                     $data['all_users'] = $func->getAllUsers();
@@ -166,6 +182,7 @@
                     echo $twig->render('pages/test.html', $data);
                 }
                 break;
+
             case 'test':
                 $data = array(
                     'name' => 'хуй'
@@ -185,7 +202,14 @@
         } else {
             echo $twig->render('pages/404.html', $data);
         }*/
-    } else {
-        echo $twig->render('pages/login.html', $data);
+    } else  {
+        switch ($route[1]) {
+            case 'forgot_pass':
+                echo $twig->render('pages/forgot_pass.html', $data);
+                break;
+            default:
+                echo $twig->render('pages/login.html', $data);
+        }
+
     }
 ?>

@@ -1,5 +1,7 @@
 {% extends 'layout/layout.html' %}
 
+{% set dateFormat = settings.date_format.value %}
+
 {% block pageName %}add-subservice{% endblock %}
 
 {% block pageCss %}
@@ -31,12 +33,18 @@
                     </div>
                     <div class="lk__col-right">
                         <div class="lk__row"><h2>{{ user.first_name }} {{ user.second_name }} {{ user.last_name }}</h2></div>
+                        <div class="lk__row"> <div class="lk__row__col">
+                                <div class="lk__row__title">Логин</div>
+                            </div>
+                            <div class="lk__row__col">
+                                {{ user.login }}
+                            </div></div>
                         <div class="lk__row">
                             <div class="lk__row__col">
                                 <div class="lk__row__title">Дата рождения</div>
                             </div>
                             <div class="lk__row__col">
-                                {{ user.birth_date }} ({{ user.years_old }} лет)
+                                {{ user.birth_date | date(dateFormat ) }} ({{ user.years_old }} лет)
                             </div>
                         </div>
                         <div class="lk__row">
@@ -71,7 +79,7 @@
         </div>
     </div>
 </div>
-<pre>{{ dump(user) }}</pre>
+<pre>{{ dump(settings) }}</pre>
 
 {% endblock %}
 

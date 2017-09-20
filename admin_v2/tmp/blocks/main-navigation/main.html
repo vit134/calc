@@ -15,7 +15,12 @@
                 <li><a href="{{ config.adminPath }}/group/"><span class="title">Группы</span></a></li>
             </ul>
         </li>
-       <li>
+        <li class="has-sub {% if route[1] == 'order' or route[2] == 'order' %}active{% endif %}"><a href=""><i class="icon-basket"></i><span class="title">Заказы</span></a>
+            <ul class="nav collapse">
+                <li><a href="{{ config.adminPath }}/order/"><span class="title">Все заказы</span></a></li>
+            </ul>
+        </li>
+        <li>
             <a href="">
                 <i class="fa fa-users"></i>
                 <span class="title">Клиенты</span>

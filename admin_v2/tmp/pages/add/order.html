@@ -1,0 +1,136 @@
+{% extends 'layout/layout.html' %}
+
+{% block pageName %}add-material{% endblock %}
+
+{% block pageCss %}
+    <link href="{{ config.assetsPath }}theme/css/plugins/datepicker/bootstrap-datepicker.css" rel="stylesheet">
+    <link href="{{ config.assetsPath }}theme/css/plugins/select2/select2.css" rel="stylesheet">
+    <link href="{{ config.assetsPath }}/css/vendor/cropper.min.css" rel="stylesheet">
+    {# <link href="{{ config.assetsPath }}theme/css/plugins/dropzone/dropzone.css" rel="stylesheet"> #}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title">Создать заказ</h3>
+            </div>
+            <div class="panel-body">
+                <form method="post" action="{{ config.formhandlerPath }}add/user.php">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <label for="client">Услуги</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <select name="service" class="select2 form-control" data-placeholder="Выберите услуги" multiple="">
+                                    {% for service in all_services %}
+                                        <option value="{{ service.id }}">{{ service.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-lg-7" style="position: absolute; right: 15px">
+                                <div class="added-service">
+                                    <div class="added-service__row"></div>
+                                    <div class="added-service__empty center-align">Выберите услгуи слева</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <label for="client">Клиент</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-11">
+                                <select name="client" class="select2 form-control" data-placeholder="Выберите клиента">
+                                    <option value="1">Вася пупкин</option>
+                                    <option value="2">Петя васечкин</option>
+                                    <option value="3">Иван иваныч</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-1" style="position: absolute; right: 15px">
+                                <a href="" class="btn btn-default" type="button"  data-toggle="modal" data-target="#modal-2"><i class="fa fa-user-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    {# <div class="form-group">
+                        <label for="service">Услуги</label>
+                        <select name="service" class="select2 form-control" data-placeholder="Выберите услуги" multiple="">
+                            {% for service in all_services %}
+                                <option value="{{ service.id }}">{{ service.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div> #}
+                    <div class="form-group">
+                        <label for="service">Менеджер</label>
+                        <select name="service" class="select2 form-control" data-placeholder="Выберите менеджера">
+                            {% for manager in managers %}
+                                <option value="{{ manager.id }}">{{ manager.first_name }}  {{ manager.last_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="login" class="control-label">Логин</label>
+                        <input type="text" class="form-control " id="login" name="login" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Добавить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal-2" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Добавить клиента</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="first_name" class="control-label">Имя</label>
+                        <input type="text" class="form-control " id="first_name" name="first_name" placeholder="Введите имя" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="second_name" class="control-label">Отчество</label>
+                        <input type="text" class="form-control " id="second_name" name="second_name" placeholder="Введите отчество" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name" class="control-label">Фамилия</label>
+                        <input type="text" class="form-control " id="last_name" name="last_name" placeholder="Введите фамилию" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="adress" class="control-label">Адрес</label>
+                        <input type="text" class="form-control " id="adress" name="adress" placeholder="Введите адресс" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" class="control-label">Телефон</label>
+                        <input type="text" class="form-control " id="phone" name="phone" placeholder="Введите телефон" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="control-label">Email</label>
+                        <input type="email" class="form-control " id="email" name="email" placeholder="Введите email" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<pre> {{ dump() }}</pre>
+{% endblock %}
+
+{% block pageScripts %}
+    <script src="{{ config.assetsPath }}theme/js/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="{{ config.assetsPath }}js/build/add/user/main.js"></script>
+{% endblock %}
