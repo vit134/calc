@@ -168,6 +168,22 @@
             return $respose;
         }
 
+        //получить всех клиентов
+        public function getAllClients() {
+            global $mysqli;
+            $respose = [];
+
+            $query = "SELECT * FROM `clients`";
+            $result = $mysqli->query($query);
+
+            foreach ($result as $key => $value) {
+                $respose[] = $value;
+            }
+
+            return $respose;
+
+        }
+
         //получить всех менеджером о продажам
         public function getSalesManager() {
             global $mysqli;
@@ -352,6 +368,47 @@
                             'id' => $value['cat_id'],
                             'name' => $value['cat_name']
                         );
+                    }
+                }
+            }
+
+            return $arr;
+        }
+
+        //получить все услуги с итого
+        public function getAllServiceWithPrice() {
+            $data = $this->getAllServicesWithSub();
+            $arr = [];
+
+            foreach ($data as $key => $value) {
+                if ($value['main']['price'] == 0) {
+                    $arr[$key] = $value;
+
+                    $priceOfWork = 0;
+                    foreach ($value['subservices'] as $k => $val) {
+                        $priceOfWork = $priceOfWork + intval($val['price']);
+                    }
+
+                    $arr[$key]['main']['price_of_work'] = $priceOfWork;
+                } else {
+                    $arr[$key] = $value;
+                }
+            }
+
+            foreach ($arr as $key => $value) {
+                foreach ($value['subservices'] as $keyS => $valueS) {
+                    $materials = $this->getOneServiceWithSub($value['main']['id'])['materials'];
+
+                    if ($materials) {
+                        $priceOfMaterials = 0;
+
+                        foreach ($materials as $keyM => $valueM) {
+                            $priceOfMaterialsItem = intval($valueM['count']) * intval($valueM['price']);
+                            $priceOfMaterials = $priceOfMaterials + $priceOfMaterialsItem;
+                        }
+
+                        $arr[$key]['main']['price_of_materials'] = $priceOfMaterials;
+                        $arr[$key]['materials'] = $materials;
                     }
                 }
             }

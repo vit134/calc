@@ -18,28 +18,7 @@
             </div>
             <div class="panel-body">
                 <form method="post" action="{{ config.formhandlerPath }}add/user.php">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <label for="client">Услуги</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-5">
-                                <select name="service" class="select2 form-control" data-placeholder="Выберите услуги" multiple="">
-                                    {% for service in all_services %}
-                                        <option value="{{ service.id }}">{{ service.name }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="col-lg-7" style="position: absolute; right: 15px">
-                                <div class="added-service">
-                                    <div class="added-service__row"></div>
-                                    <div class="added-service__empty center-align">Выберите услгуи слева</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {% include 'blocks/order/add-service/main.html' %}
                     <div class="form-group">
                         <div class="row">
                             <div class="col-lg-12">
@@ -48,13 +27,14 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-11">
-                                <select name="client" class="select2 form-control" data-placeholder="Выберите клиента">
-                                    <option value="1">Вася пупкин</option>
-                                    <option value="2">Петя васечкин</option>
-                                    <option value="3">Иван иваныч</option>
+                                <select name="client" class="select2-placeholer form-control js-client-select" data-placeholder="Выберите клиента">
+                                    <option value="">Выберите клиента</option>
+                                    {% for client in clients %}
+                                        <option value="{{ client.id }}">{{ client.first_name }} {{ client.last_name }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
-                            <div class="col-lg-1" style="position: absolute; right: 15px">
+                            <div class="col-lg-1" style="position: absolute; right: 0">
                                 <a href="" class="btn btn-default" type="button"  data-toggle="modal" data-target="#modal-2"><i class="fa fa-user-plus"></i></a>
                             </div>
                         </div>
@@ -88,7 +68,7 @@
 <div id="modal-2" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form>
+            <form class="js-client-form">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Добавить клиента</h4>
@@ -100,7 +80,7 @@
                     </div>
                     <div class="form-group">
                         <label for="second_name" class="control-label">Отчество</label>
-                        <input type="text" class="form-control " id="second_name" name="second_name" placeholder="Введите отчество" required>
+                        <input type="text" class="form-control " id="second_name" name="second_name" placeholder="Введите отчество" >
                     </div>
                     <div class="form-group">
                         <label for="last_name" class="control-label">Фамилия</label>
@@ -108,20 +88,21 @@
                     </div>
                     <div class="form-group">
                         <label for="adress" class="control-label">Адрес</label>
-                        <input type="text" class="form-control " id="adress" name="adress" placeholder="Введите адресс" required>
+                        <input type="text" class="form-control " id="adress" name="adress" placeholder="Введите адресс" >
                     </div>
                     <div class="form-group">
                         <label for="phone" class="control-label">Телефон</label>
-                        <input type="text" class="form-control " id="phone" name="phone" placeholder="Введите телефон" required>
+                        <input type="phone" data-mask="+7 (999) 999-9999" id="phone" name="phone" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="email" class="control-label">Email</label>
                         <input type="email" class="form-control " id="email" name="email" placeholder="Введите email" required>
+                        <div class="error order__error">Такой e-mail уже существует</div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-primary js-clien-submit">Save changes</button>
                 </div>
             </form>
         </div>
@@ -132,5 +113,5 @@
 
 {% block pageScripts %}
     <script src="{{ config.assetsPath }}theme/js/plugins/datepicker/bootstrap-datepicker.js"></script>
-    <script src="{{ config.assetsPath }}js/build/add/user/main.js"></script>
+    <script src="{{ config.assetsPath }}js/build/add/order/main.js"></script>
 {% endblock %}

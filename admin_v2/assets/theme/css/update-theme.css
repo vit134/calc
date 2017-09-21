@@ -6,6 +6,10 @@ ul.main-menu li i {
     margin-left: 0.25em;
 }
 
+.form-group {
+    position: relative;
+}
+
 .form-group .error {
     display: none;
     position: absolute;
@@ -16,6 +20,10 @@ ul.main-menu li i {
 
 .form-group.has-warning {
     color: #946c28;
+}
+
+.form-group.has-error .error {
+    display: block;
 }
 
 .has-warning .error {

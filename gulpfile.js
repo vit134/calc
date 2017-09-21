@@ -115,7 +115,12 @@ gulp.task('watch', function(){
 });
 
 gulp.task('watch-admin', function(){
-    watch([path.dev.admin.less, path.dev.admin.pages, path.dev.admin.blocks], function(event, cb) {
-        gulp.start('styles');
+    watch([path.dev.admin.less,
+        path.dev.admin.blocks,
+        path.dev.admin.js,
+        path.dev.admin.jsPages,
+        path.dev.admin.jsSubPages
+    ], function(event, cb) {
+        gulp.start('build-admin');
     });
 });

@@ -105,8 +105,9 @@
                         echo $twig->render('pages/'. $route[1]. '/user.html', $data);
                         break;
                     case 'order':
-                        $data['all_services'] = $func->getAllServices();
+                        $data['all_services'] = $func->getAllServiceWithPrice();
                         $data['managers'] = $func->getSalesManager();
+                        $data['clients'] = $func->getAllClients();
                         echo $twig->render('pages/'. $route[1]. '/order.html', $data);
                         break;
                     default:
@@ -184,11 +185,8 @@
                 break;
 
             case 'test':
-                $data = array(
-                    'name' => 'хуй'
-                );
-                $html = $twig->render('blocks/mail/activate_user.html', $data);
-                echo $html;
+                $data = $func->getAllServiceWithPrice();
+
                 echo $twig->render('pages/test.html', $data);
                 break;
             default:

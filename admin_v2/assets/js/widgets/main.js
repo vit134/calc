@@ -7,7 +7,11 @@ $(document).ready(function() {
 
     function init() {
         bindEvents();
-        select2Init()
+        select2Init();
+
+        $(".select2-placeholer").select2({
+                allowClear: true
+            });
     }
 
     function bindEvents() {
@@ -22,12 +26,14 @@ $(document).ready(function() {
     }
 
     function select2Init() {
-        if ($('.select2') && $('.select2').length > 0) {
+        if ($('.select2') && $('.select2').length > 0 || $(".select2-placeholer") && $(".select2-placeholer").length > 0) {
             var placeholder = $('.select2').attr('data-placeholder');
 
             $(".select2").select2({
                 placeholder: placeholder
             });
+
+
         }
     }
 
