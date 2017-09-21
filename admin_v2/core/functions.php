@@ -416,6 +416,13 @@
             return $arr;
         }
 
+        //получить одну услугу с итого
+        public function getOneServiceWithPrice($id) {
+            $data = $this->getOneServiceWithSub($id);
+
+            return $data;
+        }
+
         //Получить все подуслуги включая материалы
         public function getAllSubServicesWithSub() {
             global $mysqli;

@@ -74,7 +74,6 @@ $(document).ready(function() {
                     data: data,
                     dataType: 'json',
                     success: function(e) {
-                        console.log(e);
 
                         $clientForm.find('input').closest('.form-group').removeClass('has-error');
 
@@ -89,7 +88,6 @@ $(document).ready(function() {
                             var newOption = new Option(data.first_name + '  ' + data.last_name , e.client_id, true, true);
 
                             $clientSelect.append(newOption).trigger('change');
-                            //'<option value="'+ e.client_id +'" selected="selected">' + data.first_name + '  ' + data.last_name + '</option>'
                         }
                     }
                 });

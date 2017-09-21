@@ -185,7 +185,7 @@
                 break;
 
             case 'test':
-                $data = $func->getAllServiceWithPrice();
+                $data = $func->getOneServiceWithPrice(47);
 
                 echo $twig->render('pages/test.html', $data);
                 break;
