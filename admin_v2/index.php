@@ -171,7 +171,8 @@
                     $data['all_orders'] = $func->getAllOrders();
                     echo $twig->render('pages/order/orders.html', $data);
                 } else {
-                    $data['order'] = $func->getOneOrders($route[2]);
+
+                    $data['preview'] = $func->getOneOrders($route[2]);
                     echo $twig->render('pages/order/one-order.html', $data);
                 }
                 break;

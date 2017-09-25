@@ -23,16 +23,14 @@
             'preview' => array(
                 'order_num' => getLastOrderId() + 1,
                 'date_create' => array(
-                        'd' => date('d'),
-                        'm' => date('M'),
-                        'y' => date('Y')
-                    ),
+                    'd' => date('d'),
+                    'm' => date('M'),
+                    'y' => date('Y')
+                ),
                 'client' => $func->getOneClient($_POST['client']),
-                'object_info' => array(
-                        'type' => $_POST['object_type'],
-                        'square' => $_POST['meters'],
-                        'adress' => $_POST['adress']
-                    ),
+                'obj_type' => $_POST['object_type'],
+                'obj_adress' => $_POST['adress'],
+                'count_of_meters' => $_POST['meters'],
                 'resourses' => $func->getServiceInOrderInfo($_POST['service'], $_POST['meters'])
             ),
             'settings' => $func->getSettings()

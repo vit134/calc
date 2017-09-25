@@ -280,7 +280,7 @@
                         'date_edit' => $value['date_edit'],
                         'client' => $this->getOneClient($value['client_id']),
                         'manager' => $this->getUserInfo($value['manager_id']),
-                        'services' => $this->getServiceInOrderInfo($services, $value['count_of_meters'])
+                        'resourses' => $this->getServiceInOrderInfo($services, $value['count_of_meters'])
                     );
                 }
             }

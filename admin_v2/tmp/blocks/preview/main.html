@@ -30,13 +30,13 @@
                     <div class="preview__row">
                         <div class="preview__row__col">ФИО</div>
                         <div class="preview__row__col">
-                            <span class="preview__text">{{ preview.client[0].first_name }} {{ preview.client[0].second_name }} {{ preview.client[0].last_name }}</span>
+                            <span class="preview__text">{{ preview.client.first_name }} {{ preview.client.second_name }} {{ preview.client.last_name }}</span>
                         </div>
                     </div>
                     <div class="preview__row">
                         <div class="preview__row__col">Телефон</div>
                         <div class="preview__row__col">
-                            <span class="preview__text">{{ preview.client[0].phone }}</span>
+                            <span class="preview__text">{{ preview.client.phone }}</span>
                         </div>
                     </div>
                 </div>
@@ -46,20 +46,20 @@
                         <div class="preview__row">
                             <div class="preview__row__col">Тип помещения</div>
                             <div class="preview__row__col">
-                                <span class="preview__text">{{ preview.object_info.type }}</span>
+                                <span class="preview__text">{{ preview.obj_type }}</span>
                             </div>
                         </div>
                     {% endif %}
                     <div class="preview__row">
                         <div class="preview__row__col">Площадь</div>
                         <div class="preview__row__col">
-                            <span class="preview__text">{{ preview.object_info.square }} м<sup>2</sup></span>
+                            <span class="preview__text">{{ preview.count_of_meters }} м<sup>2</sup></span>
                         </div>
                     </div>
                     <div class="preview__row">
                         <div class="preview__row__col">Адрес</div>
                         <div class="preview__row__col">
-                            <span class="preview__text">{{ preview.object_info.adress }}</span>
+                            <span class="preview__text">{{ preview.obj_adress }}</span>
                         </div>
                     </div>
                 </div>
