@@ -11,14 +11,38 @@
 
 {% block content %}
 <div class="row">
-    <div class="col-lg-6 col-lg-offset-3">
+    <div class="col-lg-6 col-lg-offset-3 order__main-block js-main-block">
         <div class="panel panel-default">
             <div class="panel-heading clearfix">
                 <h3 class="panel-title">Создать заказ</h3>
             </div>
             <div class="panel-body">
-                <form method="post" action="{{ config.formhandlerPath }}add/order.php">
+                <form method="post" action="{{ config.formhandlerPath }}add/order.php" class="order-form">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <label for="meters" class="control-label">Размер помещения</label>
+                                <div class="input-group">
+                                    <input type="number" min="1" value="1" class="form-control " id="meters" name="meters" placeholder="Укажите размер помещения" required>
+                                    <span class="input-group-addon">м<sup>2</sup></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-7">
+                                <label for="object_type">Тип помещения</label>
+                                <select name="object_type" id="object_type" class="select2-placeholer form-control" data-placeholder="Выберите тип помещения">
+                                        <option value="">Выберите тип помещения</option>
+                                        <option value="Квартира">Квартира</option>
+                                        <option value="Офис">Офис</option>
+                                        <option value="Загородный дом">Загородный дом</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     {% include 'blocks/order/add-service/main.html' %}
+                    <div class="checkbox checkbox-replace checkbox-primary">
+                        <input type="checkbox" id="without_materials" name="without_materials">
+                        <label for="without_materials">Свои материалы</label>
+                    </div>
                     <div class="form-group">
                         <div class="row">
                             <div class="col-lg-12">
@@ -27,7 +51,7 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-11">
-                                <select name="client" class="select2-placeholer form-control js-client-select" data-placeholder="Выберите клиента">
+                                <select name="client" id="client" class="select2-placeholer form-control js-client-select" required="" data-placeholder="Выберите клиента">
                                     <option value="">Выберите клиента</option>
                                     {% for client in clients %}
                                         <option value="{{ client.id }}">{{ client.first_name }} {{ client.last_name }}</option>
@@ -39,6 +63,10 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="adress" class="control-label">Адрес</label>
+                        <input type="text" class="form-control " id="adress" name="adress" placeholder="Введите адресс">
+                    </div>
                     {# <div class="form-group">
                         <label for="service">Услуги</label>
                         <select name="service[]" class="select2 form-control" data-placeholder="Выберите услуги" multiple="">
@@ -48,19 +76,21 @@
                         </select>
                     </div> #}
                     <div class="form-group">
-                        <label for="service">Менеджер</label>
-                        <select name="manager" class="select2-placeholer form-control" data-placeholder="Выберите менеджера">
+                        <label for="manager">Менеджер</label>
+                        <select name="manager" id="manager" class="select2-placeholer form-control" data-placeholder="Выберите менеджера">
                             <option value="">Выберите менеджера</option>
                             {% for manager in managers %}
                                 <option value="{{ manager.id }}">{{ manager.first_name }}  {{ manager.last_name }}</option>
                             {% endfor %}
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Добавить</button>
+                    <button type="submit" class="btn btn-primary" >Создать</button>
+                    <button class="btn btn-primary js-preview-btn"><i class="icon-eye"></i> Просмотр</button>
                 </form>
             </div>
         </div>
     </div>
+    <div class="col-lg-6 order__preview js-preview-block">{# include 'blocks/preview/main.html' #}</div>
 </div>
 <div id="modal-2" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg">
@@ -82,10 +112,6 @@
                     <div class="form-group">
                         <label for="last_name" class="control-label">Фамилия</label>
                         <input type="text" class="form-control " id="last_name" name="last_name" placeholder="Введите фамилию" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="adress" class="control-label">Адрес</label>
-                        <input type="text" class="form-control " id="adress" name="adress" placeholder="Введите адресс" >
                     </div>
                     <div class="form-group">
                         <label for="phone" class="control-label">Телефон</label>

@@ -4,4 +4,22 @@
         top: 30px !important;
         color: #af0505 !important;
     }
+
+    &__preview {
+        display: none;
+
+        &.open {
+            display: block;
+        }
+    }
+
+    &__main-block {
+        &.preview-on {
+            margin-left: 0 !important;
+        }
+    }
+
+    &__main-block.preview-on + &__preview {
+        display: block;
+    }
 }

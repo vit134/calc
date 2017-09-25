@@ -13,6 +13,10 @@ $(document).ready(function() {
       , $clientFormSubmit = $('.js-clien-submit')
       ;
 
+    var $orderForm = $('.order-form')
+      , $orderFields = $orderForm.find('input:not(.hidden-input), select')
+      ;
+
     var $clientSelect = $('.js-client-select');
 
     function init() {
@@ -48,8 +52,9 @@ $(document).ready(function() {
                         $select.find('option[value="'+ id +'"]').attr('selected', false);
                     }
                 })
-
             }
+
+            $select.trigger('change');
         })
 
         $removeAddedBtn.on('click', function() {
@@ -93,6 +98,14 @@ $(document).ready(function() {
                 });
             }
         })
+
+        $('.js-preview-btn').on('click', function(e) {
+            if ( $orderForm[0].checkValidity() ) {
+                e.preventDefault();
+                $('.js-main-block').addClass('preview-on');
+                getPreview();
+            }
+        })
     }
 
     function lifeSearch() {
@@ -116,6 +129,43 @@ $(document).ready(function() {
         })
 
         return fields;
+    }
+
+    function getOrderFormField() {
+        var fields = {};
+
+        $orderFields.each(function() {
+            var $thisType = $(this)[0].tagName;
+
+            switch ($thisType) {
+                case 'INPUT' :
+                    fields[$(this).attr('id')] = $(this).val();
+                    break;
+                case 'SELECT' :
+                    fields[$(this).attr('id')] = $(this).val();
+                    break;
+            }
+        })
+
+        return fields;
+    }
+
+
+    function getPreview() {
+        var data = getOrderFormField();
+
+        $.ajax({
+            type: "POST",
+            url: "/admin_v2/core/formhandler/add/order.php?preview=true",
+            data: data,
+            dataType: 'json',
+            success: function(e) {
+
+                console.log(e);
+
+                $('.js-preview-block').html(e.html);
+            }
+        });
     }
 
     init();

@@ -168,10 +168,11 @@
                 break;
             case 'order':
                 if ($route[2] == '') {
-                    //$data['user'] = $func->getOneSubServiceWithSub($login);
+                    $data['all_orders'] = $func->getAllOrders();
                     echo $twig->render('pages/order/orders.html', $data);
                 } else {
-
+                    $data['order'] = $func->getOneOrders($route[2]);
+                    echo $twig->render('pages/order/one-order.html', $data);
                 }
                 break;
             case 'create_pass':
@@ -185,7 +186,8 @@
                 break;
 
             case 'test':
-                $data = $func->getOneServiceWithPrice(47);
+
+                $data = $func->getOneOrders(14);
 
                 echo $twig->render('pages/test.html', $data);
                 break;

@@ -1,0 +1,124 @@
+.preview {
+    font-size: 15px;
+
+    &__header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        align-items: flex-start;
+
+        &__col {
+            &:first-child {
+                width: 70%;
+            }
+
+            &:last-child {
+                text-align: right;
+            }
+        }
+    }
+
+    &__company-name {
+        font-size: 20px;
+        font-weight: 600;
+        font-style: italic;
+        margin-bottom: 5px;
+    }
+
+    &__phone {
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    &__ur-info {
+        text-transform: uppercase;
+
+        & span {
+            margin-right: 10px;
+        }
+    }
+
+    &__body {
+        margin: 15px 0;
+    }
+
+    &__block {
+        margin: 0 -24px 10px;
+        padding: 0 24px 20px;
+        border-bottom: 1px solid #ccc;
+
+        &_border-top {
+            border-top: 1px solid #ccc;
+        }
+
+        &_no-border {
+            border: none;
+        }
+    }
+
+    &__order-num {
+        font-size: 20px;
+        line-height: 20px;
+        font-weight: 600;
+    }
+
+    &__date-create {
+        margin-bottom: 20px;
+    }
+
+    &__subtitle {
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    &__row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        align-items: center;
+        margin-bottom: 5px;
+        min-height: 30px;
+
+        &__col {
+            white-space: nowrap;
+
+            &:last-child {
+                width: 100%;
+                margin-left: 10px;
+                padding: 4px 0;
+                border-bottom: 1px solid #222;
+                padding-left: 20px;
+            }
+        }
+    }
+
+    &__table {
+        width: 100%;
+        border: 1px solid #ddd;
+
+        &__th {
+            text-align: center;
+        }
+
+        &__td,
+        &__th {
+            border: 1px solid #ddd;
+        }
+
+        &__td {
+            &_20 {
+                width: 20%;
+            }
+
+            &_60 {
+                width: 50%;
+            }
+
+            &_30 {
+                width: 30%;
+            }
+        }
+    }
+}

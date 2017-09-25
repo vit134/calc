@@ -27,7 +27,8 @@
         'editSubService' => $adminPath . '/edit/subservice/',
         'editMaterial' => $adminPath . '/edit/material/',
         'user' => $adminPath . '/user',
-        'group' => $adminPath . '/group'
+        'group' => $adminPath . '/group',
+        'order' => $adminPath . '/order'
     );
 
     $searchConfig = array(

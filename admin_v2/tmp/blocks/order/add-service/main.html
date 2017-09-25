@@ -6,13 +6,13 @@
     </div>
     <div class="row">
         <div class="col-lg-5">
-            <select name="service[]" class="order__add-service__hidden form-control js-select" data-placeholder="Выберите услуги" multiple="">
+            <select name="service[]" id="service" class="order__add-service__hidden form-control js-select" data-placeholder="Выберите услуги" multiple="" required="">
                 {% for service in all_services %}
                     <option value="{{ service.main.id }}">{{ service.main.name }}</option>
                 {% endfor %}
             </select>
             <div class="order__add-service__select js-pseudo-select">
-                <input type="text" class="order__add-service__input js-input" placeholder="Выберите услугу">
+                <input type="text" class="order__add-service__input js-input hidden-input" placeholder="Выберите услугу">
                 <span class="order__add-service__select__arrow" role="presentation"><b role="presentation"></b></span>
                 <div class="order__add-service__dropdown">
                     {% for service in all_services %}
