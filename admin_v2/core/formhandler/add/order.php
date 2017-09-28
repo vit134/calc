@@ -22,11 +22,7 @@
         $data = array(
             'preview' => array(
                 'order_num' => getLastOrderId() + 1,
-                'date_create' => array(
-                    'd' => date('d'),
-                    'm' => date('M'),
-                    'y' => date('Y')
-                ),
+                'date_create' => date('d M Y'),
                 'client' => $func->getOneClient($_POST['client']),
                 'obj_type' => $_POST['object_type'],
                 'obj_adress' => $_POST['adress'],
@@ -43,11 +39,6 @@
         echo json_encode($resp);
 
     } else {
-
-        //echo json_encode(getTotalPrice());
-        /*echo '<pre>';
-        var_dump($_POST);
-        echo '</pre>';*/
 
         $resourses = $func->getServiceInOrderInfo($_POST['service'], $_POST['meters']);
 

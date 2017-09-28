@@ -24,7 +24,7 @@
             </div>
             <div class="preview__body">
                 <div class="preview__order-num">Заказ № {{ preview.order_num }}</div>
-                <div class="preview__date-create">от "{{ preview.date_create.d }}" {{ preview.date_create.m }} {{ preview.date_create.y }}г</div>
+                <div class="preview__date-create">от "{{ preview.date_create | date('d') }}" {{ preview.date_create| date('M') }} {{ preview.date_create| date('Y') }}г</div>
                 <div class="preview__block preview__block_border-top">
                     <div class="preview__subtitle">Заказчик</div>
                     <div class="preview__row">
@@ -42,7 +42,7 @@
                 </div>
                 <div class="preview__block">
                     <div class="preview__subtitle">Информация об объекте</div>
-                    {% if  preview.object_info.type %}
+                    {% if  preview.obj_type %}
                         <div class="preview__row">
                             <div class="preview__row__col">Тип помещения</div>
                             <div class="preview__row__col">

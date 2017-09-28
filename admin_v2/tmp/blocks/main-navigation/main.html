@@ -1,6 +1,6 @@
 <ul id="side-nav" class="main-menu navbar-collapse collapse">
     <li class="{% if route[1] == '' %}active{% endif %}"><a href="{{ config.adminPath }}"><i class="icon-gauge"></i><span class="title">Dashboard</span></a></li>
-    {% if access.a %}
+    {% if access.a or access.w %}
         <li class="has-sub {% if route[1] == 'resourses' %}  active{% endif %}"><a href="collapsed-sidebar.html"><i class="icon-flow-tree"></i><span class="title">Ресурсы</span></a>
             <ul class="nav collapse">
                 <li class="{% if route[2] == 'category' %}active{% endif %}"><a href="{{ config.adminPath }}/resourses/category/"><span class="title">Категории</span></a></li>
@@ -9,17 +9,24 @@
                 <li class="{% if route[2] == 'material' %}active{% endif %}""><a href="{{ config.adminPath }}/resourses/material/"><span class="title">Материалы</span></a></li>
             </ul>
         </li>
+    {% endif %}
+    {% if access.a %}
         <li class="has-sub {% if route[1] == 'user' or route[2] == 'user' %}active{% endif %}"><a href=""><i class="icon-user"></i><span class="title">Пользователи</span></a>
             <ul class="nav collapse">
-                <li><a href="{{ config.adminPath }}/user/"><span class="title">Все пользователи</span></a></li>
-                <li><a href="{{ config.adminPath }}/group/"><span class="title">Группы</span></a></li>
+                <li class="{% if route[1] == 'add' and route[2] == 'user' %}active{% endif %}""><a href="{{ config.adminPath }}/add/user/"><span class="title">Создать пользователя</span></a></li>
+                <li class="{% if route[1] == 'user' %}active{% endif %}""><a href="{{ config.adminPath }}/user/"><span class="title">Все пользователи</span></a></li>
             </ul>
         </li>
+    {% endif %}
+    {% if access.a or access.w or access.wk %}
         <li class="has-sub {% if route[1] == 'order' or route[2] == 'order' %}active{% endif %}"><a href=""><i class="icon-basket"></i><span class="title">Заказы</span></a>
             <ul class="nav collapse">
-                <li><a href="{{ config.adminPath }}/order/"><span class="title">Все заказы</span></a></li>
+                <li class="{% if route[1] == 'add' and route[2] == 'order' %}active{% endif %}"><a href="{{ config.adminPath}}/add/order"><span class="title">Создать заказ</span></a></li>
+                <li class="{% if route[1] == 'order' %}active{% endif %}"><a href="{{ config.adminPath }}/order/"><span class="title">Все заказы</span></a></li>
             </ul>
         </li>
+    {% endif %}
+    {% if access.a %}
         <li>
             <a href="">
                 <i class="fa fa-users"></i>

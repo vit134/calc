@@ -218,16 +218,64 @@
             return $arr;
         }
 
+        //Получить статусы заказов
+
+        public function getStatuses() {
+            global $mysqli;
+            $arr = [];
+
+            $query ="SELECT * FROM `statuses`";
+
+            $result = $mysqli->query($query);
+
+            if ($result) {
+                foreach ($result as $key => $value) {
+                    $arr[] = $value;
+                }
+            }
+
+            return $arr;
+        }
+
         //Получить все заказы
         public function getAllOrders() {
             global $mysqli;
             $arr = [];
 
-            $query ="SELECT o.*, u.first_name AS manager_first_name, u.last_name AS manager_last_name, c.first_name AS client_first_name, c.last_name AS client_last_name FROM `orders` o
+            $query ="SELECT o.*, u.first_name AS manager_first_name, u.last_name AS manager_last_name, c.first_name AS client_first_name, c.last_name AS client_last_name, s.name AS status_name, s.alias AS status_alias FROM `orders` o
                      LEFT JOIN `users_vs_orders` uvo ON uvo.order_id = o.id
                      LEFT JOIN `users` u ON uvo.user_id = u.id
                      LEFT JOIN `clients_vs_orders` cvo ON cvo.order_id = o.id
-                     LEFT JOIN `clients` c ON c.id = cvo.client_id";
+                     LEFT JOIN `clients` c ON c.id = cvo.client_id
+                     LEFT JOIN `statuses` s ON  s.id = o.status";
+
+            $result = $mysqli->query($query);
+
+            if ($result) {
+                foreach ($result as $key => $value) {
+                    $arr[] = $value;
+                }
+            }
+
+            return $arr;
+        }
+
+        //Получить все заказы с фильтрацией
+        public function getAllOrdersFilter($params) {
+
+            if ($params != '') {
+                $params = ' WHERE ' . $params;
+            }
+
+            global $mysqli;
+            $arr = [];
+
+            $query ="SELECT o.*, u.first_name AS manager_first_name, u.last_name AS manager_last_name, c.first_name AS client_first_name, c.last_name AS client_last_name, s.name AS status_name, s.alias AS status_alias FROM `orders` o
+                     LEFT JOIN `users_vs_orders` uvo ON uvo.order_id = o.id
+                     LEFT JOIN `users` u ON uvo.user_id = u.id
+                     LEFT JOIN `clients_vs_orders` cvo ON cvo.order_id = o.id
+                     LEFT JOIN `clients` c ON c.id = cvo.client_id
+                     LEFT JOIN `statuses` s ON  s.id = o.status" . $params;
 
             $result = $mysqli->query($query);
 
@@ -269,7 +317,7 @@
             if ($result) {
                 foreach ($result as $key => $value) {
                     $arr = array(
-                        'id' => $value['id'],
+                        'order_num' => $value['id'],
                         'obj_type' => $value['obj_type'],
                         'obj_adress' => $value['obj_adress'],
                         'count_of_meters' => $value['count_of_meters'],
@@ -280,6 +328,7 @@
                         'date_edit' => $value['date_edit'],
                         'client' => $this->getOneClient($value['client_id']),
                         'manager' => $this->getUserInfo($value['manager_id']),
+                        'status' => $value['status'],
                         'resourses' => $this->getServiceInOrderInfo($services, $value['count_of_meters'])
                     );
                 }
@@ -949,6 +998,27 @@
 
             return $arr = array('already' => $allready, 'all' => $all);
         }
+
+        //Сранить все услуги с добавлеными в заказ
+        public function compareAlreadyServiceInOrder($order_id) {
+            $allready = $this->getOneOrders($order_id)['resourses']['services']['all'];
+            unset($allready['price_total']);
+
+            $all = $this->getAllServices();
+
+            foreach ($all as $key => $value) {
+                if ($allready != NULL) {
+                    foreach ($allready as $arkey => $arvalue) {
+                        if ($value['id'] == $arvalue['id']) {
+                            unset($all[$key]);
+                        }
+                    }
+                }
+            }
+
+            return $arr = array('already' => $allready, 'all' => $all);
+        }
+
 
         //транслитерация
         public function rus2translit($string) {

@@ -1,0 +1,115 @@
+{% extends 'layout/layout.html' %}
+
+{% block pageName %}edit-order-page{% endblock %}
+
+{% block pageCss %}
+    <link href="{{ config.assetsPath }}theme/css/plugins/datepicker/bootstrap-datepicker.css" rel="stylesheet">
+    <link href="{{ config.assetsPath }}theme/css/plugins/select2/select2.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+{% if access.a or order.manager.id == user_id %}
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3  order__main-block js-main-block">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <h2 class="panel-title">Редактирование заказа</h2>
+                </div>
+                <!-- panel body -->
+                <div class="panel-body ">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h2>Заказ № {{ order.order_num }}</h2>
+                        </div>
+                    </div>
+                    <form id="edit-order" method="post" action="{{ config.formhandlerPath }}edit/order.php">
+                        <input type="hidden" name="id" value="{{ order.order_num }}">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <label for="meters" class="control-label">Размер помещения</label>
+                                    <div class="input-group">
+                                        <input type="number" min="1" value="{{ order.count_of_meters }}" class="form-control " id="meters" name="meters" placeholder="Укажите размер помещения" required>
+                                        <span class="input-group-addon">м<sup>2</sup></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-7">
+                                    <label for="object_type">Тип помещения</label>
+                                    <select name="object_type" id="object_type" class="select2-placeholer form-control" data-placeholder="Выберите тип помещения">
+                                            <option value="">Выберите тип помещения</option>
+                                            <option {% if order.obj_type == 'Квартира' %}selected{% endif %} value="Квартира">Квартира</option>
+                                            <option {% if order.obj_type == 'Офис' %}selected{% endif %} value="Офис">Офис</option>
+                                            <option {% if order.obj_type == 'Загородный дом' %}selected{% endif %} value="Загородный дом">Загородный дом</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        {% include 'blocks/order/add-service/main.html' with { 'edit': true } %}
+                        <div class="checkbox checkbox-replace checkbox-primary">
+                            <input type="checkbox" id="without_materials" name="without_materials" {% if order.without_materials == 1 %}checked{% endif %}>
+                            <label for="without_materials">Свои материалы</label>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <label for="client">Клиент</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-11">
+                                    <select name="client" id="client" class="select2-placeholer form-control js-client-select"  data-placeholder="Выберите клиента">
+                                        <option value="">Выберите клиента</option>
+                                        {% for client in clients %}
+                                            {% if order.client.id == client.id  %}
+                                                <option value="{{ client.id }}" selected>{{ client.first_name }} {{ client.last_name }}</option>
+                                            {% else %}
+                                                <option value="{{ client.id }}">{{ client.first_name }} {{ client.last_name }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-lg-1" style="position: absolute; right: 0">
+                                    <a href="" class="btn btn-default" type="button"  data-toggle="modal" data-target="#modal-2"><i class="fa fa-user-plus"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="adress" class="control-label">Адрес</label>
+                            <input type="text" class="form-control " id="adress" name="adress" placeholder="Введите адресс" value="{{ order.obj_adress }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="manager">Менеджер</label>
+                            <select name="manager" id="manager" class="select2-placeholer form-control" data-placeholder="Выберите менеджера">
+                                <option value="">Выберите менеджера</option>
+                                {% for manager in managers %}
+                                    <option value="{{ manager.id }}" {% if order.manager.id == manager.id %}selected{% endif %}>{{ manager.first_name }}  {{ manager.last_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Статус</label>
+                            <select name="status" id="status" class="select2 form-control" data-placeholder="Выберите менеджера">
+                                {% for status in statuses %}
+                                    <option value="{{ status.id }}" {% if order.status == status.id %}selected{% endif %}>{{ status.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                        <button class="btn btn-primary js-preview-btn"><i class="icon-eye"></i> Просмотр</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 order__preview js-preview-block">{# include 'blocks/preview/main.html' #}</div>
+    </div>
+    <pre>{{ dump(order) }}</pre>
+{% else %}
+    {% include 'blocks/no-access/main.html' %}
+{% endif %}
+{% endblock %}
+
+{% block pageScripts %}
+    <script src="{{ config.assetsPath }}theme/js/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="{{ config.assetsPath }}js/build/edit/order/main.js"></script>
+{% endblock %}

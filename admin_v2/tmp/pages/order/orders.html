@@ -3,6 +3,7 @@
 {% block pageName %}all-user-page{% endblock %}
 
 {% block pageCss %}
+    <link href="{{ config.assetsPath }}theme/css/plugins/datepicker/bootstrap-datepicker.css" rel="stylesheet">
     <link href="{{ config.assetsPath }}theme/css/plugins/select2/select2.css" rel="stylesheet">
 {% endblock %}
 
@@ -19,27 +20,67 @@
                 </div>
                 <!-- panel body -->
                 <div class="panel-body ">
+                    <div class="row filter-wrapper visible-box" id="filter-box" style="margin: 0;">
+                    <div class="col-lg-12">
+                        <div class="filter-header">
+                            <button aria-label="Close" class="close toggle-filter" type="button" data-block-id="filter-box"><i class="icon-cancel"></i></button>
+                        </div>
+                        <form class="form-inline js-filter-form" method="get" action="{{ config.filterPath }}order.php">
+                            <div class="form-group" style="min-width: 150px;">
+                                <label class="form-label">Менеджер</label>
+                                <select class="select2 form-control js-filter-field" name="manager_id">
+                                    <option value="0" selected>Все</option>
+                                    {% for manager in managers %}
+                                        <option value="{{ manager.id }}">{{ manager.first_name }}  {{ manager.last_name }}</option>
+                                    {% endfor %}
+
+                                </select>
+                            </div>
+                            <div class="form-group" style="min-width: 150px;">
+                                <label class="form-label">Статус</label>
+                                <select class="select2 form-control js-filter-field" name="status">
+                                    <option value="0" selected>Все</option>
+                                    {% for status in statuses %}
+                                        <option value="{{ status.id }}">{{ status.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Дата создания</label>
+                                <div class="form-horizontal">
+                                    <div class="input-daterange" id="datepicker" data-DateTimePicker="">
+                                            <input type="text" class="form-control js-filter-field" name="start" />
+                                            <span class="">по</span>
+                                            <input type="text" class="form-control js-filter-field" name="end" value="{{ "now"|date("d M Y") }}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
                     <div class="table-responsive" style="overflow: visible;">
-                        <table class="table table-users table-hover">
+                        <table class="table table-orders table-hover">
                             <thead>
                                 <tr>
                                     <th>№</th>
                                     <th>Клиент</th>
                                     <th>Менеджер</th>
-                                    <th class="text-center">Адрес</th>
+                                    <th>Адрес</th>
                                     <th class="text-center">Цена</th>
+                                    <th>Дата создания</th>
                                     <th>Дата изменения</th>
                                     <th class="text-center">Статус</th>
                                     <th></th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="js-order-table">
                                 {% for order in all_orders %}
                                     <tr>
                                         <td>{{ order.id }}</td>
                                         <td>{{ order.client_first_name }} {{ order.client_last_name }}</td>
                                         <td>{{ order.manager_first_name }} {{ order.manager_last_name }}</td>
-                                        <td class="text-center">{{ order.obj_adress }}</td>
+                                        <td>{{ order.obj_adress }}</td>
                                         <td class="text-center">
                                             {% if order.without_materials == 1 %}
                                                 {{ order.work_price }}
@@ -47,16 +88,17 @@
                                                 {{ order.work_price + order.material_price }}
                                             {% endif %}
                                         </td>
+                                        <td>{{ order.date_create | date("d M Y - G:i:s") }}</td>
                                         <td>{{ order.date_edit | date("d M Y - G:i:s") }}</td>
-                                        <td class="text-center">{{ order.status }}</td>
+                                        <td class="text-center">{{ order.status_name }}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <a href="#/" data-toggle="dropdown" class="more-link"><i class="icon-dot-3 ellipsis-icon"></i></a>
                                                 <ul class="dropdown-menu dropdown-menu-right">
                                                     <li><a href="{{ config.adminPath }}/order/{{ order.id }}">Подробности</a></li>
-                                                    {% if access.a or user.main.id == user_id %}
-                                                        <li><a href="{{ config.adminPath }}/edit/user/{{ user.main.id }}">Изменить</a></li>
-                                                        <li><a href="" class="js-delete-btn" data-id="{{ user.main.id }}">Удалить</a> </li>
+                                                    {% if access.a or user_id == order.manager_id %}
+                                                        <li><a href="{{ config.adminPath }}/edit/order/{{ order.id }}">Изменить</a></li>
+                                                        <li><a href="" class="js-delete-btn" data-id="{{ order.id }}">Удалить</a> </li>
                                                     {% endif %}
                                                 </ul>
                                             </div>
@@ -70,10 +112,11 @@
             </div>
         </div>
     </div>
-    <pre>{{ dump(all_orders) }}</pre>
+    <pre>{{ dump(user) }}</pre>
 
 {% endblock %}
 
 {% block pageScripts %}
-     <script src="{{ config.assetsPath }}js/build/order/all-orders/main.js"></script>
+    <script src="{{ config.assetsPath }}theme/js/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="{{ config.assetsPath }}js/build/order/all-orders/main.js"></script>
 {% endblock %}

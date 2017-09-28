@@ -1,6 +1,6 @@
 {% extends 'layout/layout.html' %}
 
-{% block pageName %}add-material{% endblock %}
+{% block pageName %}add-order-page{% endblock %}
 
 {% block pageCss %}
     <link href="{{ config.assetsPath }}theme/css/plugins/datepicker/bootstrap-datepicker.css" rel="stylesheet">
@@ -51,7 +51,7 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-11">
-                                <select name="client" id="client" class="select2-placeholer form-control js-client-select" required="" data-placeholder="Выберите клиента">
+                                <select name="client" id="client" class="select2-placeholer form-control js-client-select"  data-placeholder="Выберите клиента">
                                     <option value="">Выберите клиента</option>
                                     {% for client in clients %}
                                         <option value="{{ client.id }}">{{ client.first_name }} {{ client.last_name }}</option>

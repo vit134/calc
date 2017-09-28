@@ -1,1 +1,76 @@
-$(document).ready(function(){var a=$("#modal-2"),t=$(".js-open-modal"),i=$(".js-avatar-input"),o=$(".js-preview-image"),n=$(".js-change-pass-btn"),s=$(".js-pass-block");$("#date-popup").datepicker({keyboardNavigation:!1,forceParse:!1,todayHighlight:!0,format:"d M yyyy"}),t.on("click",function(t){t.preventDefault(),a.modal()}),a.on("hidden.bs.modal",function(){var a,t=$(this).find(".js-radio");t.each(function(){$(this).prop("checked")&&(a=$(this).val(),i.val(a),o.attr("src",a))})}),n.on("click",function(){var a=s.find("input");s.hasClass("open")?(s.slideUp(200).removeClass("open"),a.each(function(){var a=$(this).attr("data-validation")?$(this).attr("data-validation"):"";console.log(a),a.indexOf("confirmation")+1?$(this).attr("data-validation","confirmation"):$(this).attr("data-validation","")})):(a.each(function(){var a=$(this).attr("data-validation")?$(this).attr("data-validation"):"";$(this).attr("data-validation",a+" required")}),s.slideDown(200).addClass("open"))}),$.validate({form:"#edit-user",modules:"security",scrollToTopOnError:!1,lang:"ru"}),$("input[type=password]").passField({showGenerate:!1,showWarn:!1,showTip:!1})});
+/* eslint no-console: 0 */
+$(document).ready(function() {
+
+    var $modal = $('#modal-2'),
+        $openMOdalBtn = $('.js-open-modal'),
+        $avatarInput = $('.js-avatar-input'),
+        $previewImage = $('.js-preview-image'),
+        $changePassBtn = $('.js-change-pass-btn'),
+        $passBlock = $('.js-pass-block');
+
+    $('#date-popup').datepicker({
+        keyboardNavigation: false,
+        forceParse: false,
+        todayHighlight: true,
+        format: "d M yyyy",
+    });
+
+    $openMOdalBtn.on('click', function(e) {
+        e.preventDefault();
+        $modal.modal();
+    })
+
+    $modal.on('hidden.bs.modal', function () {
+        var $radio = $(this).find('.js-radio');
+        var radioVal;
+
+        $radio.each(function() {
+            if ($(this).prop("checked")) {
+                radioVal = $(this).val();
+                $avatarInput.val(radioVal);
+                $previewImage.attr('src', radioVal);
+            }
+        })
+    })
+
+    $changePassBtn.on('click', function() {
+        var $inputs = $passBlock.find('input');
+
+        if (!$passBlock.hasClass('open')) {
+
+
+            $inputs.each(function() {
+                var dataValid = $(this).attr('data-validation') ? $(this).attr('data-validation') : '';
+                $(this).attr('data-validation', dataValid + ' required')
+            })
+
+            $passBlock.slideDown(200).addClass('open');
+        } else {
+            $passBlock.slideUp(200).removeClass('open');
+
+            $inputs.each(function() {
+                var dataValid = $(this).attr('data-validation') ? $(this).attr('data-validation') : '';
+                console.log(dataValid);
+                if (dataValid.indexOf('confirmation') + 1) {
+                    $(this).attr('data-validation', 'confirmation');
+                } else {
+                    $(this).attr('data-validation', '')
+                }
+
+            })
+        }
+    })
+
+    $.validate({
+        form: '#edit-user',
+        modules: 'security',
+        scrollToTopOnError: false,
+        lang: 'ru'
+    });
+
+    $("input[type=password]").passField({
+        showGenerate: false,
+        showWarn: false,
+        showTip: false
+    });
+})

@@ -13,7 +13,7 @@ $(document).ready(function() {
       , $clientFormSubmit = $('.js-clien-submit')
       ;
 
-    var $orderForm = $('.order-form')
+    var $orderForm = $('#edit-order')
       , $orderFields = $orderForm.find('input:not(.hidden-input), select')
       ;
 
@@ -100,6 +100,7 @@ $(document).ready(function() {
         })
 
         $('.js-preview-btn').on('click', function(e) {
+
             if ( $orderForm[0].checkValidity() ) {
                 e.preventDefault();
                 $('.js-main-block').addClass('preview-on');

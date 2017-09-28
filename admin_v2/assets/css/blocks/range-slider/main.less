@@ -1,0 +1,38 @@
+#range-slider {
+    width: 300px;
+
+    &__wrapper {
+        height: 32px;
+        line-height: 32px;
+        padding: 12px 0;
+    }
+
+    &.noUi-horizontal {
+        height: 8px;
+
+        & .noUi-handle {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+
+            &:before,
+            &:after {
+                display: none;
+            }
+        }
+    }
+
+    &.noUi-background,
+    & .noUi-background {
+        background: #ddd;
+        box-shadow: none;
+    }
+
+    &.noUi-target {
+        box-shadow: none;
+    }
+
+    & .noUi-connect {
+        background: #fff;
+    }
+}

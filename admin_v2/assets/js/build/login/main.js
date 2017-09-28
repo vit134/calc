@@ -1,1 +1,5 @@
-$(document).ready(function(){console.log("login")});
+$(document).ready(function() {
+    console.log('login');
+
+
+})

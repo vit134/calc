@@ -1,1 +1,11 @@
-$(document).ready(function(){$("#date-popup").datepicker({keyboardNavigation:!1,forceParse:!1,todayHighlight:!0,format:"d M yyyy",toDisplay:function(o,a,t){console.log(t)}})});
+$(document).ready(function() {
+    $('#date-popup').datepicker({
+        keyboardNavigation: false,
+        forceParse: false,
+        todayHighlight: true,
+        format: "d M yyyy",
+        toDisplay: function (date, format, language) {
+            console.log(language);
+        }
+    });
+})

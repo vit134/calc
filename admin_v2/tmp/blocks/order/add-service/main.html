@@ -1,48 +1,115 @@
-<div class="form-group order__add-service">
-    <div class="row">
-        <div class="col-lg-12">
-            <label for="client">Услуги</label>
+{% if not edit %}
+    <div class="form-group order__add-service">
+        <div class="row">
+            <div class="col-lg-12">
+                <label for="client">Услуги</label>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-5">
-            <select name="service[]" id="service" class="order__add-service__hidden form-control js-select" data-placeholder="Выберите услуги" multiple="" required="">
-                {% for service in all_services %}
-                    <option value="{{ service.main.id }}">{{ service.main.name }}</option>
-                {% endfor %}
-            </select>
-            <div class="order__add-service__select js-pseudo-select">
-                <input type="text" class="order__add-service__input js-input hidden-input" placeholder="Выберите услугу">
-                <span class="order__add-service__select__arrow" role="presentation"><b role="presentation"></b></span>
-                <div class="order__add-service__dropdown">
+        <div class="row">
+            <div class="col-lg-5">
+                <select name="service[]" id="service" class="order__add-service__hidden form-control js-select" data-placeholder="Выберите услуги" multiple="" required="">
                     {% for service in all_services %}
-                        <div class="order__add-service__dropdown__row js-dropdown-item" data-id="{{ service.main.id }}">{{ service.main.name }}</div>
+                        <option value="{{ service.main.id }}">{{ service.main.name }}</option>
                     {% endfor %}
+                </select>
+                <div class="order__add-service__select js-pseudo-select">
+                    <input type="text" class="order__add-service__input js-input hidden-input" placeholder="Выберите услугу">
+                    <span class="order__add-service__select__arrow" role="presentation"><b role="presentation"></b></span>
+                    <div class="order__add-service__dropdown">
+                        {% for service in all_services %}
+                            <div class="order__add-service__dropdown__row js-dropdown-item" data-id="{{ service.main.id }}">{{ service.main.name }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 order__add-service__added">
+                <div class="order__add-service__added__block js-added-block">
+                    {% for service in all_services %}
+                        <div class="order__add-service__added__row hidden js-added-item" data-id="{{ service.main.id }}">
+                            <div class="order__add-service__added__col order__add-service__added__col_name">
+                                <div class="order__add-service__added__name">{{ service.main.name }}</div>
+                            </div>
+                            <div class="order__add-service__added__col order__add-service__added__col_price">
+                                {% if service.main.price != 0 %}
+                                    {{ service.main.price }} руб.
+                                {% else %}
+                                    {{ service.main.price_of_work }}
+                                {% endif %}
+                            </div>
+                            <div class="order__add-service__added__col order__add-service__added__col_btn">
+                                <i class="fa fa-info-circle"></i>
+                                <i class="fa fa-minus-circle js-remove-added"></i>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <div class="order__add-service__added__empty center-align">Выберите услуги слева</div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-7 order__add-service__added">
-            <div class="order__add-service__added__block js-added-block">
-                {% for service in all_services %}
-                    <div class="order__add-service__added__row hidden js-added-item" data-id="{{ service.main.id }}">
-                        <div class="order__add-service__added__col order__add-service__added__col_name">
-                            <div class="order__add-service__added__name">{{ service.main.name }}</div>
-                        </div>
-                        <div class="order__add-service__added__col order__add-service__added__col_price">
-                            {% if service.main.price != 0 %}
-                                {{ service.main.price }} руб.
-                            {% else %}
-                                {{ service.main.price_of_work }}
-                            {% endif %}
-                        </div>
-                        <div class="order__add-service__added__col order__add-service__added__col_btn">
-                            <i class="fa fa-info-circle"></i>
-                            <i class="fa fa-minus-circle js-remove-added"></i>
-                        </div>
+    </div>
+{% else %}
+    <div class="form-group order__add-service">
+        <div class="row">
+            <div class="col-lg-12">
+                <label for="client">Услуги</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-5">
+                <select name="service[]" id="service" class="order__add-service__hidden form-control js-select" data-placeholder="Выберите услуги" multiple="" required="">
+                    {% for service in diff.already %}
+                        <option value="{{ service.id }}" selected>{{ service.name }}</option>
+                    {% endfor %}
+                    {% for service in diff.all %}
+                        <option value="{{ service.id }}">{{ service.name }}</option>
+                    {% endfor %}
+                </select>
+                <div class="order__add-service__select js-pseudo-select">
+                    <input type="text" class="order__add-service__input js-input hidden-input" placeholder="Выберите услугу">
+                    <span class="order__add-service__select__arrow" role="presentation"><b role="presentation"></b></span>
+                    <div class="order__add-service__dropdown">
+                        {% for service in diff.already %}
+                            <div class="order__add-service__dropdown__row js-dropdown-item selected" data-id="{{ service.id }}">{{ service.name }}</div>
+                        {% endfor %}
+                        {% for service in diff.all %}
+                            <div class="order__add-service__dropdown__row js-dropdown-item" data-id="{{ service.id }}">{{ service.name }}</div>
+                        {% endfor %}
                     </div>
-                {% endfor %}
-                <div class="order__add-service__added__empty center-align">Выберите услуги слева</div>
+                </div>
+            </div>
+            <div class="col-lg-7 order__add-service__added">
+                <div class="order__add-service__added__block js-added-block">
+                    {% for service in diff.already %}
+                        <div class="order__add-service__added__row js-added-item" data-id="{{ service.id }}">
+                            <div class="order__add-service__added__col order__add-service__added__col_name">
+                                <div class="order__add-service__added__name">{{ service.name }}</div>
+                            </div>
+                            <div class="order__add-service__added__col order__add-service__added__col_price">
+                                {{ service.price_total }}
+                            </div>
+                            <div class="order__add-service__added__col order__add-service__added__col_btn">
+                                <i class="fa fa-info-circle"></i>
+                                <i class="fa fa-minus-circle js-remove-added"></i>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% for service in diff.all %}
+                        <div class="order__add-service__added__row hidden js-added-item" data-id="{{ service.id }}">
+                            <div class="order__add-service__added__col order__add-service__added__col_name">
+                                <div class="order__add-service__added__name">{{ service.name }}</div>
+                            </div>
+                            <div class="order__add-service__added__col order__add-service__added__col_price">
+                                {{ service.price_total }}
+                            </div>
+                            <div class="order__add-service__added__col order__add-service__added__col_btn">
+                                <i class="fa fa-info-circle"></i>
+                                <i class="fa fa-minus-circle js-remove-added"></i>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <div class="order__add-service__added__empty center-align">Выберите услуги слева</div>
+                </div>
             </div>
         </div>
     </div>
-</div>
+{% endif %}

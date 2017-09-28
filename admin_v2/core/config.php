@@ -14,7 +14,8 @@
         'addMaterialLink' => $adminPath . '/add/material',
         'assetsPath' => $adminPath . '/assets/',
         'corePath' => $adminPath . '/core/',
-        'formhandlerPath' => $adminPath . '/core/formhandler/'
+        'formhandlerPath' => $adminPath . '/core/formhandler/',
+        'filterPath' => $adminPath . '/core/filter/'
     );
 
     $links = array(

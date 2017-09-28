@@ -98,9 +98,9 @@ gulp.task('scripts-admin', function () {
     ])
     //.pipe(concat('__main.js'))
     .pipe(gulp.dest(path.build.admin.js))
-    .pipe(uglify().on('error', function(e){
+    /*.pipe(uglify().on('error', function(e){
         console.log(e);
-    }))
+    }))*/
     //.pipe(rename('_main.js'))
     .pipe(gulp.dest(path.build.admin.js))
 });

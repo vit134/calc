@@ -15,8 +15,6 @@
 
     $twig->addExtension(new Twig_Extension_Debug());
 
-
-
     $route = $func->route();
 
     $login = false;
@@ -145,6 +143,15 @@
                         $data['avatar'] = $func->getAvatar();
                         echo $twig->render('pages/'. $route[1]. '/user.html', $data);
                         break;
+                    case 'order':
+                        $data['all_services'] = $func->getAllServiceWithPrice();
+                        $data['managers'] = $func->getSalesManager();
+                        $data['clients'] = $func->getAllClients();
+                        $data['order'] = $func->getOneOrders($route[3]);
+                        $data['diff'] = $func->compareAlreadyServiceInOrder($route[3]);
+                        $data['statuses'] = $func->getStatuses();
+                        echo $twig->render('pages/'. $route[1]. '/order.html', $data);
+                        break;
                     default:
                         echo $twig->render('pages/404.html', $data);
                 };
@@ -169,6 +176,9 @@
             case 'order':
                 if ($route[2] == '') {
                     $data['all_orders'] = $func->getAllOrders();
+                    $data['managers'] = $func->getSalesManager();
+                    $data['clients'] = $func->getAllClients();
+                    $data['statuses'] = $func->getStatuses();
                     echo $twig->render('pages/order/orders.html', $data);
                 } else {
 
