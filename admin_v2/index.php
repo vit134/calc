@@ -108,6 +108,10 @@
                         $data['clients'] = $func->getAllClients();
                         echo $twig->render('pages/'. $route[1]. '/order.html', $data);
                         break;
+                    case 'brigade':
+                        $data['all_workers'] = $func->getAllWorkers();
+                        echo $twig->render('pages/'. $route[1]. '/brigade.html', $data);
+                        break;
                     default:
                         echo $twig->render('pages/404.html', $data);
                 };
@@ -180,6 +184,17 @@
                     $data['clients'] = $func->getAllClients();
                     $data['statuses'] = $func->getStatuses();
                     echo $twig->render('pages/order/orders.html', $data);
+                } else {
+
+                    $data['preview'] = $func->getOneOrders($route[2]);
+                    echo $twig->render('pages/order/one-order.html', $data);
+                }
+                break;
+            case 'brigade':
+                if ($route[2] == '') {
+                    $data['all_brigade'] = $func->getAllBrigade();
+
+                    echo $twig->render('pages/brigade/all.html', $data);
                 } else {
 
                     $data['preview'] = $func->getOneOrders($route[2]);

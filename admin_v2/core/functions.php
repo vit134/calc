@@ -168,6 +168,48 @@
             return $respose;
         }
 
+        public function getAllWorkers() {
+            global $mysqli;
+            $respose = [];
+
+            $query = "SELECT u.*,
+                             g.id AS group_id,
+                             g.name AS group_name,
+                             g.access AS group_access
+                          FROM `users` u
+                          LEFT JOIN `users_vs_groups` uvg ON u.id = uvg.user_id
+                          LEFT JOIN `groups` g ON uvg.group_id = g.id
+                      WHERE g.id = 3";
+
+            $result = $mysqli->query($query);
+
+            foreach ($result as $key => $value) {
+                $respose[$value['id']]['main'] = array(
+                    'id' => $value['id'],
+                    'first_name' => $value['first_name'],
+                    'second_name' => $value['second_name'],
+                    'last_name' => $value['last_name'],
+                    'login' => $value['login'],
+                    'pass' => $value['pass'],
+                    'phone' => $value['phone'],
+                    'email' => $value['email'],
+                    'avatar' => $value['avatar'],
+                    'active' => $value['active'],
+                    'last_login' => $value['last_login']
+                );
+                $respose[$value['id']]['group'][] = array(
+                    'group_name' => $value['group_name'],
+                    'group_access' => $value['group_access']
+                );
+            }
+
+            return $respose;
+        }
+
+        public function getAllBrigade() {
+            return true;
+        }
+
         //получить всех клиентов
         public function getAllClients() {
             global $mysqli;

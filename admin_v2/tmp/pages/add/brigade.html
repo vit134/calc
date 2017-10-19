@@ -1,0 +1,44 @@
+{% extends 'layout/layout.html' %}
+
+{% block pageName %}add-brigade{% endblock %}
+
+{% block pageCss %}
+    <link href="{{ config.assetsPath }}theme/css/plugins/select2/select2.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-6 col-lg-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title">Создать бригаду</h3>
+            </div>
+            <div class="panel-body">
+                <form method="post" action="{{ config.formhandlerPath }}add/brigade.php">
+                    <div class="form-group {% if route.params.error %}has-error{% endif %} {% if route.params.name %}has-warning{% endif %}">
+                        <label for="name" class="control-label">Название</label>
+                        <input type="text" class="form-control " id="name" name="name" placeholder="Введите название бригады" {% if route.params.name %}value="{{ route.params.name  }} {% endif %}" required>
+                        <div class="error">Такое название уже существует</div>
+                    </div>
+                    <div class="form-group {% if route.params.error %}has-error{% endif %} {% if route.params.name %}has-warning{% endif %}">
+                        <label for="spec" class="control-label">Специализация</label>
+                        <input type="text" class="form-control " id="spec" name="spec" placeholder="Введите специализацию бригады" {% if route.params.name %}value="{{ route.params.name  }} {% endif %}">
+                        <div class="error">Такое название уже существует</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="control-label">Выберите работников</label>
+                        {% include 'blocks/select-workers/main.html' with {workers: all_workers} %}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Добавить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block pageScripts %}
+    <!-- Select2-->
+    <script src="{{ config.assetsPath }}theme/js/plugins/select2/select2.full.min.js"></script>
+    <script src="{{ config.assetsPath }}js/build/add/brigade/main.js"></script>
+{% endblock %}

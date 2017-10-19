@@ -1,0 +1,45 @@
+{% if workers %}
+    <div class="select-workers">
+        <div class="row">
+            <div class="col-lg-5">
+                <select name="workers[]" id="workers" class="select-workers__hidden js-select">
+                    {% for item in workers %}
+                        <option value="{{ item.main.id }}">{{ item.main.first_name }} {{ item.main.last_name }}</option>
+                    {% endfor %}
+                </select>
+                <div class="select-workers__select js-pseudo-select">
+                    <input type="text" class="select-workers__input js-input hidden-input" placeholder="Выберите работника">
+                    <span class="select-workers__select__arrow" role="presentation"><b role="presentation"></b></span>
+                    <div class="select-workers__dropdown">
+                        {% for item in workers %}
+                            <div class="select-workers__dropdown__row js-dropdown-item" data-id="{{ item.main.id }}">{{ item.main.first_name }} {{ item.main.last_name }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 select-workers__added">
+                <div class="select-workers__added__block js-added-block">
+                    <input type="hidden" name="brigade-lead" class="js-brigade-lead">
+                    {% for item in workers %}
+                        <div class="select-workers__added__row hidden js-added-item" data-id="{{ item.main.id }}">
+                            <div class="select-workers__added__col select-workers__added__col_image">
+                                <img src="{{ item.main.avatar }}" class="select-workers__avatar">
+                            </div>
+                            <div class="select-workers__added__col select-workers__added__col_name">
+                                <div class="select-workers__added__name">{{ item.main.first_name }} {{ item.main.last_name }}</div>
+                            </div>
+                            <div class="select-workers__added__col select-workers__added__col_helmet">
+                                <i class="select-workers__icon select-workers__icon_helmet"></i>
+                            </div>
+                            <div class="select-workers__added__col select-workers__added__col_btn">
+                                <i class="select-workers__icon select-workers__icon_remove js-remove-added"></i>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <div class="select-workers__added__empty center-align">Выберите работника слева</div>
+                </div>
+                <div class="select-workers__comment js-comment">Нажмите на работника чтобы сделать его бригадиром</div>
+            </div>
+        </div>
+    </div>
+{% endif %}

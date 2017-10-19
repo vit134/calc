@@ -18,6 +18,9 @@
             </ul>
         </li>
     {% endif %}
+    {% if access.a %}
+        <li class="{% if route[1] == 'brigade' %}active{% endif %}"><a href="{{ config.adminPath }}/brigade"><i class="icon-gauge"></i><span class="title">Бригады</span></a></li>
+    {% endif %}
     {% if access.a or access.w or access.wk %}
         <li class="has-sub {% if route[1] == 'order' or route[2] == 'order' %}active{% endif %}"><a href=""><i class="icon-basket"></i><span class="title">Заказы</span></a>
             <ul class="nav collapse">
